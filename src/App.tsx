@@ -32,7 +32,7 @@ const App = (): JSX.Element =>
         <AppMainContainer>
           <Layout>
             <Helmet>
-              <title>Balance Ctrl</title>
+              <title>Mind App</title>
               <meta
                 name="description"
                 content="App that helps you take control of your finances."
