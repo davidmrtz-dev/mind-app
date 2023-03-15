@@ -4,6 +4,7 @@ import { IUser } from "../../@types";
 import { ActionButton } from "../../atoms/ActionButton";
 import { theme } from "../../Theme";
 import { TransactionContainer as UserContainer } from "../../components/containers";
+import { capitalizeFirst } from "../../utils";
 
 const UserGrid = styled.div`
   display: grid;
@@ -60,7 +61,7 @@ export const User = ({
         <Typography.Text style={{
           ...theme.texts.brandSubFont
         }}>
-          {user.user_type}
+          {capitalizeFirst(user.user_type)}
         </Typography.Text>
       </div>
       <div style={{ gridArea: '4 / 1 / 5 / 2' }}>
