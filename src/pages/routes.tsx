@@ -12,7 +12,7 @@ const GeneralRoute = (_props: RouteProps, auth: IAuthContext) => (
   <Route exact key='default' path='*'>
     {
       auth.isAuthenticated
-        ? <Redirect to='/' />
+        ? <Redirect to='/users' />
         : <Redirect to='/login' />
     }
   </Route>
