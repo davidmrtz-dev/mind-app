@@ -50,7 +50,7 @@ const UsersPage = (): JSX.Element => {
 
   return (
     <>
-      {Title('Users', () => {})}
+      {Title('Users', () => setShowNew(true))}
       {loading
       ? <LoadingMask fixed />
       : <UsersContainer reveal={reveal}>

@@ -9,6 +9,13 @@ export interface IUser  {
   profile?: IProfile;
 }
 
+export interface IUserNew {
+  name: string;
+  email: string;
+  password: string;
+  password_confirmation: string;
+}
+
 interface IProfile {
   id: number,
   user_id: number;
