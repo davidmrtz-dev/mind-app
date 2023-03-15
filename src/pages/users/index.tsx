@@ -5,7 +5,6 @@ import { getUsers } from "../../api/core/User";
 import { LoadingMask } from "../../atoms/LoadingMask";
 import Alert from "../../components/alert";
 import Title from "../../components/title";
-import { useAuthContext } from "../../context/AuthContext";
 import { newUser } from "../../generators/emptyObjects";
 import { User } from "./User";
 
@@ -16,11 +15,11 @@ const UsersContainer = styled.div<{ reveal: boolean }>`
 `;
 
 const UsersPage = (): JSX.Element => {
-  const auth = useAuthContext();
   const [loading, setLoading] = useState(true);
   const [reveal, setReveal] = useState(false);
   const [users, setUsers] = useState<IUser []>([]);
   const [user, setUser] = useState<IUser>(newUser('standard'));
+  const [showNew, setShowNew] = useState(false);
 
   const fetchUsers = async (): Promise<void> => {
     try {

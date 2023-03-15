@@ -1,4 +1,4 @@
-import { faBalanceScale } from "@fortawesome/free-solid-svg-icons";
+import { faPeopleGroup } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Drawer } from "antd";
 import { LoadingMask } from "./LoadingMask";
@@ -39,7 +39,7 @@ const InitialScreen = (props: any): JSX.Element =>
   <FontAwesomeIcon
     color={theme.colors.blacks.normal}
     size='3x'
-    icon={faBalanceScale}
+    icon={faPeopleGroup}
     style={{ zIndex: 1000 }}
   />
   <LoadingMask fixed />
