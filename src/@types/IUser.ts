@@ -13,7 +13,7 @@ export interface IUserNew {
   name: string;
   email: string;
   password: string;
-  password_confirmation: string;
+  user_type: UserType;
 }
 
 interface IProfile {

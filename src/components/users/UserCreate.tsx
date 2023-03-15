@@ -1,64 +1,59 @@
 import { Button, Modal, Typography } from "antd";
 import { useState } from "react";
-import { IOutcome, TransactionType } from "../../@types";
-import { createOutcome } from "../../api/core/Outcome";
+import { IUser, IUserNew } from "../../@types";
 import { theme } from "../../Theme";
-import Alert from "../alert";
-import { OutcomeForm } from "./OutcomeForm";
-import { newOutcome } from '../../generators/emptyObjects/index';
-import dayjs from "dayjs";
+import { newUserCreate } from "../../generators/emptyObjects/Users";
+import { UserForm } from "./UserForm";
 
-export const OutcomeCreate = ({
+export const UserCreate = ({
   open,
-  type,
   closeModal,
   handleCreate
 }: {
   open: boolean;
-  type: TransactionType;
   closeModal: () => void;
-  handleCreate: (outcome: IOutcome) => Promise<void>;
+  handleCreate: (user: IUser) => Promise<void>;
 }): JSX.Element => {
   const [loading, setLoading] = useState(false);
-  const [values, setValues] = useState<IOutcome>(newOutcome(type));
+  const [values, setValues] = useState<IUserNew>(newUserCreate());
 
-  const handleSubmit = async () => {
-    if (Object.values(values).some(val => val === '')) {
-      Alert({
-        icon: 'error',
-        text: 'All fields are required'
-      });
-      return;
-    }
+  // const handleSubmit = async () => {
+  //   if (Object.values(values).some(val => val === '')) {
+  //     Alert({
+  //       icon: 'error',
+  //       text: 'All fields are required'
+  //     });
+  //     return;
+  //   }
 
-    setLoading(true);
+  //   setLoading(true);
 
-    try {
-      const outcome = await createOutcome({
-        ...values, transaction_date: dayjs(values.transaction_date).format('YYYY-MM-DD')
-      } as IOutcome);
-      setTimeout(async () => {
-        await handleCreate(outcome);
-        setValues(newOutcome(type));
-        setLoading(false);
-        closeModal();
-      }, 1000);
-    } catch (err: any) {
-      setTimeout(() => {
-        const error = err.errors && err.errors.length && err.errors[0];
-        Alert({
-          icon: 'error',
-          text: (error || 'There was an error, please try again later.'),
-        });
-        setValues(newOutcome(type));
-        setLoading(false);
-        closeModal();
-      }, 1000);
-    }
-  };
+  //   try {
+  //     const outcome = await createOutcome({
+  //       ...values, transaction_date: dayjs(values.transaction_date).format('YYYY-MM-DD')
+  //     } as IOutcome);
+  //     setTimeout(async () => {
+  //       await handleCreate(outcome);
+  //       setValues(newOutcome(type));
+  //       setLoading(false);
+  //       closeModal();
+  //     }, 1000);
+  //   } catch (err: any) {
+  //     setTimeout(() => {
+  //       const error = err.errors && err.errors.length && err.errors[0];
+  //       Alert({
+  //         icon: 'error',
+  //         text: (error || 'There was an error, please try again later.'),
+  //       });
+  //       setValues(newOutcome(type));
+  //       setLoading(false);
+  //       closeModal();
+  //     }, 1000);
+  //   }
+  // };
 
   const handleCancel = () => {
-    setValues(newOutcome(type));
+    setValues(newUserCreate());
     closeModal();
   };
 
@@ -70,7 +65,7 @@ export const OutcomeCreate = ({
       open={open}
       title={<Typography.Text
         style={{...theme.texts.brandFont, fontWeight: 'normal'}}
-        > New {type} outcome
+        > New user
         </Typography.Text>}
       style={{
         maxWidth: 360
@@ -81,7 +76,7 @@ export const OutcomeCreate = ({
             Cancel
           </Typography.Text>
         </Button>,
-        <Button key="submit" type="primary" loading={loading} onClick={handleSubmit}>
+        <Button key="submit" type="primary" loading={loading} onClick={() => {}}>
           <Typography.Text
             style={{ ...theme.texts.brandFont, color: theme.colors.whites.normal }}
           >
@@ -90,7 +85,7 @@ export const OutcomeCreate = ({
         </Button>
       ]}
     >
-      <OutcomeForm
+      <UserForm
         values={values}
         setValues={setValues}
       />

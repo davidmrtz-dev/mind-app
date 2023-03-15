@@ -3,7 +3,7 @@ import Password from "antd/es/input/Password";
 import { IUserNew } from "../../@types";
 import { theme } from "../../Theme";
 
-export const OutcomeForm = ({
+export const UserForm = ({
   values,
   setValues
 }: {

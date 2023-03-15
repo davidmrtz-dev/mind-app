@@ -5,6 +5,7 @@ import { getUsers } from "../../api/core/User";
 import { LoadingMask } from "../../atoms/LoadingMask";
 import Alert from "../../components/alert";
 import Title from "../../components/title";
+import { UserCreate } from "../../components/users";
 import { newUser } from "../../generators/emptyObjects";
 import { User } from "./User";
 
@@ -40,6 +41,12 @@ const UsersPage = (): JSX.Element => {
     // setShowUpdate(true);
   };
 
+  const handleCreate = async (user: IUser) => {
+    if (users.length) {
+      setUsers(users => [user, ...users]);
+    }
+  };
+
   useEffect(() => {
     fetchUsers();
   }, []);
@@ -63,6 +70,11 @@ const UsersPage = (): JSX.Element => {
           )}
         </UsersContainer>
     }
+    <UserCreate
+      open={showNew}
+      closeModal={() => setShowNew(false)}
+      handleCreate={handleCreate}
+    />
     </>
   );
 };
