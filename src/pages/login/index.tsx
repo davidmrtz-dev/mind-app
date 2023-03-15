@@ -30,7 +30,7 @@ const SignIn = () => {
 
     try {
       await auth.authenticate(values);
-      history.push('/');
+      history.push('/users');
     } catch (err: any) {
       setError(err.errors[0] || 'There was an error, please try again later.')
       setValues({ email: '', password: ''});
