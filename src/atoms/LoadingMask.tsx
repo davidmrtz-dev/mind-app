@@ -27,7 +27,6 @@ export const LoadingMask = (props: {
   filter?: boolean;
 }): JSX.Element => <Mask style={{
   position: props.fixed ? 'fixed' : 'static',
-  top: props.fixed ? '80px': '',
   backdropFilter: props.filter ? 'brightness(75%)' : 'none'
 }}>
   <ReactLoading

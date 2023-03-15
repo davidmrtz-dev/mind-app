@@ -55,13 +55,13 @@ const Navigation = (): JSX.Element => {
       {!show && (<FontAwesomeIcon
         color={theme.colors.blacks.normal}
         size='lg'
-        style={{ cursor: 'pointer' }}
+        style={{ cursor: 'pointer', zIndex: 1000 }}
         icon={faBars} onClick={() => setShow(true)}/>)
       }
       {show && (<FontAwesomeIcon
         color={theme.colors.blacks.normal}
         size='lg'
-        style={{ cursor: 'pointer' }}
+        style={{ cursor: 'pointer', zIndex: 1000 }}
         icon={faTimes} onClick={() => setShow(false)}/>)
       }
       <Drawer
@@ -92,7 +92,7 @@ const Navigation = (): JSX.Element => {
       >
         {auth.isAuthenticated ?
           <Space direction="vertical">
-            <Link to='/users'>
+            {auth.user?.user_type !== 'standard' ? <Link to='/users'>
               <Button
                 block
                 onClick={() => setShow(false)}
@@ -100,7 +100,15 @@ const Navigation = (): JSX.Element => {
               >
                 Users
               </Button>
-            </Link>
+            </Link> : <Link to='/profile'>
+              <Button
+                block
+                onClick={() => setShow(false)}
+                className={menuBtnStyles}
+              >
+                Profile
+              </Button>
+            </Link>}
             <Link to='/about'>
               <Button
                 block
