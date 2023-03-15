@@ -1,10 +1,8 @@
 import { Typography } from "antd";
-import dayjs from "dayjs";
 import styled from "styled-components";
 import { IUser } from "../../@types";
 import { ActionButton } from "../../atoms/ActionButton";
 import { theme } from "../../Theme";
-import { formatCurrency, formatViewDate, capitalizeFirst } from "../../utils";
 import { TransactionContainer as UserContainer } from "../../components/containers";
 
 const UserGrid = styled.div`
@@ -41,70 +39,70 @@ export const User = ({
         <Typography.Text style={{
           ...theme.texts.brandSubFont
         }}>
-          <strong>Nick name:</strong>
+          <strong>Email:</strong>
         </Typography.Text>
       </div>
       <div style={{ gridArea: '2 / 2 / 3 / 3', textAlign: 'center' }}>
         <Typography.Text style={{
           ...theme.texts.brandSubFont
         }}>
-          {user.nickname}
+          {user.email}
         </Typography.Text>
       </div>
       <div style={{ gridArea: '3 / 1 / 4 / 2' }}>
         <Typography.Text style={{
           ...theme.texts.brandSubFont
         }}>
-          <strong>Email:</strong>
+          <strong>User Type:</strong>
         </Typography.Text>
       </div>
       <div style={{ gridArea: '3 / 2 / 4 / 3', textAlign: 'center' }}>
         <Typography.Text style={{
           ...theme.texts.brandSubFont
         }}>
-          {user.email}
+          {user.user_type}
         </Typography.Text>
       </div>
       <div style={{ gridArea: '4 / 1 / 5 / 2' }}>
         <Typography.Text style={{
           ...theme.texts.brandSubFont
         }}>
-          <strong>User Type:</strong>
+          <strong>English level:</strong>
         </Typography.Text>
       </div>
       <div style={{ gridArea: '4 / 2 / 5 / 3', textAlign: 'center' }}>
         <Typography.Text style={{
           ...theme.texts.brandSubFont
         }}>
-          {user.user_type}
+          {user.profile?.english_level || 'N/A'}
         </Typography.Text>
       </div>
       <div style={{ gridArea: '5 / 1 / 6 / 2' }}>
         <Typography.Text style={{
           ...theme.texts.brandSubFont
         }}>
-          <strong>Type:</strong>
+          <strong>Skills:</strong>
         </Typography.Text>
       </div>
       <div style={{ gridArea: '5 / 2 / 6 / 3', textAlign: 'center' }}>
         <Typography.Text style={{
           ...theme.texts.brandSubFont
         }}>
-          {'okok'}
+          {user.profile?.technical_knowledge || 'N/A'}
         </Typography.Text>
       </div>
       <div style={{ gridArea: '6 / 1 / 7 / 2' }}>
         <Typography.Text style={{
           ...theme.texts.brandSubFont
         }}>
-          <strong>Status:</strong>
+          <strong>CV:</strong>
         </Typography.Text>
       </div>
       <div style={{ gridArea: '6 / 2 / 7 / 3', textAlign: 'center' }}>
         <Typography.Text style={{
           ...theme.texts.brandSubFont
         }}>
-          Active
+          {user.profile?.cv || 'N/A'}
         </Typography.Text>
       </div>
     </UserGrid>

@@ -6,6 +6,15 @@ export interface IUser  {
   name: string;
   nickname: string;
   user_type: UserType;
+  profile?: IProfile;
+}
+
+interface IProfile {
+  id: number,
+  user_id: number;
+  english_level: string;
+  technical_knowledge: string;
+  cv: string;
 }
 
 export interface IUsers {
