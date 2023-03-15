@@ -1,0 +1,27 @@
+@font-face {
+  font-family: 'Roboto';
+  src: url('../fonts/Roboto-Bold.ttf') format('ttf');
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('../fonts/Roboto-Regular.ttf') format('ttf');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('../fonts/Roboto-Light.ttf') format('ttf');
+  font-weight: light;
+}
+
+.ant-collapse-content-box {
+  padding: 0 5px !important;
+}
+
+.ant-collapse-header,
+.ant-collapse-header-text {
+  color: #101313;
+  cursor: default !important;
+}
