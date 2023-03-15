@@ -92,31 +92,13 @@ const Navigation = (): JSX.Element => {
       >
         {auth.isAuthenticated ?
           <Space direction="vertical">
-            <Link to='/'>
+            <Link to='/users'>
               <Button
                 block
                 onClick={() => setShow(false)}
                 className={menuBtnStyles}
               >
-                Dashboard
-              </Button>
-            </Link>
-            <Link to='/outcomes'>
-              <Button
-                block
-                onClick={() => setShow(false)}
-                className={menuBtnStyles}
-              >
-                Outcomes
-              </Button>
-            </Link>
-            <Link to='/incomes'>
-              <Button
-                block
-                onClick={() => setShow(false)}
-                className={menuBtnStyles}
-              >
-                Incomes
+                Users
               </Button>
             </Link>
             <Link to='/about'>
