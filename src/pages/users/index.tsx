@@ -6,6 +6,7 @@ import { LoadingMask } from "../../atoms/LoadingMask";
 import Alert from "../../components/alert";
 import Title from "../../components/title";
 import { useAuthContext } from "../../context/AuthContext";
+import { newUser } from "../../generators/emptyObjects";
 import { User } from "./User";
 
 const UsersContainer = styled.div<{ reveal: boolean }>`
@@ -19,7 +20,7 @@ const UsersPage = (): JSX.Element => {
   const [loading, setLoading] = useState(true);
   const [reveal, setReveal] = useState(false);
   const [users, setUsers] = useState<IUser []>([]);
-  // const [user, setUser] = useState<IOutcome>(newOutcome('current'));
+  const [user, setUser] = useState<IUser>(newUser('standard'));
 
   const fetchUsers = async (): Promise<void> => {
     try {
@@ -35,10 +36,10 @@ const UsersPage = (): JSX.Element => {
     }
   };
 
-  // const handleUserClick = (outcome: IUser) => {
-  //   setOutcome(outcome);
-  //   setShowUpdate(true);
-  // };
+  const handleUserClick = (user: IUser) => {
+    setUser(user);
+    // setShowUpdate(true);
+  };
 
   useEffect(() => {
     fetchUsers();
@@ -55,12 +56,11 @@ const UsersPage = (): JSX.Element => {
       ? <LoadingMask fixed />
       : <UsersContainer reveal={reveal}>
           {(users || []).map(user =>
-            // <User
-            //   key={user.id}
-            //   user={user}
-            //   onClick={() => handleUserClick(user)}
-            // />
-            <p>okok</p>
+            <User
+              key={user.id}
+              user={user}
+              onClick={() => handleUserClick(user)}
+            />
           )}
         </UsersContainer>
     }

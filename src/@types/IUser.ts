@@ -1,4 +1,4 @@
-type UserType = 'standard' | 'admin' | 'super' | '';
+export type UserType = 'standard' | 'admin' | 'super' | '';
 
 export interface IUser  {
   id: number;
