@@ -13,12 +13,6 @@ const UsersPage = (): JSX.Element => {
         Hi, {auth.user?.name}
       </Typography>
       <br />
-      {/* <Outcomes
-        fetchData={fetchOutcomes}
-        updateBalance={fetchBalance}
-        category='Recent Outcomes'
-        type='current'
-      /> */}
     </>
   );
 };

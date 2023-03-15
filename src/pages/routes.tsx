@@ -1,7 +1,6 @@
 import { Switch, Route, Redirect, RouteProps } from 'react-router-dom';
 import { IAuthContext, useAuthContext } from '../context/AuthContext';
 import PrivateRoute from '../components/routes/PrivateRoute';
-import Home from './home';
 import Incomes from './incomes';
 import Outcomes from './outcomes';
 import Login from './login';
@@ -22,7 +21,6 @@ const Router = (props: RouteProps) => {
   const auth = useAuthContext();
 
   return (<Switch>
-    {/* <PrivateRoute exact key='home' path='/' component={Home} /> */}
     <PrivateRoute exact key='users' path='/users' component={UsersPage} />
     <PrivateRoute exact key='outcomes' path='/outcomes' component={Outcomes} />
     <PrivateRoute exact key='incomes' path='/incomes' component={Incomes} />
