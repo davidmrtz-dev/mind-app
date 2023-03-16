@@ -9,7 +9,7 @@ import { capitalizeFirst } from "../../utils";
 const AccountGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 3fr;
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
   padding: 10px;
 `;
 
@@ -62,6 +62,20 @@ export const Account = ({
           ...theme.texts.brandSubFont
         }}>
           {capitalizeFirst(account.manager_name)}
+        </Typography.Text>
+      </div>
+      <div style={{ gridArea: '4 / 1 / 5 / 2' }}>
+        <Typography.Text style={{
+          ...theme.texts.brandSubFont
+        }}>
+          <strong>Id:</strong>
+        </Typography.Text>
+      </div>
+      <div style={{ gridArea: '4 / 2 / 5 / 3', textAlign: 'center' }}>
+        <Typography.Text style={{
+          ...theme.texts.brandSubFont
+        }}>
+          {account.id}
         </Typography.Text>
       </div>
     </AccountGrid>
