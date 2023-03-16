@@ -1,23 +1,23 @@
 import { Button, Modal, Typography } from "antd";
 import { useState } from "react";
-import { IAccount } from "../../@types";
+import { ITeam} from "../../@types";
 import { theme } from "../../Theme";
 import Alert from "../alert";
-import { newAccount } from '../../generators/emptyObjects/index';
-import { createAccount } from "../../api/core/Account";
-import { AccountForm } from "./AccountForm";
+import { newTeam } from '../../generators/emptyObjects/index';
+import { createTeam } from "../../api/core/Team";
+import { TeamForm } from "./TeamForm";
 
-export const AccountCreate = ({
+export const TeamCreate = ({
   open,
   closeModal,
   handleCreate
 }: {
   open: boolean;
   closeModal: () => void;
-  handleCreate: (account: IAccount) => Promise<void>;
+  handleCreate: (team: ITeam) => Promise<void>;
 }): JSX.Element => {
   const [loading, setLoading] = useState(false);
-  const [values, setValues] = useState<IAccount>(newAccount());
+  const [values, setValues] = useState<ITeam>(newTeam());
 
   const handleSubmit = async () => {
     if (Object.values(values).some(val => val === '')) {
@@ -31,12 +31,12 @@ export const AccountCreate = ({
     setLoading(true);
 
     try {
-      const account = await createAccount({
+      const team = await createTeam({
         ...values
       });
       setTimeout(async () => {
-        await handleCreate(account);
-        setValues(newAccount());
+        await handleCreate(team);
+        setValues(newTeam());
         setLoading(false);
         closeModal();
       }, 1000);
@@ -47,7 +47,7 @@ export const AccountCreate = ({
           icon: 'error',
           text: (error || 'There was an error, please try again later.'),
         });
-        setValues(newAccount());
+        setValues(newTeam());
         setLoading(false);
         closeModal();
       }, 1000);
@@ -55,7 +55,7 @@ export const AccountCreate = ({
   };
 
   const handleCancel = () => {
-    setValues(newAccount());
+    setValues(newTeam());
     closeModal();
   };
 
@@ -67,7 +67,7 @@ export const AccountCreate = ({
       open={open}
       title={<Typography.Text
         style={{...theme.texts.brandFont, fontWeight: 'normal'}}
-        > New account
+        > New team
         </Typography.Text>}
       style={{
         maxWidth: 360
@@ -87,7 +87,7 @@ export const AccountCreate = ({
         </Button>
       ]}
     >
-      <AccountForm
+      <TeamForm
         values={values}
         setValues={setValues}
       />

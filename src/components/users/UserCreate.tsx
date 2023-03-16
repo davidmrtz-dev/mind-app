@@ -1,6 +1,6 @@
 import { Button, Modal, Typography } from "antd";
 import { useState } from "react";
-import { IUser, IUserNew } from "../../@types";
+import { IUser } from "../../@types";
 import { theme } from "../../Theme";
 import { newUserCreate } from "../../generators/emptyObjects/Users";
 import { UserForm } from "./UserForm";

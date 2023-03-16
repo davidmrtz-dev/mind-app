@@ -4,6 +4,7 @@ import { ITeam } from "../../@types";
 import { getTeams } from "../../api/core/Team";
 import { LoadingMask } from "../../atoms/LoadingMask";
 import Alert from "../../components/alert";
+import { TeamCreate } from "../../components/teams";
 import Title from "../../components/title";
 import { newTeam } from "../../generators/emptyObjects";
 import { Team } from "./Team";
@@ -41,6 +42,12 @@ const TeamsPage = (): JSX.Element => {
     setShowUpdate(true);
   };
 
+  const handleCreate = async (team: ITeam) => {
+    if (teams.length) {
+      setTeams(teams => [team, ...teams]);
+    }
+  };
+
   useEffect(() => {
     fetchTeams();
   }, []);
@@ -63,6 +70,11 @@ const TeamsPage = (): JSX.Element => {
         )}
       </TeamsContainer>
     }
+    <TeamCreate
+      open={showNew}
+      closeModal={() => setShowNew(false) }
+      handleCreate={handleCreate}
+    />
   </>);
 };
 
