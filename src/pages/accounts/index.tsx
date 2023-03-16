@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { IAccount } from "../../@types";
 import { getAccounts } from "../../api/core/Account";
 import { LoadingMask } from "../../atoms/LoadingMask";
+import { AccountCreate } from "../../components/accounts";
 import Alert from "../../components/alert";
 import Title from "../../components/title";
 import { newAccount } from "../../generators/emptyObjects";
@@ -41,6 +42,12 @@ const AccountsPage = (): JSX.Element => {
     setShowUpdate(true);
   };
 
+  const handleCreate = async (account: IAccount) => {
+    if (accounts.length) {
+      setAccounts(accounts => [account, ...accounts]);
+    }
+  };
+
   useEffect(() => {
     fetchAccounts();
   }, []);
@@ -63,6 +70,11 @@ const AccountsPage = (): JSX.Element => {
           )}
         </AccountsContainer>
       }
+      <AccountCreate
+        open={showNew}
+        closeModal={() => setShowNew(false) }
+        handleCreate={handleCreate}
+      />
   </>)
 };
 

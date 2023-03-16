@@ -40,7 +40,7 @@ export const Account = ({
         <Typography.Text style={{
           ...theme.texts.brandSubFont
         }}>
-          <strong>Client Name:</strong>
+          <strong>Client:</strong>
         </Typography.Text>
       </div>
       <div style={{ gridArea: '2 / 2 / 3 / 3', textAlign: 'center' }}>
@@ -54,7 +54,7 @@ export const Account = ({
         <Typography.Text style={{
           ...theme.texts.brandSubFont
         }}>
-          <strong>Manager Name:</strong>
+          <strong>Manager:</strong>
         </Typography.Text>
       </div>
       <div style={{ gridArea: '3 / 2 / 4 / 3', textAlign: 'center' }}>
