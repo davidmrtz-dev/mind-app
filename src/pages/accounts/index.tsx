@@ -85,29 +85,29 @@ const AccountsPage = (): JSX.Element => {
   return(<>
     {Title('Accounts', () => setShowNew(true))}
     {loading
-      ? <LoadingMask fixed />
-      : <AccountsContainer reveal={reveal}>
-          {(accounts || []).map(account =>
-            <Account
-              key={account.id}
-              account={account}
-              onClick={() => handleAccountClick(account)}
-            />
-          )}
-        </AccountsContainer>
-      }
-      <AccountCreate
-        open={showNew}
-        closeModal={() => setShowNew(false) }
-        handleCreate={handleCreate}
-      />
-      <AccountUpdate
-        account={account}
-        open={showUpdate}
-        closeModal={handleUpdateClose}
-        handleUpdate={handleUpdate}
-        handleDelete={handleDelete}
-      />
+    ? <LoadingMask fixed />
+    : <AccountsContainer reveal={reveal}>
+        {(accounts || []).map(account =>
+          <Account
+            key={account.id}
+            account={account}
+            onClick={() => handleAccountClick(account)}
+          />
+        )}
+      </AccountsContainer>
+    }
+    <AccountCreate
+      open={showNew}
+      closeModal={() => setShowNew(false) }
+      handleCreate={handleCreate}
+    />
+    <AccountUpdate
+      account={account}
+      open={showUpdate}
+      closeModal={handleUpdateClose}
+      handleUpdate={handleUpdate}
+      handleDelete={handleDelete}
+    />
   </>)
 };
 
