@@ -98,6 +98,7 @@ export const UserCreate = ({
       <UserForm
         values={values}
         setValues={setValues}
+        showPassword
       />
     </Modal>
   );

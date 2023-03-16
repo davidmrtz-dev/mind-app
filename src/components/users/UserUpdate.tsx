@@ -38,7 +38,15 @@ export const UserUpdate = ({
 
     try {
       const user = await updateUser({
-        ...values
+        id: values.id,
+        name: values.name,
+        email: values.email,
+        user_type: values.user_type,
+        profile_attributes: {
+          english_level: values.english_level,
+          technical_knowledge: values.technical_knowledge,
+          cv: values.cv
+        }
       });
       setTimeout(async () => {
         await handleUpdate(user);
@@ -91,7 +99,12 @@ export const UserUpdate = ({
   };
 
   useEffect(() => {
-    setValues(user);
+    setValues({
+      ...user,
+      english_level: user.profile?.english_level,
+      technical_knowledge: user.profile?.technical_knowledge,
+      cv: user.profile?.cv
+    });
   }, [user]);
 
   const footerComponents = [
@@ -172,6 +185,7 @@ export const UserUpdate = ({
       <UserForm
         values={values}
         setValues={setValues}
+        showPassword={false}
       />
     </Modal>
   );

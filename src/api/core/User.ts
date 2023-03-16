@@ -27,7 +27,7 @@ export const createUser = async (values: IUserNew): Promise<IUser> => {
   return result.data.user;
 };
 
-export const updateUser = async (values: IUser): Promise<IUser> => {
+export const updateUser = async (values: IUserNew): Promise<IUser> => {
   const result = await Http.put(`/api/v1/users/${values.id}`, { user: values }, { headers: {
     'access-token': sessionStorage.getItem('authorization:token') || '',
     client: sessionStorage.getItem('authorization:client') || '',
