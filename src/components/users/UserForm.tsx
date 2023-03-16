@@ -55,12 +55,12 @@ export const UserForm = ({
         <Select
           style={{ width: '100%' }}
           options={[
-            { value: 'a1', label: 'a1' },
-            { value: 'a2', label: 'a2' },
-            { value: 'b1', label: 'b1' },
-            { value: 'b2', label: 'b2' },
-            { value: 'c1', label: 'c1' },
-            { value: 'c2', label: 'c2' },
+            { value: 'a1', label: 'A1' },
+            { value: 'a2', label: 'A2' },
+            { value: 'b1', label: 'B1' },
+            { value: 'b2', label: 'B2' },
+            { value: 'c1', label: 'C1' },
+            { value: 'c2', label: 'C2' },
           ]}
         />
       </Form.Item>
