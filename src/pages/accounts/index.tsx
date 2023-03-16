@@ -5,6 +5,8 @@ import { getAccounts } from "../../api/core/Account";
 import { LoadingMask } from "../../atoms/LoadingMask";
 import Alert from "../../components/alert";
 import Title from "../../components/title";
+import { newAccount } from "../../generators/emptyObjects";
+import { Account } from "./Account";
 
 const AccountsContainer = styled.div<{ reveal: boolean }>`
   opacity: ${p => p.reveal ? 1 : 0};
@@ -16,7 +18,9 @@ const AccountsPage = (): JSX.Element => {
   const [loading, setLoading] = useState(true);
   const [reveal, setReveal] = useState(false);
   const [accounts, setAccounts] = useState<IAccount []>([]);
+  const [account, setAccount] = useState<IAccount>(newAccount());
   const [showNew, setShowNew] = useState(false);
+  const [showUpdate, setShowUpdate] = useState(false);
 
   const fetchAccounts = async (): Promise<void> => {
     try {
@@ -32,6 +36,11 @@ const AccountsPage = (): JSX.Element => {
     }
   };
 
+  const handleAccountClick = (account: IAccount) => {
+    setAccount(account);
+    setShowUpdate(true);
+  };
+
   useEffect(() => {
     fetchAccounts();
   }, []);
@@ -45,13 +54,12 @@ const AccountsPage = (): JSX.Element => {
     {loading
       ? <LoadingMask fixed />
       : <AccountsContainer reveal={reveal}>
-          {(accounts || []).map(_account =>
-            // <User
-            //   key={user.id}
-            //   user={user}
-            //   onClick={() => handleUserClick(user)}
-            // />
-            <>okok</>
+          {(accounts || []).map(account =>
+            <Account
+              key={account.id}
+              account={account}
+              onClick={() => handleAccountClick(account)}
+            />
           )}
         </AccountsContainer>
       }
