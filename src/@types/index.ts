@@ -5,6 +5,10 @@ export type {
   UserType,
   Login
 } from './IUser';
+export type {
+  IAccount,
+  IAccounts
+} from './IAccount';
 export type { ITransaction, TransactionType } from './ITransaction';
 export type {
   IOutcome,

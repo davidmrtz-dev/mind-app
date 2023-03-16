@@ -1,14 +1,14 @@
 import * as Http from '../Http';
-import { IUser, IUserNew, IUsers } from '../../@types';
+import { IAccount, IAccounts } from '../../@types';
 
-export const getUsers = async ({
+export const getAccounts = async ({
   offset,
   limit = 5
 }: {
   offset: number;
   limit?: number;
-}): Promise<IUsers> => {
-  const result = await Http.get('/api/v1/users', { limit, offset }, {
+}): Promise<IAccounts> => {
+  const result = await Http.get('/api/v1/accounts', { limit, offset }, {
     'access-token': sessionStorage.getItem('authorization:token') || '',
     client: sessionStorage.getItem('authorization:client') || '',
     uid: sessionStorage.getItem('authorization:uid') || ''
@@ -17,28 +17,28 @@ export const getUsers = async ({
   return result.data;
 };
 
-export const createUser = async (values: IUserNew): Promise<IUser> => {
-  const result = await Http.post('/api/v1/users', { user: values }, { headers: {
+export const createAccount = async (values: IAccount): Promise<IAccount> => {
+  const result = await Http.post('/api/v1/accounts', { account: values }, { headers: {
     'access-token': sessionStorage.getItem('authorization:token') || '',
     client: sessionStorage.getItem('authorization:client') || '',
     uid: sessionStorage.getItem('authorization:uid') || ''
   }});
 
-  return result.data.user;
+  return result.data.account;
 };
 
-export const updateUser = async (values: IUserNew): Promise<IUser> => {
-  const result = await Http.put(`/api/v1/users/${values.id}`, { user: values }, { headers: {
+export const updateAccount = async (values: IAccount): Promise<IAccount> => {
+  const result = await Http.put(`/api/v1/accounts/${values.id}`, { user: values }, { headers: {
     'access-token': sessionStorage.getItem('authorization:token') || '',
     client: sessionStorage.getItem('authorization:client') || '',
     uid: sessionStorage.getItem('authorization:uid') || ''
   }});
 
-  return result.data.user;
+  return result.data.account;
 };
 
-export const deleteUser = async (id: number): Promise<void> => {
-  await Http.destroy(`/api/v1/users/${id}`, null, {
+export const deleteAccount = async (id: number): Promise<void> => {
+  await Http.destroy(`/api/v1/accounts/${id}`, null, {
     'access-token': sessionStorage.getItem('authorization:token') || '',
     client: sessionStorage.getItem('authorization:client') || '',
     uid: sessionStorage.getItem('authorization:uid') || ''
