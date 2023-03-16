@@ -32,7 +32,7 @@ export const UserForm = ({
         Email
       </Typography.Text>}
         name='email'>
-        <Input maxLength={20} style={{ ...theme.texts.brandSubFont }}/>
+        <Input maxLength={40} style={{ ...theme.texts.brandSubFont }}/>
       </Form.Item>
       <Form.Item label={<Typography.Text style={{ ...theme.texts.brandSubFont }}>
         Password

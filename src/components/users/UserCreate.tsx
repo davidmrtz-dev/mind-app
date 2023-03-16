@@ -4,6 +4,8 @@ import { IUser, IUserNew } from "../../@types";
 import { theme } from "../../Theme";
 import { newUserCreate } from "../../generators/emptyObjects/Users";
 import { UserForm } from "./UserForm";
+import Alert from "../alert";
+import { createUser } from "../../api/core/User";
 
 export const UserCreate = ({
   open,
@@ -15,42 +17,50 @@ export const UserCreate = ({
   handleCreate: (user: IUser) => Promise<void>;
 }): JSX.Element => {
   const [loading, setLoading] = useState(false);
-  const [values, setValues] = useState<IUserNew>(newUserCreate());
+  const [values, setValues] = useState<any>(newUserCreate());
 
-  // const handleSubmit = async () => {
-  //   if (Object.values(values).some(val => val === '')) {
-  //     Alert({
-  //       icon: 'error',
-  //       text: 'All fields are required'
-  //     });
-  //     return;
-  //   }
+  const handleSubmit = async () => {
+    if (Object.values(values).some(val => val === '')) {
+      Alert({
+        icon: 'error',
+        text: 'All fields are required'
+      });
+      return;
+    }
 
-  //   setLoading(true);
+    setLoading(true);
 
-  //   try {
-  //     const outcome = await createOutcome({
-  //       ...values, transaction_date: dayjs(values.transaction_date).format('YYYY-MM-DD')
-  //     } as IOutcome);
-  //     setTimeout(async () => {
-  //       await handleCreate(outcome);
-  //       setValues(newOutcome(type));
-  //       setLoading(false);
-  //       closeModal();
-  //     }, 1000);
-  //   } catch (err: any) {
-  //     setTimeout(() => {
-  //       const error = err.errors && err.errors.length && err.errors[0];
-  //       Alert({
-  //         icon: 'error',
-  //         text: (error || 'There was an error, please try again later.'),
-  //       });
-  //       setValues(newOutcome(type));
-  //       setLoading(false);
-  //       closeModal();
-  //     }, 1000);
-  //   }
-  // };
+    try {
+      const outcome = await createUser({
+        name: values.name,
+        email: values.email,
+        password: values.password,
+        user_type: values.user_type,
+        profile_attributes: {
+          english_level: values.english_level,
+          technical_knowledge: values.technical_knowledge,
+          cv: values.cv
+        }
+      });
+      setTimeout(async () => {
+        await handleCreate(outcome);
+        setValues(newUserCreate());
+        setLoading(false);
+        closeModal();
+      }, 1000);
+    } catch (err: any) {
+      setTimeout(() => {
+        const error = err.errors && err.errors.length && err.errors[0];
+        Alert({
+          icon: 'error',
+          text: (error || 'There was an error, please try again later.'),
+        });
+        setValues(newUserCreate());
+        setLoading(false);
+        closeModal();
+      }, 1000);
+    }
+  };
 
   const handleCancel = () => {
     setValues(newUserCreate());
@@ -76,7 +86,7 @@ export const UserCreate = ({
             Cancel
           </Typography.Text>
         </Button>,
-        <Button key="submit" type="primary" loading={loading} onClick={() => {}}>
+        <Button key="submit" type="primary" loading={loading} onClick={handleSubmit}>
           <Typography.Text
             style={{ ...theme.texts.brandFont, color: theme.colors.whites.normal }}
           >
