@@ -14,6 +14,11 @@ export type {
   ITeam,
   ITeams
 } from './ITeam';
+export type {
+  IUserTeamNew,
+  IUserTeam,
+  IUserTeams
+} from './IUserTeam';
 export type { ITransaction, TransactionType } from './ITransaction';
 export type {
   IOutcome,
