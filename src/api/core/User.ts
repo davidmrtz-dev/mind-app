@@ -1,5 +1,5 @@
 import * as Http from '../Http';
-import { IUsers } from '../../@types';
+import { IUser, IUserNew, IUsers } from '../../@types';
 
 export const getUsers = async ({
   offset,
@@ -17,15 +17,15 @@ export const getUsers = async ({
   return result.data;
 };
 
-// export const createOutcome = async (values: IOutcome): Promise<IOutcome> => {
-//   const result = await Http.post('/api/outcomes/', { outcome: values }, { headers: {
-//     'access-token': sessionStorage.getItem('authorization:token') || '',
-//     client: sessionStorage.getItem('authorization:client') || '',
-//     uid: sessionStorage.getItem('authorization:uid') || ''
-//   }});
+export const createUser = async (values: IUserNew): Promise<IUser> => {
+  const result = await Http.post('/api/v1/users/', { user: values }, { headers: {
+    'access-token': sessionStorage.getItem('authorization:token') || '',
+    client: sessionStorage.getItem('authorization:client') || '',
+    uid: sessionStorage.getItem('authorization:uid') || ''
+  }});
 
-//   return result.data.outcome;
-// };
+  return result.data.user;
+};
 
 // export const updateOutcome = async (values: IOutcome): Promise<IOutcome> => {
 //   const result = await Http.put(`/api/outcomes/${values.id}`, { outcome: values }, { headers: {

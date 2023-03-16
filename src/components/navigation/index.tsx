@@ -1,6 +1,6 @@
 import { Link, useHistory } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faTimes, faBalanceScale } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faTimes, faPeopleGroup } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import { Button, Drawer, Space, Typography } from 'antd';
 import { theme } from '../../Theme';
@@ -168,7 +168,7 @@ const FooterNav = () => <div style={{
     <FontAwesomeIcon
       color={theme.colors.blacks.normal}
       size='1x'
-      icon={faBalanceScale}
+      icon={faPeopleGroup}
     />
     <Typography style={{
       ...theme.texts.brandFont,
@@ -176,7 +176,7 @@ const FooterNav = () => <div style={{
       color: theme.colors.blacks.normal
     }}
     >
-      Balance Ctrl
+      Mind App
     </Typography>
 </div>;
 

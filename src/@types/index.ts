@@ -1,4 +1,10 @@
-export type { IUser, IUsers, UserType, Login } from './IUser';
+export type {
+  IUserNew,
+  IUser,
+  IUsers,
+  UserType,
+  Login
+} from './IUser';
 export type { IBalance } from './IBalance';
 export type { ITransaction, TransactionType } from './ITransaction';
 export type {

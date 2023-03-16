@@ -5,7 +5,7 @@ import { getUsers } from "../../api/core/User";
 import { LoadingMask } from "../../atoms/LoadingMask";
 import Alert from "../../components/alert";
 import Title from "../../components/title";
-import { useAuthContext } from "../../context/AuthContext";
+import { UserCreate } from "../../components/users";
 import { newUser } from "../../generators/emptyObjects";
 import { User } from "./User";
 
@@ -16,11 +16,11 @@ const UsersContainer = styled.div<{ reveal: boolean }>`
 `;
 
 const UsersPage = (): JSX.Element => {
-  const auth = useAuthContext();
   const [loading, setLoading] = useState(true);
   const [reveal, setReveal] = useState(false);
   const [users, setUsers] = useState<IUser []>([]);
   const [user, setUser] = useState<IUser>(newUser('standard'));
+  const [showNew, setShowNew] = useState(false);
 
   const fetchUsers = async (): Promise<void> => {
     try {
@@ -41,6 +41,12 @@ const UsersPage = (): JSX.Element => {
     // setShowUpdate(true);
   };
 
+  const handleCreate = async (user: IUser) => {
+    if (users.length) {
+      setUsers(users => [user, ...users]);
+    }
+  };
+
   useEffect(() => {
     fetchUsers();
   }, []);
@@ -51,7 +57,7 @@ const UsersPage = (): JSX.Element => {
 
   return (
     <>
-      {Title('Users', () => {})}
+      {Title('Users', () => setShowNew(true))}
       {loading
       ? <LoadingMask fixed />
       : <UsersContainer reveal={reveal}>
@@ -64,6 +70,11 @@ const UsersPage = (): JSX.Element => {
           )}
         </UsersContainer>
     }
+    <UserCreate
+      open={showNew}
+      closeModal={() => setShowNew(false)}
+      handleCreate={handleCreate}
+    />
     </>
   );
 };
