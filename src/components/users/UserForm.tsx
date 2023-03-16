@@ -1,5 +1,6 @@
 import { Form, Input, Select, Typography } from "antd";
 import Password from "antd/es/input/Password";
+import TextArea from "antd/es/input/TextArea";
 import { IUserNew } from "../../@types";
 import { theme } from "../../Theme";
 
@@ -47,6 +48,38 @@ export const UserForm = ({
             { value: 'admin', label: 'admin' }
           ]}
         />
+      </Form.Item>
+      <Form.Item label='English Level' name='english_level'>
+        <Select
+          style={{ width: '100%' }}
+          options={[
+            { value: 'a1', label: 'a1' },
+            { value: 'a2', label: 'a2' },
+            { value: 'b1', label: 'b1' },
+            { value: 'b2', label: 'b2' },
+            { value: 'c1', label: 'c1' },
+            { value: 'c2', label: 'c2' },
+          ]}
+        />
+      </Form.Item>
+      <Form.Item label={<Typography.Text style={{ ...theme.texts.brandSubFont }}>
+        Skills
+      </Typography.Text>}
+        name='technical_knowledge'>
+        <TextArea
+          allowClear
+          showCount
+          style={{
+            ...theme.texts.brandSubFont,
+            resize: 'none'
+          }}
+        />
+      </Form.Item>
+      <Form.Item label={<Typography.Text style={{ ...theme.texts.brandSubFont }}>
+        CV
+      </Typography.Text>}
+        name='cv'>
+        <Input maxLength={20} style={{ ...theme.texts.brandSubFont }}/>
       </Form.Item>
     </Form>
   );

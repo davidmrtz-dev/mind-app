@@ -12,5 +12,10 @@ export const newUserCreate = (): IUserNew => ({
   name: '',
   email: '',
   password: '',
-  user_type: 'standard'
+  user_type: 'standard',
+  profile_attributes: {
+    english_level: '',
+    technical_knowledge: '',
+    cv: ''
+  }
 })
