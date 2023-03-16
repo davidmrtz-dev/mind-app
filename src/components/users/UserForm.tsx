@@ -17,7 +17,7 @@ export const UserForm = ({
 
   return (
     <Form
-      name='create-user-form'
+      name='user-form'
       form={form}
       layout='vertical'
       initialValues={values}
