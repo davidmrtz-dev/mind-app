@@ -109,6 +109,15 @@ const Navigation = (): JSX.Element => {
               >
                 Accounts
               </Button>
+            </Link>
+            <Link to='/teams'>
+              <Button
+                block
+                onClick={() => setShow(false)}
+                className={menuBtnStyles}
+              >
+                Teams
+              </Button>
             </Link></> : <Link to='/profile'>
               <Button
                 block

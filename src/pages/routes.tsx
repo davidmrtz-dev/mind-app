@@ -6,6 +6,7 @@ import About from './about';
 import UsersPage from './users';
 import Profile from './profile';
 import AccountsPage from './accounts';
+import TeamsPage from './teams';
 
 const GeneralRoute = (_props: RouteProps, auth: IAuthContext) => (
   <Route exact key='default' path='*'>
@@ -23,6 +24,7 @@ const Router = (props: RouteProps) => {
   return (<Switch>
     {auth.user?.user_type !== 'standard' && <PrivateRoute exact key='users' path='/users' component={UsersPage} />}
     {auth.user?.user_type !== 'standard' && <PrivateRoute exact key='accounts' path='/accounts' component={AccountsPage} />}
+    {auth.user?.user_type !== 'standard' && <PrivateRoute exact key='accounts' path='/teams' component={TeamsPage} />}
     {auth.user?.user_type === 'standard' && <PrivateRoute exact key='profile' path='/profile' component={Profile} />}
     <Route exact key='login' path='/login' component={Login} />
     <Route exact key='about' path='/about' component={About} />
