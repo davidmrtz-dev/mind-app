@@ -6,10 +6,12 @@ import { theme } from "../../Theme";
 
 export const UserForm = ({
   values,
-  setValues
+  setValues,
+  showPassword
 }: {
   values: IUserNew;
   setValues: (values: IUserNew) => void;
+  showPassword: boolean;
 }): JSX.Element => {
   const [form] = Form.useForm();
 
@@ -34,12 +36,12 @@ export const UserForm = ({
         name='email'>
         <Input maxLength={40} style={{ ...theme.texts.brandSubFont }}/>
       </Form.Item>
-      <Form.Item label={<Typography.Text style={{ ...theme.texts.brandSubFont }}>
+      {showPassword && (<Form.Item label={<Typography.Text style={{ ...theme.texts.brandSubFont }}>
         Password
       </Typography.Text>}
         name='password'>
         <Password maxLength={20} style={{ ...theme.texts.brandSubFont }}/>
-      </Form.Item>
+      </Form.Item>)}
       <Form.Item label='User Type' name='user_type'>
         <Select
           style={{ width: '100%' }}

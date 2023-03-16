@@ -31,7 +31,7 @@ export const UserCreate = ({
     setLoading(true);
 
     try {
-      const outcome = await createUser({
+      const user = await createUser({
         name: values.name,
         email: values.email,
         password: values.password,
@@ -43,7 +43,7 @@ export const UserCreate = ({
         }
       });
       setTimeout(async () => {
-        await handleCreate(outcome);
+        await handleCreate(user);
         setValues(newUserCreate());
         setLoading(false);
         closeModal();
@@ -98,6 +98,7 @@ export const UserCreate = ({
       <UserForm
         values={values}
         setValues={setValues}
+        showPassword
       />
     </Modal>
   );

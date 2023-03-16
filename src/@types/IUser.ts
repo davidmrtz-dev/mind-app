@@ -20,9 +20,10 @@ interface IProfile {
 }
 
 export interface IUserNew {
+  id?: number;
   name: string;
   email: string;
-  password: string;
+  password?: string;
   user_type: UserType;
   profile_attributes: IProfileNew;
 }
