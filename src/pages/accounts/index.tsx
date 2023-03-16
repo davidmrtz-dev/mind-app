@@ -4,6 +4,7 @@ import { IAccount } from "../../@types";
 import { getAccounts } from "../../api/core/Account";
 import { LoadingMask } from "../../atoms/LoadingMask";
 import { AccountCreate } from "../../components/accounts";
+import { AccountUpdate } from "../../components/accounts/AccountUpdate";
 import Alert from "../../components/alert";
 import Title from "../../components/title";
 import { newAccount } from "../../generators/emptyObjects";
@@ -48,6 +49,31 @@ const AccountsPage = (): JSX.Element => {
     }
   };
 
+  const handleUpdateClose = () => {
+    setShowUpdate(false);
+    setAccount(newAccount());
+  };
+
+  const handleUpdate = async (account: IAccount) => {
+    if (accounts.length) {
+      const updatedAccounts = accounts.map(acc => {
+        if (acc.id === account.id) {
+          return account;
+        } else {
+          return acc;
+        }
+      });
+      setAccounts(updatedAccounts);
+    }
+  };
+
+  const handleDelete = (id: number) => {
+    if (accounts.length) {
+      const updatedAccounts = accounts.filter(acc => acc.id !== id);
+      setAccounts(updatedAccounts);
+    }
+  };
+
   useEffect(() => {
     fetchAccounts();
   }, []);
@@ -74,6 +100,13 @@ const AccountsPage = (): JSX.Element => {
         open={showNew}
         closeModal={() => setShowNew(false) }
         handleCreate={handleCreate}
+      />
+      <AccountUpdate
+        account={account}
+        open={showUpdate}
+        closeModal={handleUpdateClose}
+        handleUpdate={handleUpdate}
+        handleDelete={handleDelete}
       />
   </>)
 };

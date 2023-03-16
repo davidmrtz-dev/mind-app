@@ -28,7 +28,7 @@ export const createAccount = async (values: IAccount): Promise<IAccount> => {
 };
 
 export const updateAccount = async (values: IAccount): Promise<IAccount> => {
-  const result = await Http.put(`/api/v1/accounts/${values.id}`, { user: values }, { headers: {
+  const result = await Http.put(`/api/v1/accounts/${values.id}`, { account: values }, { headers: {
     'access-token': sessionStorage.getItem('authorization:token') || '',
     client: sessionStorage.getItem('authorization:client') || '',
     uid: sessionStorage.getItem('authorization:uid') || ''
