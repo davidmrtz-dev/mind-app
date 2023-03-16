@@ -1,28 +1,28 @@
 import { Typography } from "antd";
 import styled from "styled-components";
-import { IAccount } from "../../@types";
+import { IAccount, ITeam } from "../../@types";
 import { ActionButton } from "../../atoms/ActionButton";
 import { theme } from "../../Theme";
-import { TransactionContainer as AccountContainer } from "../../components/containers";
+import { TransactionContainer as TeamContainer } from "../../components/containers";
 import { capitalizeFirst } from "../../utils";
 
-const AccountGrid = styled.div`
+const TeamGrid = styled.div`
   display: grid;
-  grid-template-columns: 1fr 3fr;
-  grid-template-rows: repeat(4, 1fr);
+  grid-template-columns: 2fr 2fr;
+  grid-template-rows: repeat(3, 1fr);
   padding: 10px;
 `;
 
-export const Account = ({
-  account,
+export const Team = ({
+  team,
   onClick
 }: {
-  account: IAccount;
+  team: ITeam;
   onClick: () => void;
-}): JSX.Element => <AccountContainer>
+}): JSX.Element => <TeamContainer>
   <div style={{ textAlign: 'initial' }}>
-    <AccountGrid>
-      <div style={{ gridArea: '1 / 1 / 2 / 2' }}>
+    <TeamGrid>
+    <div style={{ gridArea: '1 / 1 / 2 / 2' }}>
         <Typography.Text style={{
           ...theme.texts.brandSubFont
         }}>
@@ -33,52 +33,38 @@ export const Account = ({
         <Typography.Text style={{
           ...theme.texts.brandSubFont
         }}>
-          {capitalizeFirst(account.name)}
+          {capitalizeFirst(team.name)}
         </Typography.Text>
       </div>
       <div style={{ gridArea: '2 / 1 / 3 / 2' }}>
         <Typography.Text style={{
           ...theme.texts.brandSubFont
         }}>
-          <strong>Client:</strong>
+          <strong>Account:</strong>
         </Typography.Text>
       </div>
       <div style={{ gridArea: '2 / 2 / 3 / 3', textAlign: 'center' }}>
         <Typography.Text style={{
           ...theme.texts.brandSubFont
         }}>
-          {capitalizeFirst(account.client_name)}
+          {capitalizeFirst(team.account?.name || '')}
         </Typography.Text>
       </div>
       <div style={{ gridArea: '3 / 1 / 4 / 2' }}>
         <Typography.Text style={{
           ...theme.texts.brandSubFont
         }}>
-          <strong>Manager:</strong>
+          <strong>Client:</strong>
         </Typography.Text>
       </div>
       <div style={{ gridArea: '3 / 2 / 4 / 3', textAlign: 'center' }}>
         <Typography.Text style={{
           ...theme.texts.brandSubFont
         }}>
-          {capitalizeFirst(account.manager_name)}
+          {capitalizeFirst(team.account?.client_name || '')}
         </Typography.Text>
       </div>
-      <div style={{ gridArea: '4 / 1 / 5 / 2' }}>
-        <Typography.Text style={{
-          ...theme.texts.brandSubFont
-        }}>
-          <strong>Id:</strong>
-        </Typography.Text>
-      </div>
-      <div style={{ gridArea: '4 / 2 / 5 / 3', textAlign: 'center' }}>
-        <Typography.Text style={{
-          ...theme.texts.brandSubFont
-        }}>
-          {account.id}
-        </Typography.Text>
-      </div>
-    </AccountGrid>
+    </TeamGrid>
   </div>
   <ActionButton onClick={onClick} />
-</AccountContainer>;
+</TeamContainer>;

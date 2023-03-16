@@ -9,6 +9,11 @@ export type {
   IAccount,
   IAccounts
 } from './IAccount';
+export type {
+  ITeamNew,
+  ITeam,
+  ITeams
+} from './ITeam';
 export type { ITransaction, TransactionType } from './ITransaction';
 export type {
   IOutcome,

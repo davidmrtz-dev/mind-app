@@ -5,8 +5,7 @@ import { getUsers } from "../../api/core/User";
 import { LoadingMask } from "../../atoms/LoadingMask";
 import Alert from "../../components/alert";
 import Title from "../../components/title";
-import { UserCreate } from "../../components/users";
-import { UserUpdate } from "../../components/users/UserUpdate";
+import { UserCreate, UserUpdate } from "../../components/users";
 import { newUser } from "../../generators/emptyObjects";
 import { User } from "./User";
 

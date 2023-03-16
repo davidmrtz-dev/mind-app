@@ -3,8 +3,7 @@ import styled from "styled-components";
 import { IAccount } from "../../@types";
 import { getAccounts } from "../../api/core/Account";
 import { LoadingMask } from "../../atoms/LoadingMask";
-import { AccountCreate } from "../../components/accounts";
-import { AccountUpdate } from "../../components/accounts/AccountUpdate";
+import { AccountCreate, AccountUpdate } from "../../components/accounts";
 import Alert from "../../components/alert";
 import Title from "../../components/title";
 import { newAccount } from "../../generators/emptyObjects";
@@ -85,29 +84,29 @@ const AccountsPage = (): JSX.Element => {
   return(<>
     {Title('Accounts', () => setShowNew(true))}
     {loading
-      ? <LoadingMask fixed />
-      : <AccountsContainer reveal={reveal}>
-          {(accounts || []).map(account =>
-            <Account
-              key={account.id}
-              account={account}
-              onClick={() => handleAccountClick(account)}
-            />
-          )}
-        </AccountsContainer>
-      }
-      <AccountCreate
-        open={showNew}
-        closeModal={() => setShowNew(false) }
-        handleCreate={handleCreate}
-      />
-      <AccountUpdate
-        account={account}
-        open={showUpdate}
-        closeModal={handleUpdateClose}
-        handleUpdate={handleUpdate}
-        handleDelete={handleDelete}
-      />
+    ? <LoadingMask fixed />
+    : <AccountsContainer reveal={reveal}>
+        {(accounts || []).map(account =>
+          <Account
+            key={account.id}
+            account={account}
+            onClick={() => handleAccountClick(account)}
+          />
+        )}
+      </AccountsContainer>
+    }
+    <AccountCreate
+      open={showNew}
+      closeModal={() => setShowNew(false) }
+      handleCreate={handleCreate}
+    />
+    <AccountUpdate
+      account={account}
+      open={showUpdate}
+      closeModal={handleUpdateClose}
+      handleUpdate={handleUpdate}
+      handleDelete={handleDelete}
+    />
   </>)
 };
 
