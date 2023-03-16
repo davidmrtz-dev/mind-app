@@ -138,7 +138,7 @@ const Outcomes = (): JSX.Element => {
   }, [searchTerm, dates, search]);
 
   return(<>
-    {Title('Outcomes', handleAddOpen)}
+    {/* {Title('Outcomes', handleAddOpen)} */}
     <Search
       search={searchTerm}
       setSearch={setSearchTerm}

@@ -1,7 +1,5 @@
 import { Button, Popover, Typography } from "antd";
-import { useState } from "react";
 import styled from "styled-components"
-import { TransactionType } from "../../@types";
 import { theme } from "../../Theme";
 
 const TitleWrapper = styled.div`
@@ -16,9 +14,7 @@ const TitleWrapper = styled.div`
   margin-bottom: 10px;
 `;
 
-const Title = (text: string, setType: (type: TransactionType) => void): JSX.Element => {
-  const [open, setOpen] = useState(false);
-
+const Title = (text: string, setOpen: () => void): JSX.Element => {
   return(<TitleWrapper>
     <Typography.Text style={{
       ...theme.texts.brandH5,
@@ -26,48 +22,15 @@ const Title = (text: string, setType: (type: TransactionType) => void): JSX.Elem
     }}>
       {text}
     </Typography.Text>
-    <Popover
-      open={open}
-      content={<div style={{
-        display: 'flex',
-        flexDirection: 'column'
-      }}>
-        <Button style={{
-          ...theme.texts.brandSubFont,
-          marginBottom: 5
-        }}
-        onClick={() => {
-          setType('current');
-          setOpen(false);
-        }}
-        >
-          Current
-        </Button>
-        <Button style={{
-          ...theme.texts.brandSubFont
-        }}
-        onClick={() => {
-          setType('fixed');
-          setOpen(false);
-        }}
-        >
-          Fixed
-        </Button>
-      </div>}
-      title={`${text.slice(0, -1)} type`}
-      trigger="click"
-      overlayStyle={{ width: 150 }}
-    >
-      <Button
-        style={{
-          ...theme.texts.brandSubFont,
-          width: 46
-        }}
-        onClick={() => setOpen(!open)}
-        >
-          +
-        </Button>
-    </Popover>
+    <Button
+      style={{
+        ...theme.texts.brandSubFont,
+        width: 46
+      }}
+      onClick={() => setOpen()}
+      >
+        +
+      </Button>
   </TitleWrapper>);
 };
 
