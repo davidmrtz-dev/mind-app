@@ -6,6 +6,7 @@ import { LoadingMask } from "../../atoms/LoadingMask";
 import Alert from "../../components/alert";
 import Title from "../../components/title";
 import { UserCreate } from "../../components/users";
+import { UserUpdate } from "../../components/users/UserUpdate";
 import { newUser } from "../../generators/emptyObjects";
 import { User } from "./User";
 
@@ -21,6 +22,7 @@ const UsersPage = (): JSX.Element => {
   const [users, setUsers] = useState<IUser []>([]);
   const [user, setUser] = useState<IUser>(newUser('standard'));
   const [showNew, setShowNew] = useState(false);
+  const [showUpdate, setShowUpdate] = useState(false);
 
   const fetchUsers = async (): Promise<void> => {
     try {
@@ -38,12 +40,37 @@ const UsersPage = (): JSX.Element => {
 
   const handleUserClick = (user: IUser) => {
     setUser(user);
-    // setShowUpdate(true);
+    setShowUpdate(true);
   };
 
   const handleCreate = async (user: IUser) => {
     if (users.length) {
       setUsers(users => [user, ...users]);
+    }
+  };
+
+  const handleUpdateClose = () => {
+    setShowUpdate(false);
+    setUser(newUser('standard'));
+  };
+
+  const handleUpdate = async (user: IUser) => {
+    if (users.length) {
+      const updatedUsers = users.map(usr => {
+        if (usr.id === user.id) {
+          return user;
+        } else {
+          return usr;
+        }
+      });
+      setUsers(updatedUsers);
+    }
+  };
+
+  const handleDelete = (id: number) => {
+    if (users.length) {
+      const updatedUsers = users.filter(usr => usr.id !== id);
+      setUsers(updatedUsers);
     }
   };
 
@@ -74,6 +101,13 @@ const UsersPage = (): JSX.Element => {
       open={showNew}
       closeModal={() => setShowNew(false)}
       handleCreate={handleCreate}
+    />
+    <UserUpdate
+      user={user}
+      open={showUpdate}
+      closeModal={handleUpdateClose}
+      handleUpdate={handleUpdate}
+      handleDelete={handleDelete}
     />
     </>
   );

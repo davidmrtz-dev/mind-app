@@ -8,7 +8,7 @@ export const getUsers = async ({
   offset: number;
   limit?: number;
 }): Promise<IUsers> => {
-  const result = await Http.get('/api/v1/users/', { limit, offset }, {
+  const result = await Http.get('/api/v1/users', { limit, offset }, {
     'access-token': sessionStorage.getItem('authorization:token') || '',
     client: sessionStorage.getItem('authorization:client') || '',
     uid: sessionStorage.getItem('authorization:uid') || ''
@@ -18,7 +18,7 @@ export const getUsers = async ({
 };
 
 export const createUser = async (values: IUserNew): Promise<IUser> => {
-  const result = await Http.post('/api/v1/users/', { user: values }, { headers: {
+  const result = await Http.post('/api/v1/users', { user: values }, { headers: {
     'access-token': sessionStorage.getItem('authorization:token') || '',
     client: sessionStorage.getItem('authorization:client') || '',
     uid: sessionStorage.getItem('authorization:uid') || ''
@@ -27,23 +27,23 @@ export const createUser = async (values: IUserNew): Promise<IUser> => {
   return result.data.user;
 };
 
-// export const updateOutcome = async (values: IOutcome): Promise<IOutcome> => {
-//   const result = await Http.put(`/api/outcomes/${values.id}`, { outcome: values }, { headers: {
-//     'access-token': sessionStorage.getItem('authorization:token') || '',
-//     client: sessionStorage.getItem('authorization:client') || '',
-//     uid: sessionStorage.getItem('authorization:uid') || ''
-//   }});
+export const updateUser = async (values: IUser): Promise<IUser> => {
+  const result = await Http.put(`/api/v1/users/${values.id}`, { user: values }, { headers: {
+    'access-token': sessionStorage.getItem('authorization:token') || '',
+    client: sessionStorage.getItem('authorization:client') || '',
+    uid: sessionStorage.getItem('authorization:uid') || ''
+  }});
 
-//   return result.data.outcome;
-// };
+  return result.data.user;
+};
 
-// export const deleteOutcome = async (id: number): Promise<void> => {
-//   await Http.destroy(`/api/outcomes/${id}`, null, {
-//     'access-token': sessionStorage.getItem('authorization:token') || '',
-//     client: sessionStorage.getItem('authorization:client') || '',
-//     uid: sessionStorage.getItem('authorization:uid') || ''
-//   });
-// };
+export const deleteUser = async (id: number): Promise<void> => {
+  await Http.destroy(`/api/v1/users/${id}`, null, {
+    'access-token': sessionStorage.getItem('authorization:token') || '',
+    client: sessionStorage.getItem('authorization:client') || '',
+    uid: sessionStorage.getItem('authorization:uid') || ''
+  });
+};
 
 // export const searchOutcomes = async ({
 //   offset,
