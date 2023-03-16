@@ -1,14 +1,14 @@
 import * as Http from '../Http';
-import { IIncome, IIncomes } from '../../@types';
+import { IAccount, IAccounts } from '../../@types';
 
-export const getIncomes = async({
+export const getAccounts = async ({
   offset,
-  limit = 5,
+  limit = 5
 }: {
   offset: number;
   limit?: number;
-}): Promise<IIncomes> => {
-  const result = await Http.get('/api/incomes', { limit, offset }, {
+}): Promise<IAccounts> => {
+  const result = await Http.get('/api/v1/accounts', { limit, offset }, {
     'access-token': sessionStorage.getItem('authorization:token') || '',
     client: sessionStorage.getItem('authorization:client') || '',
     uid: sessionStorage.getItem('authorization:uid') || ''
@@ -17,28 +17,28 @@ export const getIncomes = async({
   return result.data;
 };
 
-export const createIncome = async (values: IIncome): Promise<IIncome> => {
-  const result = await Http.post('/api/incomes/', { income: values }, { headers: {
+export const createAccount = async (values: IAccount): Promise<IAccount> => {
+  const result = await Http.post('/api/v1/accounts', { account: values }, { headers: {
     'access-token': sessionStorage.getItem('authorization:token') || '',
     client: sessionStorage.getItem('authorization:client') || '',
     uid: sessionStorage.getItem('authorization:uid') || ''
   }});
 
-  return result.data.income;
+  return result.data.account;
 };
 
-export const updateIncome = async (values: IIncome): Promise<IIncome> => {
-  const result = await Http.put(`/api/incomes/${values.id}`, { income: values }, { headers: {
+export const updateAccount = async (values: IAccount): Promise<IAccount> => {
+  const result = await Http.put(`/api/v1/accounts/${values.id}`, { account: values }, { headers: {
     'access-token': sessionStorage.getItem('authorization:token') || '',
     client: sessionStorage.getItem('authorization:client') || '',
     uid: sessionStorage.getItem('authorization:uid') || ''
   }});
 
-  return result.data.income;
+  return result.data.account;
 };
 
-export const deleteIncome = async (id: number): Promise<void> => {
-  await Http.destroy(`/api/incomes/${id}`, null, {
+export const deleteAccount = async (id: number): Promise<void> => {
+  await Http.destroy(`/api/v1/accounts/${id}`, null, {
     'access-token': sessionStorage.getItem('authorization:token') || '',
     client: sessionStorage.getItem('authorization:client') || '',
     uid: sessionStorage.getItem('authorization:uid') || ''

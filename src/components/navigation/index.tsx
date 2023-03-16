@@ -92,7 +92,7 @@ const Navigation = (): JSX.Element => {
       >
         {auth.isAuthenticated ?
           <Space direction="vertical">
-            {auth.user?.user_type !== 'standard' ? <Link to='/users'>
+            {auth.user?.user_type !== 'standard' ? <><Link to='/users'>
               <Button
                 block
                 onClick={() => setShow(false)}
@@ -100,7 +100,16 @@ const Navigation = (): JSX.Element => {
               >
                 Users
               </Button>
-            </Link> : <Link to='/profile'>
+            </Link>
+            <Link to='/accounts'>
+              <Button
+                block
+                onClick={() => setShow(false)}
+                className={menuBtnStyles}
+              >
+                Accounts
+              </Button>
+            </Link></> : <Link to='/profile'>
               <Button
                 block
                 onClick={() => setShow(false)}
