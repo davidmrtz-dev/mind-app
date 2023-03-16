@@ -27,7 +27,6 @@ const Router = (props: RouteProps) => {
       <PrivateRoute exact key='profile' path='/profile' component={Profile} />
     }
     {/* <PrivateRoute exact key='outcomes' path='/outcomes' component={Outcomes} /> */}
-    {/* <PrivateRoute exact key='incomes' path='/incomes' component={Incomes} /> */}
     <Route exact key='login' path='/login' component={Login} />
     <Route exact key='about' path='/about' component={About} />
     {GeneralRoute(props, auth)}
