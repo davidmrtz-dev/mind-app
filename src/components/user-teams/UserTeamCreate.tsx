@@ -91,7 +91,7 @@ export const UserTeamCreate = ({
       ]}
     >
       <UserTeamForm
-        values={values}
+        values={values as IUserTeam}
         setValues={setValues}
       />
     </Modal>

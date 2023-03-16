@@ -5,6 +5,7 @@ import { ActionButton } from "../../atoms/ActionButton";
 import { theme } from "../../Theme";
 import { TransactionContainer as UserTeamContainer } from "../../components/containers";
 import { formatViewDate } from "../../utils";
+import dayjs from "dayjs";
 
 const UserTeamGrid = styled.div`
   display: grid;
@@ -61,7 +62,7 @@ export const UserTeam = ({
         <Typography.Text style={{
           ...theme.texts.brandSubFont
         }}>
-          {formatViewDate(userTeam.start_at || '') || 'N/A'}
+          {formatViewDate(userTeam.start_at.toString() as string || dayjs().format('YYYY-MM-DD'))}
         </Typography.Text>
       </div>
       <div style={{ gridArea: '4 / 1 / 5 / 2' }}>
@@ -75,7 +76,7 @@ export const UserTeam = ({
         <Typography.Text style={{
           ...theme.texts.brandSubFont
         }}>
-          {formatViewDate(userTeam.end_at || '') || 'N/A'}
+          {formatViewDate(userTeam.end_at.toString() as string || dayjs().format('YYYY-MM-DD'))}
         </Typography.Text>
       </div>
       <div style={{ gridArea: '5 / 1 / 6 / 2' }}>

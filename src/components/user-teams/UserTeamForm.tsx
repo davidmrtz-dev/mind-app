@@ -1,12 +1,13 @@
 import { DatePicker, Form, InputNumber, Select, Typography } from "antd";
+import { IUserTeam } from "../../@types";
 import { theme } from "../../Theme";
 
-export const UserTeamForm = <T,>({
+export const UserTeamForm = ({
   values,
   setValues
 }: {
-  values: T;
-  setValues: (values: T) => void;
+  values: IUserTeam;
+  setValues: (values: IUserTeam) => void;
 }): JSX.Element => {
   const [form] = Form.useForm();
 
@@ -15,7 +16,7 @@ export const UserTeamForm = <T,>({
       name='user-team-form'
       form={form}
       layout='vertical'
-      initialValues={values as undefined}
+      initialValues={values}
       onValuesChange={e => setValues({...values, ...e})}
       style={{ width: '100%' }}
     >

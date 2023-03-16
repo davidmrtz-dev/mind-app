@@ -5,7 +5,7 @@ import { getUserTeams } from "../../api/core/UserTeam";
 import { LoadingMask } from "../../atoms/LoadingMask";
 import Alert from "../../components/alert";
 import Title from "../../components/title";
-import { UserTeamCreate } from "../../components/user-teams";
+import { UserTeamCreate, UserTeamUpdate } from "../../components/user-teams";
 import { newUserTeam } from "../../generators/emptyObjects";
 import { UserTeam } from "./UserTeam";
 
@@ -48,6 +48,31 @@ const UserTeamsPage = (): JSX.Element => {
     }
   };
 
+  const handleUpdateClose = () => {
+    setShowUpdate(false);
+    setUserTeam(newUserTeam());
+  };
+
+  const handleUpdate = async (userTeam: IUserTeam) => {
+    if (userTeams.length) {
+      const updatedUserTeams = userTeams.map(uT => {
+        if (uT.id === userTeam.id) {
+          return userTeam;
+        } else {
+          return uT;
+        }
+      });
+      setUserTeams(updatedUserTeams);
+    }
+  };
+
+  const handleDelete = (id: number) => {
+    if (userTeams.length) {
+      const updatedUserTeams = userTeams.filter(userTeam => userTeam.id !== id);
+      setUserTeams(updatedUserTeams);
+    }
+  };
+
   useEffect(() => {
     fetchUserTeams();
   }, []);
@@ -74,6 +99,13 @@ const UserTeamsPage = (): JSX.Element => {
       open={showNew}
       closeModal={() => setShowNew(false) }
       handleCreate={handleCreate}
+    />
+    <UserTeamUpdate
+      userTeam={userTeam}
+      open={showUpdate}
+      closeModal={handleUpdateClose}
+      handleUpdate={handleUpdate}
+      handleDelete={handleDelete}
     />
   </>);
 };
