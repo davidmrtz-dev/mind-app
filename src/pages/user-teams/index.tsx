@@ -5,6 +5,7 @@ import { getUserTeams } from "../../api/core/UserTeam";
 import { LoadingMask } from "../../atoms/LoadingMask";
 import Alert from "../../components/alert";
 import Title from "../../components/title";
+import { UserTeamCreate } from "../../components/user-teams";
 import { newUserTeam } from "../../generators/emptyObjects";
 import { UserTeam } from "./UserTeam";
 
@@ -41,6 +42,12 @@ const UserTeamsPage = (): JSX.Element => {
     setShowUpdate(true);
   };
 
+  const handleCreate = async (userTeam: IUserTeam) => {
+    if (userTeams.length) {
+      setUserTeams(userTeams => [userTeam, ...userTeams]);
+    }
+  };
+
   useEffect(() => {
     fetchUserTeams();
   }, []);
@@ -63,6 +70,11 @@ const UserTeamsPage = (): JSX.Element => {
         )}
       </UserTeamsContainer>
     }
+    <UserTeamCreate
+      open={showNew}
+      closeModal={() => setShowNew(false) }
+      handleCreate={handleCreate}
+    />
   </>);
 };
 
