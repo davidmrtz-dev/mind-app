@@ -1,113 +1,112 @@
 import { Typography } from "antd";
 import styled from "styled-components";
-import { IUser } from "../../@types";
+import { IUserTeam } from "../../@types";
 import { ActionButton } from "../../atoms/ActionButton";
 import { theme } from "../../Theme";
-import { TransactionContainer as UserContainer } from "../../components/containers";
-import { capitalizeFirst } from "../../utils";
+import { TransactionContainer as UserTeamContainer } from "../../components/containers";
+import { formatViewDate } from "../../utils";
 
-const UserGrid = styled.div`
+const UserTeamGrid = styled.div`
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 1fr 3fr;
   grid-template-rows: repeat(6, 1fr);
   padding: 10px;
 `;
 
-export const User = ({
-  user,
+export const UserTeam = ({
+  userTeam,
   onClick
 }: {
-  user: IUser;
+  userTeam: IUserTeam;
   onClick: () => void;
-}): JSX.Element => <UserContainer>
+}): JSX.Element => <UserTeamContainer>
   <div style={{ textAlign: 'initial' }}>
-    <UserGrid>
+    <UserTeamGrid>
       <div style={{ gridArea: '1 / 1 / 2 / 2' }}>
         <Typography.Text style={{
           ...theme.texts.brandSubFont
         }}>
-          <strong>Name:</strong>
+          <strong>User:</strong>
         </Typography.Text>
       </div>
       <div style={{ gridArea: '1 / 2 / 2 / 3', textAlign: 'center' }}>
         <Typography.Text style={{
           ...theme.texts.brandSubFont
         }}>
-          {user.name}
+          {userTeam.user?.name}
         </Typography.Text>
       </div>
       <div style={{ gridArea: '2 / 1 / 3 / 2' }}>
         <Typography.Text style={{
           ...theme.texts.brandSubFont
         }}>
-          <strong>Email:</strong>
+          <strong>Team:</strong>
         </Typography.Text>
       </div>
       <div style={{ gridArea: '2 / 2 / 3 / 3', textAlign: 'center' }}>
         <Typography.Text style={{
           ...theme.texts.brandSubFont
         }}>
-          {user.email}
+          {userTeam.team?.name}
         </Typography.Text>
       </div>
       <div style={{ gridArea: '3 / 1 / 4 / 2' }}>
         <Typography.Text style={{
           ...theme.texts.brandSubFont
         }}>
-          <strong>User Type:</strong>
+          <strong>Start At:</strong>
         </Typography.Text>
       </div>
       <div style={{ gridArea: '3 / 2 / 4 / 3', textAlign: 'center' }}>
         <Typography.Text style={{
           ...theme.texts.brandSubFont
         }}>
-          {capitalizeFirst(user.user_type)}
+          {formatViewDate(userTeam.start_at || '') || 'N/A'}
         </Typography.Text>
       </div>
       <div style={{ gridArea: '4 / 1 / 5 / 2' }}>
         <Typography.Text style={{
           ...theme.texts.brandSubFont
         }}>
-          <strong>English Level:</strong>
+          <strong>End Date:</strong>
         </Typography.Text>
       </div>
       <div style={{ gridArea: '4 / 2 / 5 / 3', textAlign: 'center' }}>
         <Typography.Text style={{
           ...theme.texts.brandSubFont
         }}>
-          {user.profile?.english_level || 'N/A'}
+          {formatViewDate(userTeam.end_at || '') || 'N/A'}
         </Typography.Text>
       </div>
       <div style={{ gridArea: '5 / 1 / 6 / 2' }}>
         <Typography.Text style={{
           ...theme.texts.brandSubFont
         }}>
-          <strong>Skills:</strong>
+          <strong>Status:</strong>
         </Typography.Text>
       </div>
       <div style={{ gridArea: '5 / 2 / 6 / 3', textAlign: 'center' }}>
         <Typography.Text style={{
           ...theme.texts.brandSubFont
         }}>
-          {user.profile?.technical_knowledge || 'N/A'}
+          {userTeam.status}
         </Typography.Text>
       </div>
       <div style={{ gridArea: '6 / 1 / 7 / 2' }}>
         <Typography.Text style={{
           ...theme.texts.brandSubFont
         }}>
-          <strong>CV:</strong>
+          <strong>Email:</strong>
         </Typography.Text>
       </div>
       <div style={{ gridArea: '6 / 2 / 7 / 3', textAlign: 'center' }}>
         <Typography.Text style={{
           ...theme.texts.brandSubFont
         }}>
-          {user.profile?.cv || 'N/A'}
+          {userTeam.user?.email}
         </Typography.Text>
       </div>
-    </UserGrid>
+    </UserTeamGrid>
   </div>
   <ActionButton onClick={onClick} />
-</UserContainer>;
-
+</UserTeamContainer>;

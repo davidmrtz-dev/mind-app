@@ -1,6 +1,6 @@
 import { Typography } from "antd";
 import styled from "styled-components";
-import { IAccount, ITeam } from "../../@types";
+import { ITeam } from "../../@types";
 import { ActionButton } from "../../atoms/ActionButton";
 import { theme } from "../../Theme";
 import { TransactionContainer as TeamContainer } from "../../components/containers";
