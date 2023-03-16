@@ -4,7 +4,7 @@ import { ITeam } from "../../@types";
 import { getTeams } from "../../api/core/Team";
 import { LoadingMask } from "../../atoms/LoadingMask";
 import Alert from "../../components/alert";
-import { TeamCreate } from "../../components/teams";
+import { TeamCreate, TeamUpdate } from "../../components/teams";
 import Title from "../../components/title";
 import { newTeam } from "../../generators/emptyObjects";
 import { Team } from "./Team";
@@ -48,6 +48,31 @@ const TeamsPage = (): JSX.Element => {
     }
   };
 
+  const handleUpdateClose = () => {
+    setShowUpdate(false);
+    setTeam(newTeam());
+  };
+
+  const handleUpdate = async (team: ITeam) => {
+    if (teams.length) {
+      const updatedTeams = teams.map(t => {
+        if (t.id === team.id) {
+          return team;
+        } else {
+          return t;
+        }
+      });
+      setTeams(updatedTeams);
+    }
+  };
+
+  const handleDelete = (id: number) => {
+    if (teams.length) {
+      const updatedTeams = teams.filter(team => team.id !== id);
+      setTeams(updatedTeams);
+    }
+  };
+
   useEffect(() => {
     fetchTeams();
   }, []);
@@ -74,6 +99,13 @@ const TeamsPage = (): JSX.Element => {
       open={showNew}
       closeModal={() => setShowNew(false) }
       handleCreate={handleCreate}
+    />
+    <TeamUpdate
+      team={team}
+      open={showUpdate}
+      closeModal={handleUpdateClose}
+      handleUpdate={handleUpdate}
+      handleDelete={handleDelete}
     />
   </>);
 };
