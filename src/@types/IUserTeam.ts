@@ -1,9 +1,10 @@
+import { Dayjs } from "dayjs";
 import { ITeam } from "./ITeam";
 import { IUser } from "./IUser";
 
 interface UserTeamBase {
-  start_at: string;
-  end_at: string;
+  start_at: string | Dayjs;
+  end_at: string | Dayjs;
   status: string;
 }
 
