@@ -5,7 +5,10 @@ export type {
   UserType,
   Login
 } from './IUser';
-export type { IBalance } from './IBalance';
+export type {
+  IAccount,
+  IAccounts
+} from './IAccount';
 export type { ITransaction, TransactionType } from './ITransaction';
 export type {
   IOutcome,
@@ -13,7 +16,3 @@ export type {
   OutcomesHash,
   OutcomesPagination
 } from './IOutcome';
-export type {
-  IIncome,
-  IIncomes
-} from './IIncome';

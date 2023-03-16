@@ -24,7 +24,6 @@ const Router = (props: RouteProps) => {
     {auth.user?.user_type !== 'standard' && <PrivateRoute exact key='users' path='/users' component={UsersPage} />}
     {auth.user?.user_type !== 'standard' && <PrivateRoute exact key='accounts' path='/accounts' component={AccountsPage} />}
     {auth.user?.user_type === 'standard' && <PrivateRoute exact key='profile' path='/profile' component={Profile} />}
-    {/* <PrivateRoute exact key='outcomes' path='/outcomes' component={Outcomes} /> */}
     <Route exact key='login' path='/login' component={Login} />
     <Route exact key='about' path='/about' component={About} />
     {GeneralRoute(props, auth)}
