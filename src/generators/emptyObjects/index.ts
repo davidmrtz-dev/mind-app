@@ -1,2 +1,2 @@
-export { newOutcome, newIncome } from './Transactions';
+export { newOutcome } from './Transactions';
 export { newUser } from './Users';

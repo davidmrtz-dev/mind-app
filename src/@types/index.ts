@@ -13,7 +13,3 @@ export type {
   OutcomesHash,
   OutcomesPagination
 } from './IOutcome';
-export type {
-  IIncome,
-  IIncomes
-} from './IIncome';
