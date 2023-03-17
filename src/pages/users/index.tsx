@@ -81,20 +81,19 @@ const UsersPage = (): JSX.Element => {
     if (!loading) setTimeout(() => setReveal(true), 250);
   }, [loading]);
 
-  return (
-    <>
-      {Title('Users', () => setShowNew(true))}
-      {loading
-      ? <LoadingMask fixed />
-      : <UsersContainer reveal={reveal}>
-          {(users || []).map(user =>
-            <User
-              key={user.id}
-              user={user}
-              onClick={() => handleUserClick(user)}
-            />
-          )}
-        </UsersContainer>
+  return (<>
+    {Title('Users', () => setShowNew(true))}
+    {loading
+    ? <LoadingMask fixed />
+    : <UsersContainer reveal={reveal}>
+        {(users || []).map(user =>
+          <User
+            key={user.id}
+            user={user}
+            onClick={() => handleUserClick(user)}
+          />
+        )}
+      </UsersContainer>
     }
     <UserCreate
       open={showNew}
@@ -108,8 +107,7 @@ const UsersPage = (): JSX.Element => {
       handleUpdate={handleUpdate}
       handleDelete={handleDelete}
     />
-    </>
-  );
+  </>);
 };
 
 export default UsersPage;
