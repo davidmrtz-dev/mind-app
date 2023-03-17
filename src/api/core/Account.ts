@@ -1,6 +1,5 @@
 import * as Http from '../Http';
-import { IAccount, IAccounts } from '../../@types';
-import { IAccountNew } from '../../@types/IAccount';
+import { IAccountNew, IAccount, IAccounts } from '../../@types';
 
 export const getAccounts = async ({
   offset,

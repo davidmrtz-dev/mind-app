@@ -2,6 +2,17 @@ export type UserType = 'standard' | 'admin' | 'super' | '';
 
 type EnglishLevel = 'a1' | 'a2' | 'b1' | 'b2' | 'c1' | 'c2' | '';
 
+export interface IUserCreate {
+  name: string;
+  email: string;
+  password?: string;
+  user_type: UserType;
+  profile_attributes: IProfileNew;
+}
+
+export interface IUserUpdate extends IUserCreate {
+  id: number;
+}
 export interface IUser  {
   id: number;
   email: string;
@@ -11,27 +22,15 @@ export interface IUser  {
   profile?: IProfile;
 }
 
-interface IProfile {
-  id: number,
-  user_id: number;
-  english_level: EnglishLevel;
-  technical_knowledge: string;
-  cv: string;
-}
-
-export interface IUserNew {
-  id?: number;
-  name: string;
-  email: string;
-  password?: string;
-  user_type: UserType;
-  profile_attributes: IProfileNew;
-}
-
 interface IProfileNew {
   english_level: EnglishLevel;
   technical_knowledge: string;
   cv: string;
+}
+
+interface IProfile extends IProfileNew {
+  id: number,
+  user_id: number;
 }
 
 export interface IUsers {
