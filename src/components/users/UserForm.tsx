@@ -1,7 +1,7 @@
 import { Form, Input, Select, Typography } from "antd";
 import Password from "antd/es/input/Password";
 import TextArea from "antd/es/input/TextArea";
-import { IUserNew } from "../../@types";
+import { IUserCreate } from "../../@types";
 import { theme } from "../../Theme";
 
 export const UserForm = ({
@@ -9,8 +9,8 @@ export const UserForm = ({
   setValues,
   showPassword
 }: {
-  values: IUserNew;
-  setValues: (values: IUserNew) => void;
+  values: IUserCreate;
+  setValues: (values: IUserCreate) => void;
   showPassword: boolean;
 }): JSX.Element => {
   const [form] = Form.useForm();

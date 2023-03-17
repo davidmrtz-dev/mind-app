@@ -1,5 +1,5 @@
 import * as Http from '../Http';
-import { IUser, IUserNew, IUsers } from '../../@types';
+import { IUser, IUserCreate, IUsers, IUserUpdate } from '../../@types';
 
 export const getUsers = async ({
   offset,
@@ -17,7 +17,7 @@ export const getUsers = async ({
   return result.data;
 };
 
-export const createUser = async (values: IUserNew): Promise<IUser> => {
+export const createUser = async (values: IUserCreate): Promise<IUser> => {
   const result = await Http.post('/api/v1/users', { user: values }, { headers: {
     'access-token': sessionStorage.getItem('authorization:token') || '',
     client: sessionStorage.getItem('authorization:client') || '',
@@ -27,7 +27,7 @@ export const createUser = async (values: IUserNew): Promise<IUser> => {
   return result.data.user;
 };
 
-export const updateUser = async (values: IUserNew): Promise<IUser> => {
+export const updateUser = async (values: IUserUpdate): Promise<IUser> => {
   const result = await Http.put(`/api/v1/users/${values.id}`, { user: values }, { headers: {
     'access-token': sessionStorage.getItem('authorization:token') || '',
     client: sessionStorage.getItem('authorization:client') || '',

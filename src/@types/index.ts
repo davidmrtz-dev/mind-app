@@ -1,11 +1,13 @@
 export type {
-  IUserNew,
+  IUserCreate,
+  IUserUpdate,
   IUser,
   IUsers,
   UserType,
   Login
 } from './IUser';
 export type {
+  IAccountNew,
   IAccount,
   IAccounts
 } from './IAccount';
