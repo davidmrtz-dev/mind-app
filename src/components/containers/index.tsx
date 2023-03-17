@@ -30,6 +30,6 @@ export const AppMainContainer = styled.div`
 
 export default LayoutContainer;
 
-export { TransactionContainer } from './TransactionContainer';
+export { ElementContainer } from './ElementContainer';
 export { NavigationContainer } from './NavigationContainer'
 

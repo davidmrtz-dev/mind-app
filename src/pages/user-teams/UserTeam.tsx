@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { IUserTeam } from "../../@types";
 import { ActionButton } from "../../atoms/ActionButton";
 import { theme } from "../../Theme";
-import { TransactionContainer as UserTeamContainer } from "../../components/containers";
+import { ElementContainer as UserTeamContainer } from "../../components/containers";
 import { formatViewDate } from "../../utils";
 import dayjs from "dayjs";
 
