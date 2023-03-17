@@ -14,7 +14,7 @@ const TitleWrapper = styled.div`
   margin-bottom: 10px;
 `;
 
-const Title = (text: string, setOpen: () => void): JSX.Element => {
+const Title = (text: string, setOpen?: () => void): JSX.Element => {
   return(<TitleWrapper>
     <Typography.Text style={{
       ...theme.texts.brandH5,
@@ -22,7 +22,7 @@ const Title = (text: string, setOpen: () => void): JSX.Element => {
     }}>
       {text}
     </Typography.Text>
-    <Button
+    {setOpen && (<Button
       style={{
         ...theme.texts.brandSubFont,
         width: 46
@@ -30,7 +30,7 @@ const Title = (text: string, setOpen: () => void): JSX.Element => {
       onClick={() => setOpen()}
       >
         +
-      </Button>
+      </Button>)}
   </TitleWrapper>);
 };
 
