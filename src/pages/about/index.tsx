@@ -24,7 +24,7 @@ const About = (): JSX.Element => {
       ...theme.texts.brandFont,
       padding: 10
     }}>
-      Full Stack Web App to manage users with roles and different cool features. <br/>
+      Full Stack Web App to manage users with roles and different cool features.
       Built with Typescript, React, and Ruby on Rails. <br/>
     </Typography>
 </AboutContainer>);
