@@ -1,11 +1,13 @@
 export type {
-  IUserNew,
+  IUserCreate,
+  IUserUpdate,
   IUser,
   IUsers,
   UserType,
   Login
 } from './IUser';
 export type {
+  IAccountNew,
   IAccount,
   IAccounts
 } from './IAccount';
@@ -19,10 +21,3 @@ export type {
   IUserTeam,
   IUserTeams
 } from './IUserTeam';
-export type { ITransaction, TransactionType } from './ITransaction';
-export type {
-  IOutcome,
-  IOutcomes,
-  OutcomesHash,
-  OutcomesPagination
-} from './IOutcome';

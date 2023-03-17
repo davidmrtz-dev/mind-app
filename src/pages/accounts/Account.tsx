@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { IAccount } from "../../@types";
 import { ActionButton } from "../../atoms/ActionButton";
 import { theme } from "../../Theme";
-import { TransactionContainer as AccountContainer } from "../../components/containers";
+import { ElementContainer as AccountContainer } from "../../components/containers";
 import { capitalizeFirst } from "../../utils";
 
 const AccountGrid = styled.div`

@@ -1,4 +1,4 @@
-import { IUser, IUserNew, UserType } from "../../@types";
+import { IUser, IUserCreate, UserType } from "../../@types";
 
 export const newUser = (type: UserType): IUser => ({
   id: 0,
@@ -8,7 +8,7 @@ export const newUser = (type: UserType): IUser => ({
   user_type: type as UserType
 });
 
-export const newUserCreate = (): IUserNew => ({
+export const newUserCreate = (): IUserCreate => ({
   name: '',
   email: '',
   password: '',
