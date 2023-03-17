@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const TransactionContainer = styled.div`
+export const ElementContainer = styled.div`
   background-color: ${p => p.theme.colors.grays.light};
   display: flex;
   align-items: center;

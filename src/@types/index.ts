@@ -19,10 +19,3 @@ export type {
   IUserTeam,
   IUserTeams
 } from './IUserTeam';
-export type { ITransaction, TransactionType } from './ITransaction';
-export type {
-  IOutcome,
-  IOutcomes,
-  OutcomesHash,
-  OutcomesPagination
-} from './IOutcome';

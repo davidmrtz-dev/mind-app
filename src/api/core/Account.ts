@@ -1,5 +1,6 @@
 import * as Http from '../Http';
 import { IAccount, IAccounts } from '../../@types';
+import { IAccountNew } from '../../@types/IAccount';
 
 export const getAccounts = async ({
   offset,
@@ -17,7 +18,7 @@ export const getAccounts = async ({
   return result.data;
 };
 
-export const createAccount = async (values: IAccount): Promise<IAccount> => {
+export const createAccount = async (values: IAccountNew): Promise<IAccount> => {
   const result = await Http.post('/api/v1/accounts', { account: values }, { headers: {
     'access-token': sessionStorage.getItem('authorization:token') || '',
     client: sessionStorage.getItem('authorization:client') || '',

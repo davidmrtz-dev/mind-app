@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { ITeam } from "../../@types";
 import { ActionButton } from "../../atoms/ActionButton";
 import { theme } from "../../Theme";
-import { TransactionContainer as TeamContainer } from "../../components/containers";
+import { ElementContainer as TeamContainer } from "../../components/containers";
 import { capitalizeFirst } from "../../utils";
 
 const TeamGrid = styled.div`

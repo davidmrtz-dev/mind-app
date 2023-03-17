@@ -1,6 +1,6 @@
 import { Button, Modal, Typography } from "antd";
 import { useState } from "react";
-import { IUserTeam, IUserTeamNew} from "../../@types";
+import { IUserTeam } from "../../@types";
 import { theme } from "../../Theme";
 import Alert from "../alert";
 import { newUserTeam } from '../../generators/emptyObjects/index';
@@ -18,7 +18,7 @@ export const UserTeamCreate = ({
   handleCreate: (userTeam: IUserTeam) => Promise<void>;
 }): JSX.Element => {
   const [loading, setLoading] = useState(false);
-  const [values, setValues] = useState<IUserTeamNew>(newUserTeam());
+  const [values, setValues] = useState<IUserTeam>(newUserTeam());
 
   const handleSubmit = async () => {
     if (Object.values(values).some(val => val === '')) {
@@ -91,7 +91,7 @@ export const UserTeamCreate = ({
       ]}
     >
       <UserTeamForm
-        values={values as IUserTeam}
+        values={values}
         setValues={setValues}
       />
     </Modal>
