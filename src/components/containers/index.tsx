@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const LayoutContainer = styled.div`
+export const LayoutContainer = styled.div`
   background:
     linear-gradient(
       25deg,
@@ -28,8 +28,8 @@ export const AppMainContainer = styled.div`
   min-height: 100vh;
 `;
 
-export default LayoutContainer;
-
 export { ElementContainer } from './ElementContainer';
 export { NavigationContainer } from './NavigationContainer'
+export { TeamsContainer } from './AccountContainers';
+export { TeamContainer, ItemWrapper } from './TeamContainers';
 
