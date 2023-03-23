@@ -68,14 +68,14 @@ export const Account = ({
         <Typography.Text style={{
           ...theme.texts.brandSubFont
         }}>
-          <strong>Id:</strong>
+          <strong>Teams:</strong>
         </Typography.Text>
       </div>
       <div style={{ gridArea: '4 / 2 / 5 / 3', textAlign: 'center' }}>
         <Typography.Text style={{
           ...theme.texts.brandSubFont
         }}>
-          {account.id}
+          {account.teams.length}
         </Typography.Text>
       </div>
     </AccountGrid>
