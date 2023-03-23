@@ -22,25 +22,25 @@ export const AccountForm = ({
       onValuesChange={e => setValues({...values, ...e})}
       style={{ width: '100%' }}
     >
-      <Form.Item label={<Typography.Text style={{ ...theme.texts.brandSubFont }}>
+      <Form.Item label={<Typography.Text style={{ ...theme.texts.brandFont }}>
         Name
       </Typography.Text>}
         name='name'>
         <Input maxLength={20} style={{ ...theme.texts.brandSubFont }}/>
       </Form.Item>
-      <Form.Item label={<Typography.Text style={{ ...theme.texts.brandSubFont }}>
+      <Form.Item label={<Typography.Text style={{ ...theme.texts.brandFont }}>
         Client Name
       </Typography.Text>}
         name='client_name'>
         <Input maxLength={20} style={{ ...theme.texts.brandSubFont }}/>
       </Form.Item>
-      <Form.Item label={<Typography.Text style={{ ...theme.texts.brandSubFont }}>
+      <Form.Item label={<Typography.Text style={{ ...theme.texts.brandFont }}>
         Manager Name
       </Typography.Text>}
         name='manager_name'>
         <Input maxLength={20} style={{ ...theme.texts.brandSubFont }}/>
       </Form.Item>
-      {values.teams.length > 0 && (<Form.Item label={<Typography.Text style={{ ...theme.texts.brandSubFont }}>
+      {values.teams.length > 0 && (<Form.Item label={<Typography.Text style={{ ...theme.texts.brandFont }}>
         Teams
       </Typography.Text>}
         name='manager_name'>

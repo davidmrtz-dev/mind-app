@@ -25,7 +25,7 @@ export const Team = ({
       {capitalizeFirst(team.name)}
     </Typography.Text>
   </ItemWrapper>
-  <ItemWrapper>
+  {team.account?.name && (<ItemWrapper>
     <Typography.Text style={{
       ...theme.texts.brandSubFont,
       width: '30%'
@@ -35,10 +35,10 @@ export const Team = ({
     <Typography.Text style={{
       ...theme.texts.brandSubFont
     }}>
-      {capitalizeFirst(team.account?.name || '')}
+      {capitalizeFirst(team.account.name)}
     </Typography.Text>
-  </ItemWrapper>
-  <ItemWrapper>
+  </ItemWrapper>)}
+  {team.account?.client_name && (<ItemWrapper>
     <Typography.Text style={{
       ...theme.texts.brandSubFont,
       width: '30%'
@@ -48,8 +48,8 @@ export const Team = ({
     <Typography.Text style={{
       ...theme.texts.brandSubFont
     }}>
-      {capitalizeFirst(team.account?.client_name || '')}
+      {capitalizeFirst(team.account.client_name)}
     </Typography.Text>
-  </ItemWrapper>
+  </ItemWrapper>)}
   {onClick && (<ActionButton onClick={onClick} />)}
 </TeamContainer>;
