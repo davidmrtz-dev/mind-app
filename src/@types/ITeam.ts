@@ -7,7 +7,7 @@ export interface ITeamNew {
 
 export interface ITeam extends ITeamNew {
   id: number;
-  account?: IAccount;
+  account: IAccount;
 }
 
 export interface ITeams {
