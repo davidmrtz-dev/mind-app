@@ -4,5 +4,6 @@ export const newAccount = (): IAccount => ({
   id: 0,
   name: '',
   client_name: '',
-  manager_name: ''
+  manager_name: '',
+  teams: []
 });
