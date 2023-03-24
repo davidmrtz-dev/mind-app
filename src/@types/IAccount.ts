@@ -1,3 +1,5 @@
+import { ITeam } from "./ITeam";
+
 export interface IAccountNew {
   name: string;
   client_name: string;
@@ -6,6 +8,7 @@ export interface IAccountNew {
 
 export interface IAccount extends IAccountNew {
   id: number;
+  teams: ITeam [];
 }
 
 export interface IAccounts {
