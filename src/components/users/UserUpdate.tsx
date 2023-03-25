@@ -23,7 +23,7 @@ export const UserUpdate = ({
   const [loading, setLoading] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [confirm, setConfirm] = useState(false);
-  const [values, setValues] = useState<any>(newUser('standard'));
+  const [values, setValues] = useState<IUser>(newUser('standard'));
 
   const handleSubmitUpdate = useCallback(async () => {
     if (Object.values(values).some(val => val === '')) {
@@ -43,9 +43,9 @@ export const UserUpdate = ({
         email: values.email,
         user_type: values.user_type,
         profile_attributes: {
-          english_level: values.english_level,
-          technical_knowledge: values.technical_knowledge,
-          cv: values.cv
+          english_level: values.english_level || '',
+          technical_knowledge: values.technical_knowledge || '',
+          cv: values.cv || ''
         }
       });
       setTimeout(async () => {

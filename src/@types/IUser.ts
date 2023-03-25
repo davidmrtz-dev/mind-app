@@ -1,3 +1,5 @@
+import { ITeam } from "./ITeam";
+
 export type UserType = 'standard' | 'admin' | 'super' | '';
 
 type EnglishLevel = 'a1' | 'a2' | 'b1' | 'b2' | 'c1' | 'c2' | '';
@@ -13,13 +15,21 @@ export interface IUserCreate {
 export interface IUserUpdate extends IUserCreate {
   id: number;
 }
-export interface IUser  {
+
+interface OptionalFields {
+  english_level?: EnglishLevel;
+  technical_knowledge?: string;
+  cv?: string;
+  password?: string;
+}
+export interface IUser extends OptionalFields  {
   id: number;
   email: string;
   name: string;
   nickname: string;
   user_type: UserType;
-  profile?: IProfile;
+  profile: IProfile;
+  teams: ITeam [];
 }
 
 interface IProfileNew {
@@ -28,7 +38,7 @@ interface IProfileNew {
   cv: string;
 }
 
-interface IProfile extends IProfileNew {
+export interface IProfile extends IProfileNew {
   id: number,
   user_id: number;
 }

@@ -2,6 +2,7 @@ export type {
   IUserCreate,
   IUserUpdate,
   IUser,
+  IProfile,
   IUsers,
   UserType,
   Login
