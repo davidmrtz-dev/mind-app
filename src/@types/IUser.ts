@@ -1,3 +1,5 @@
+import { ITeam } from "./ITeam";
+
 export type UserType = 'standard' | 'admin' | 'super' | '';
 
 type EnglishLevel = 'a1' | 'a2' | 'b1' | 'b2' | 'c1' | 'c2' | '';
@@ -8,6 +10,7 @@ export interface IUserCreate {
   password?: string;
   user_type: UserType;
   profile_attributes: IProfileNew;
+  teams?: ITeam [];
 }
 
 export interface IUserUpdate extends IUserCreate {
