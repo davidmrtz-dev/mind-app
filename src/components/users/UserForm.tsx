@@ -1,7 +1,7 @@
 import { Form, Input, Select, Typography } from "antd";
 import Password from "antd/es/input/Password";
 import TextArea from "antd/es/input/TextArea";
-import { IUserCreate } from "../../@types";
+import { IUser } from "../../@types";
 import { Team } from "../../pages/teams/Team";
 import { theme } from "../../Theme";
 import { TeamsContainer } from "../containers";
@@ -11,8 +11,8 @@ export const UserForm = ({
   setValues,
   showPassword
 }: {
-  values: IUserCreate;
-  setValues: (values: IUserCreate) => void;
+  values: IUser;
+  setValues: (values: IUser) => void;
   showPassword: boolean;
 }): JSX.Element => {
   const [form] = Form.useForm();
