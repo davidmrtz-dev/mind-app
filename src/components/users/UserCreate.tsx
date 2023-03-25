@@ -2,7 +2,7 @@ import { Button, Modal, Typography } from "antd";
 import { useState } from "react";
 import { IUser } from "../../@types";
 import { theme } from "../../Theme";
-import { newUserCreate } from "../../generators/emptyObjects/Users";
+import { newUser } from "../../generators/emptyObjects/Users";
 import { UserForm } from "./UserForm";
 import Alert from "../alert";
 import { createUser } from "../../api/core/User";
@@ -17,7 +17,7 @@ export const UserCreate = ({
   handleCreate: (user: IUser) => Promise<void>;
 }): JSX.Element => {
   const [loading, setLoading] = useState(false);
-  const [values, setValues] = useState<any>(newUserCreate());
+  const [values, setValues] = useState<IUser>(newUser('standard'));
 
   const handleSubmit = async () => {
     if (Object.values(values).some(val => val === '')) {
@@ -37,14 +37,14 @@ export const UserCreate = ({
         password: values.password,
         user_type: values.user_type,
         profile_attributes: {
-          english_level: values.english_level,
-          technical_knowledge: values.technical_knowledge,
-          cv: values.cv
+          english_level: values.english_level || '',
+          technical_knowledge: values.technical_knowledge || '',
+          cv: values.cv || ''
         }
       });
       setTimeout(async () => {
         await handleCreate(user);
-        setValues(newUserCreate());
+        setValues(newUser('standard'));
         setLoading(false);
         closeModal();
       }, 1000);
@@ -55,7 +55,7 @@ export const UserCreate = ({
           icon: 'error',
           text: (error || 'There was an error, please try again later.'),
         });
-        setValues(newUserCreate());
+        setValues(newUser('standard'));
         setLoading(false);
         closeModal();
       }, 1000);
@@ -63,7 +63,7 @@ export const UserCreate = ({
   };
 
   const handleCancel = () => {
-    setValues(newUserCreate());
+    setValues(newUser('standard'));
     closeModal();
   };
 
