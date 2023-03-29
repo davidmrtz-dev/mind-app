@@ -114,7 +114,7 @@ export const UserUpdate = ({
       disabled={loading || deleting}
     >
       <Typography.Text style={{ ...theme.texts.brandFont }}>
-        Cancel
+        Ok
       </Typography.Text>
     </Button>,
     <Button
@@ -173,8 +173,8 @@ export const UserUpdate = ({
       closable={false}
       open={open}
       title={<Typography.Text
-        style={{...theme.texts.brandFont, fontWeight: 'normal'}}
-        > Update user
+        style={{...theme.texts.brandFont }}
+        > User Details
         </Typography.Text>}
       style={{
         maxWidth: 360,

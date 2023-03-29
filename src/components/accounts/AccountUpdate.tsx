@@ -161,7 +161,7 @@ export const AccountUpdate = ({
       open={open}
       title={<Typography.Text
         style={{...theme.texts.brandFont }}
-        > Account Detail
+        > Account Details
         </Typography.Text>}
       style={{
         maxWidth: 360,
