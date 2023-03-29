@@ -29,7 +29,6 @@ export interface IUser extends OptionalFields  {
   nickname: string;
   user_type: UserType;
   profile: IProfile;
-  teams: ITeam [];
 }
 
 interface IProfileNew {
