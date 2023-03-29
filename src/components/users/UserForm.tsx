@@ -118,14 +118,6 @@ export const UserForm = ({
         name='cv'>
         <Input maxLength={20} style={{ ...theme.texts.brandSubFont }}/>
       </Form.Item>
-      {/* {values.teams && values.teams.length > 0 && (<Form.Item label={<Typography.Text style={{ ...theme.texts.brandFont }}>
-        Teams History
-      </Typography.Text>}
-        name='manager_name'>
-          <TeamsContainer>
-            {values.teams.map(t => <Team key={t.id} team={t} />)}
-          </TeamsContainer>
-      </Form.Item>)} */}
       <Form.Item label={<Typography.Text style={{ ...theme.texts.brandFont }}>
         Teams History
       </Typography.Text>}
