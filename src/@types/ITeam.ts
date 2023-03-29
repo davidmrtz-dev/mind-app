@@ -1,4 +1,4 @@
-import { IAccount } from "./IAccount";
+import { IAccount, IUserTeam } from '.';
 
 export interface ITeamNew {
   account_id: number;
@@ -7,7 +7,8 @@ export interface ITeamNew {
 
 export interface ITeam extends ITeamNew {
   id: number;
-  account: IAccount;
+  account?: IAccount;
+  user_team?: IUserTeam;
 }
 
 export interface ITeams {

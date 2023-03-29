@@ -17,7 +17,7 @@ export const getTeams = async ({
   return result.data;
 };
 
-export const getUserTeams = async ({
+export const getTeamsByUser = async ({
   userId,
   offset,
   limit = 10

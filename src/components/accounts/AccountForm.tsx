@@ -44,7 +44,7 @@ export const AccountForm = ({
         Teams
       </Typography.Text>}
         name='manager_name'>
-          <TeamsContainer>
+          <TeamsContainer reveal={true}>
             {values.teams.map(t => <Team key={t.id} team={t} />)}
           </TeamsContainer>
       </Form.Item>)}
