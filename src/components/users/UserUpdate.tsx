@@ -174,7 +174,7 @@ export const UserUpdate = ({
       open={open}
       title={<Typography.Text
         style={{...theme.texts.brandFont }}
-        > Update detail
+        > User Details
         </Typography.Text>}
       style={{
         maxWidth: 360,
