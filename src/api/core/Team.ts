@@ -3,7 +3,7 @@ import { ITeamNew, ITeam, ITeams } from '../../@types';
 
 export const getTeams = async ({
   offset,
-  limit = 5
+  limit = 10
 }: {
   offset: number;
   limit?: number;
@@ -16,6 +16,11 @@ export const getTeams = async ({
 
   return result.data;
 };
+
+// export const getUserTeams = async ({
+//   offset,
+//   limit = 10
+// })
 
 export const createTeam = async (values: ITeamNew): Promise<ITeam> => {
   const result = await Http.post('/api/v1/teams', { team: values }, { headers: {

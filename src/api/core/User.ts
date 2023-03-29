@@ -3,7 +3,7 @@ import { IUser, IUserCreate, IUsers, IUserUpdate } from '../../@types';
 
 export const getUsers = async ({
   offset,
-  limit = 5
+  limit = 10
 }: {
   offset: number;
   limit?: number;
