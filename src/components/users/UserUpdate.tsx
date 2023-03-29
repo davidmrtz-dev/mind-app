@@ -173,8 +173,8 @@ export const UserUpdate = ({
       closable={false}
       open={open}
       title={<Typography.Text
-        style={{...theme.texts.brandFont, fontWeight: 'normal'}}
-        > Update user
+        style={{...theme.texts.brandFont }}
+        > Update detail
         </Typography.Text>}
       style={{
         maxWidth: 360,
