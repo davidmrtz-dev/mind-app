@@ -2,9 +2,12 @@ import { useState } from "react";
 import { IUser, Login } from "../@types";
 import { login, logout } from "../api/core/Auth";
 import Alert from "../components/alert";
-import { newUser } from "../generators/emptyObjects";
 
-export const DEFAULT_USER_AUTH: IUser = newUser('standard');
+export const DEFAULT_USER_AUTH: IUser = {
+  email: '',
+  name: '',
+  nickname: ''
+} as IUser;
 
 const getStoredAuth = (): IUser => {
   const auth = sessionStorage.getItem('UserAuth');
