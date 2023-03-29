@@ -1,5 +1,4 @@
-import { IAccount } from "./IAccount";
-import { IUserTeam } from "./IUserTeam";
+import { IAccount, IUserTeam } from '.';
 
 export interface ITeamNew {
   account_id: number;
