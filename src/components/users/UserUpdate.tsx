@@ -114,7 +114,7 @@ export const UserUpdate = ({
       disabled={loading || deleting}
     >
       <Typography.Text style={{ ...theme.texts.brandFont }}>
-        Cancel
+        Ok
       </Typography.Text>
     </Button>,
     <Button
