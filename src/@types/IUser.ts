@@ -1,5 +1,3 @@
-import { ITeam } from "./ITeam";
-
 export type UserType = 'standard' | 'admin' | 'super' | '';
 
 type EnglishLevel = 'a1' | 'a2' | 'b1' | 'b2' | 'c1' | 'c2' | '';
@@ -29,7 +27,6 @@ export interface IUser extends OptionalFields  {
   nickname: string;
   user_type: UserType;
   profile: IProfile;
-  teams: ITeam [];
 }
 
 interface IProfileNew {

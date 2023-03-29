@@ -1,9 +1,13 @@
 import { Form, Input, Select, Typography } from "antd";
 import Password from "antd/es/input/Password";
 import TextArea from "antd/es/input/TextArea";
-import { IUser } from "../../@types";
+import { useEffect, useState } from "react";
+import { ITeam, IUser } from "../../@types";
+import { getTeamsByUser } from "../../api/core/Team";
+import { LoadingMask } from "../../atoms/LoadingMask";
 import { Team } from "../../pages/teams/Team";
 import { theme } from "../../Theme";
+import Alert from "../alert";
 import { TeamsContainer } from "../containers";
 
 export const UserForm = ({
@@ -16,6 +20,31 @@ export const UserForm = ({
   showPassword: boolean;
 }): JSX.Element => {
   const [form] = Form.useForm();
+  const [loading, setLoading] = useState(true);
+  const [reveal, setReveal] = useState(false);
+  const [teams, setTeams] = useState<ITeam []>([]);
+
+  const fetchTeams = async (): Promise<void> => {
+    try {
+      const data = await getTeamsByUser({ offset: 0, limit: 5, userId: values.id })
+      setTeams(data.teams);
+      setTimeout(() => setLoading(false), 1500);
+    } catch (err: any) {
+      setTimeout(() => Alert({
+        icon: 'error',
+        title: 'Ops!',
+        text: err.error || 'There was an error, please try again later'
+      }), 1000);
+    }
+  };
+
+  useEffect(() => {
+    fetchTeams();
+  }, []);
+
+  useEffect(() => {
+    if (!loading) setTimeout(() => setReveal(true), 250);
+  }, [loading]);
 
   return (
     <Form
@@ -89,14 +118,21 @@ export const UserForm = ({
         name='cv'>
         <Input maxLength={20} style={{ ...theme.texts.brandSubFont }}/>
       </Form.Item>
-      {values.teams && values.teams.length > 0 && (<Form.Item label={<Typography.Text style={{ ...theme.texts.brandFont }}>
+      <Form.Item label={<Typography.Text style={{ ...theme.texts.brandFont }}>
         Teams History
       </Typography.Text>}
-        name='manager_name'>
-          <TeamsContainer>
-            {values.teams.map(t => <Team key={t.id} team={t} />)}
+        name='manager_name' style={{ minHeight: 560 }}>
+          {loading
+          ? <div style={{ width: '100%', height: 540, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+              <LoadingMask />
+            </div>
+          : <TeamsContainer reveal={reveal}>
+            {(teams || []).map(team =>
+              <Team key={team.id} team={team} />
+            )}
           </TeamsContainer>
-      </Form.Item>)}
+          }
+      </Form.Item>
     </Form>
   );
 };

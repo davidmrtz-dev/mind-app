@@ -6,6 +6,5 @@ export const newUser = (type: UserType): IUser => ({
   name: '',
   nickname: '',
   user_type: type as UserType,
-  profile: {} as IProfile,
-  teams: []
+  profile: {} as IProfile
 });

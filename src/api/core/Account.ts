@@ -3,7 +3,7 @@ import { IAccountNew, IAccount, IAccounts } from '../../@types';
 
 export const getAccounts = async ({
   offset,
-  limit = 5
+  limit = 10
 }: {
   offset: number;
   limit?: number;
