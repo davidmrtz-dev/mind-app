@@ -3,12 +3,30 @@ import { ITeamNew, ITeam, ITeams } from '../../@types';
 
 export const getTeams = async ({
   offset,
-  limit = 5
+  limit = 10
 }: {
   offset: number;
   limit?: number;
 }): Promise<ITeams> => {
   const result = await Http.get('/api/v1/teams', { limit, offset }, {
+    'access-token': sessionStorage.getItem('authorization:token') || '',
+    client: sessionStorage.getItem('authorization:client') || '',
+    uid: sessionStorage.getItem('authorization:uid') || ''
+  });
+
+  return result.data;
+};
+
+export const getUserTeams = async ({
+  userId,
+  offset,
+  limit = 10
+}: {
+  userId: number;
+  offset: number;
+  limit?: number;
+}): Promise<ITeams> => {
+  const result = await Http.get(`/api/v1/teams/${userId}`, { limit, offset }, {
     'access-token': sessionStorage.getItem('authorization:token') || '',
     client: sessionStorage.getItem('authorization:client') || '',
     uid: sessionStorage.getItem('authorization:uid') || ''

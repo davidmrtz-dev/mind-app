@@ -3,7 +3,7 @@ import { IUserTeamNew, IUserTeam, IUserTeams } from '../../@types';
 
 export const getUserTeams = async ({
   offset,
-  limit = 5
+  limit = 10
 }: {
   offset: number;
   limit?: number;
