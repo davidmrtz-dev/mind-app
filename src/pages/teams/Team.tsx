@@ -25,6 +25,48 @@ export const Team = ({
       {capitalizeFirst(team.name)}
     </Typography.Text>
   </ItemWrapper>
+  {team.user_team?.start_at &&(<ItemWrapper>
+    <Typography.Text style={{
+      ...theme.texts.brandSubFont,
+      width: '30%'
+    }}>
+      <strong>Start At:</strong>
+    </Typography.Text>
+    <Typography.Text style={{
+      ...theme.texts.brandSubFont
+    }}>
+      {team.user_team.start_at as string}
+    </Typography.Text>
+  </ItemWrapper>)}
+  {team.user_team?.end_at &&(<ItemWrapper>
+    <Typography.Text style={{
+      ...theme.texts.brandSubFont,
+      width: '30%'
+    }}>
+      <strong>End At:</strong>
+    </Typography.Text>
+    <Typography.Text style={{
+      ...theme.texts.brandSubFont
+    }}>
+      {team.user_team.end_at as string}
+    </Typography.Text>
+  </ItemWrapper>)}
+  {team.user_team?.status &&(<ItemWrapper>
+    <Typography.Text style={{
+      ...theme.texts.brandSubFont,
+      width: '30%'
+    }}>
+      <strong>Status:</strong>
+    </Typography.Text>
+    <Typography.Text style={{
+      ...theme.texts.brandSubFont,
+      backgroundColor: team.user_team.status === 'active' ? 'green' : 'red',
+      borderRadius: 5,
+      padding: '0 5px'
+    }}>
+      {capitalizeFirst(team.user_team.status)}
+    </Typography.Text>
+  </ItemWrapper>)}
   {team.account?.name && (<ItemWrapper>
     <Typography.Text style={{
       ...theme.texts.brandSubFont,
