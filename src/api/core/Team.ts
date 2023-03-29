@@ -17,10 +17,23 @@ export const getTeams = async ({
   return result.data;
 };
 
-// export const getUserTeams = async ({
-//   offset,
-//   limit = 10
-// })
+export const getUserTeams = async ({
+  userId,
+  offset,
+  limit = 10
+}: {
+  userId: number;
+  offset: number;
+  limit?: number;
+}): Promise<ITeams> => {
+  const result = await Http.get(`/api/v1/teams/${userId}`, { limit, offset }, {
+    'access-token': sessionStorage.getItem('authorization:token') || '',
+    client: sessionStorage.getItem('authorization:client') || '',
+    uid: sessionStorage.getItem('authorization:uid') || ''
+  });
+
+  return result.data;
+};
 
 export const createTeam = async (values: ITeamNew): Promise<ITeam> => {
   const result = await Http.post('/api/v1/teams', { team: values }, { headers: {
