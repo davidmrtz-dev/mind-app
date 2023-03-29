@@ -1,4 +1,4 @@
-import { ITeam } from "./ITeam";
+import { ITeam } from '.';
 
 export interface IAccountNew {
   name: string;
