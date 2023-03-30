@@ -178,6 +178,7 @@ export const UserForm = ({
           </TeamsContainer>
           }
           <UserTeamCreate
+            userLocked
             userTeam={{...newUserTeam(), user_id: values.id, team_id: undefined }}
             open={addTo}
             closeModal={() => setAddTo(false)}

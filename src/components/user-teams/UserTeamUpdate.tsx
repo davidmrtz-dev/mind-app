@@ -169,6 +169,8 @@ export const UserTeamUpdate = ({
       footer={footerComponents}
     >
       <UserTeamForm
+        lockUserId
+        lockTeamId
         values={values}
         setValues={setValues}
       />

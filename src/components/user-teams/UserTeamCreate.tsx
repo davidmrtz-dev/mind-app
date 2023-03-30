@@ -9,11 +9,13 @@ import { UserTeamForm } from "./UserTeamForm";
 import dayjs from "dayjs";
 
 export const UserTeamCreate = ({
+  userLocked,
   userTeam,
   open,
   closeModal,
   handleCreate
 }: {
+  userLocked?: boolean;
   userTeam?: IUserTeam;
   open: boolean;
   closeModal: () => void;
@@ -95,6 +97,7 @@ export const UserTeamCreate = ({
       ]}
     >
       <UserTeamForm
+        lockUserId={userLocked}
         values={values}
         setValues={setValues}
       />
