@@ -11,6 +11,7 @@ import { Team } from "../../pages/teams/Team";
 import { theme } from "../../Theme";
 import Alert from "../alert";
 import { TeamsContainer } from "../containers";
+import AddToTeam from "./AddToTeam";
 
 export const UserForm = ({
   values,
@@ -30,7 +31,7 @@ export const UserForm = ({
 
   const fetchTeams = async (): Promise<void> => {
     try {
-      const data = await getTeamsByUser({ offset: 0, limit: 5, userId: values.id })
+      const data = await getTeamsByUser({ offset: 0, limit: 10, userId: values.id })
       setTeams(data.teams);
       setTimeout(() => setLoading(false), 1500);
     } catch (err: any) {
@@ -163,6 +164,7 @@ export const UserForm = ({
         Teams History
       </Typography.Text>}
         name='manager_name'>
+          {AddToTeam('Add to team', () => {})}
           {loading
           ? <div style={{ width: '100%', height: 120, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
               <LoadingMask />
