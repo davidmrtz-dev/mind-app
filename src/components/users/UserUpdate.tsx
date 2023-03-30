@@ -48,23 +48,19 @@ export const UserUpdate = ({
           cv: values.cv || ''
         }
       });
-      setTimeout(async () => {
-        await handleUpdate(user);
-        setValues(newUser('standard'));
-        setLoading(false);
-        closeModal();
-      }, 1000);
+      await handleUpdate(user);
     } catch (err: any) {
+      const error = err.errors && err.errors.length && err.errors[0];
+      Alert({
+        icon: 'error',
+        text: (error || 'There was an error, please try again later.')
+      });
+    } finally {
       setTimeout(() => {
-        const error = err.errors && err.errors.length && err.errors[0];
-        Alert({
-          icon: 'error',
-          text: (error || 'There was an error, please try again later.')
-        });
         setValues(newUser('standard'));
         setLoading(false);
         closeModal();
-      }, 1000);
+      }, 500);
     }
   }, [closeModal, handleUpdate, values]);
 
