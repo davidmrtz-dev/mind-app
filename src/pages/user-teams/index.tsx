@@ -82,7 +82,7 @@ const UserTeamsPage = (): JSX.Element => {
   }, [loading]);
 
   return(<>
-    {Title('User Teams', () => setShowNew(true))}
+    {Title('User Teams')}
     {loading
     ? <LoadingMask fixed />
     : <UserTeamsContainer reveal={reveal}>
