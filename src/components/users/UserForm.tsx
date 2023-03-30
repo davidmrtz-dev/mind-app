@@ -4,7 +4,9 @@ import TextArea from "antd/es/input/TextArea";
 import { useEffect, useState } from "react";
 import { ITeam, IUser } from "../../@types";
 import { getTeamsByUser } from "../../api/core/Team";
+import { deleteUserTeam } from "../../api/core/UserTeam";
 import { LoadingMask } from "../../atoms/LoadingMask";
+import { newTeam } from "../../generators/emptyObjects";
 import { Team } from "../../pages/teams/Team";
 import { theme } from "../../Theme";
 import Alert from "../alert";
@@ -24,7 +26,7 @@ export const UserForm = ({
   const [reveal, setReveal] = useState(false);
   const [teams, setTeams] = useState<ITeam []>([]);
   const [destroy, setDestroy] = useState(false);
-  const [teamId, setTeamId] = useState<number | null>(null);
+  const [team, setTeam] = useState<ITeam>(newTeam());
 
   const fetchTeams = async (): Promise<void> => {
     try {
@@ -40,13 +42,44 @@ export const UserForm = ({
     }
   };
 
-  const handleDestroyTeamClick = (id: number) => {
+  const handleDestroyTeamClick = (team: ITeam) => {
     setDestroy(true);
-    setTeamId(id);
+    setTeam(team);
   }
+
+  const handleDelete = (id: number) => {
+    if (teams.length) {
+      const udpatedTeams = teams.filter(team => team.id !== id);
+      setTeams(udpatedTeams);
+    }
+  }
+
+  const handleSubmitDelete = async () => {
+    if (!team?.user_team) return;
+
+    try {
+      await deleteUserTeam(team.user_team?.id);
+      setTimeout(async () => {
+        handleDelete(team.id);
+        setTeam(newTeam());
+        setDestroy(false);
+      }, 1000);
+    } catch (err: any) {
+      const error = err?.errors?.[0] || err?.error || '';
+      Alert({
+        icon: 'error',
+        text:(error || 'There was an error, please try again later.')
+      });
+      setTimeout(() => {
+        setTeam(newTeam());
+        setDestroy(false);
+      }, 1000);
+    }
+  };
 
   useEffect(() => {
     fetchTeams();
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -59,9 +92,9 @@ export const UserForm = ({
     showCancelButton: true
   }).then(result => {
     setDestroy(false);
-    // if (result.isConfirmed) {
-    //   handleSubmitDelete();
-    // }
+    if (result.isConfirmed) {
+      handleSubmitDelete();
+    }
   });
 
   return (
@@ -139,9 +172,9 @@ export const UserForm = ({
       <Form.Item label={<Typography.Text style={{ ...theme.texts.brandFont }}>
         Teams History
       </Typography.Text>}
-        name='manager_name' style={{ minHeight: 560 }}>
+        name='manager_name'>
           {loading
-          ? <div style={{ width: '100%', height: 540, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+          ? <div style={{ width: '100%', height: 120, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
               <LoadingMask />
             </div>
           : <TeamsContainer reveal={reveal}>
@@ -149,7 +182,7 @@ export const UserForm = ({
               <Team
                 key={team.id}
                 team={team}
-                onClickDelete={() => handleDestroyTeamClick(team.id)} />
+                onClickDelete={() => handleDestroyTeamClick(team)} />
             )}
           </TeamsContainer>
           }
