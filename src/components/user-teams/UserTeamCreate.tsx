@@ -37,19 +37,15 @@ export const UserTeamCreate = ({
         start_at: dayjs(values.start_at).format('YYYY-MM-DD'),
         end_at: dayjs(values.end_at).format('YYYY-MM-DD')
       });
-      setTimeout(async () => {
-        await handleCreate(userTeam);
-        setValues(newUserTeam());
-        setLoading(false);
-        closeModal();
-      }, 1000);
+      await handleCreate(userTeam);
     } catch (err: any) {
+      const error = err.errors && err.errors.length && err.errors[0];
+      Alert({
+        icon: 'error',
+        text: (error || 'There was an error, please try again later.'),
+      });
+    } finally {
       setTimeout(() => {
-        const error = err.errors && err.errors.length && err.errors[0];
-        Alert({
-          icon: 'error',
-          text: (error || 'There was an error, please try again later.'),
-        });
         setValues(newUserTeam());
         setLoading(false);
         closeModal();
