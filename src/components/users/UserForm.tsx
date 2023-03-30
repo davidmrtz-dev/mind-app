@@ -11,6 +11,7 @@ import { Team } from "../../pages/teams/Team";
 import { theme } from "../../Theme";
 import Alert from "../alert";
 import { TeamsContainer } from "../containers";
+import { UserTeamCreate } from "../user-teams";
 import AddToTeam from "./AddToTeam";
 
 export const UserForm = ({
@@ -28,6 +29,7 @@ export const UserForm = ({
   const [teams, setTeams] = useState<ITeam []>([]);
   const [destroy, setDestroy] = useState(false);
   const [team, setTeam] = useState<ITeam>(newTeam());
+  const [addTo, setAddTo] = useState(false);
 
   const fetchTeams = async (): Promise<void> => {
     try {
@@ -161,7 +163,7 @@ export const UserForm = ({
         <Input maxLength={20} style={{ ...theme.texts.brandSubFont }}/>
       </Form.Item>
       <Form.Item name='teams_history'>
-          {AddToTeam('Teams History', () => {})}
+          {AddToTeam('Teams History', () => setAddTo(true))}
           {loading
           ? <div style={{ width: '100%', height: 120, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
               <LoadingMask />
@@ -175,6 +177,11 @@ export const UserForm = ({
             )}
           </TeamsContainer>
           }
+          <UserTeamCreate
+            open={addTo}
+            closeModal={() => setAddTo(false)}
+            handleCreate={async () => {}}
+          />
       </Form.Item>
     </Form>
   );

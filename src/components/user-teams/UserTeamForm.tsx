@@ -48,7 +48,7 @@ export const UserTeamForm = ({
           style={{ width: '100%' }}
         />
       </Form.Item>
-      <Form.Item label='User Type' name='status'>
+      <Form.Item label='Status' name='status'>
         <Select
           style={{ width: '100%' }}
           options={[
