@@ -64,19 +64,15 @@ export const UserTeamUpdate = ({
 
     try {
       await deleteUserTeam(userTeam.id);
-      setTimeout(async () => {
-        handleDelete && handleDelete(userTeam.id);
-        setValues(newUserTeam());
-        setDeleting(false);
-        closeModal();
-      }, 1000);
+      handleDelete && handleDelete(userTeam.id);
     } catch (err: any) {
+      const error = err.errors && err.errors.length && err.errors[0];
+      Alert({
+        icon: 'error',
+        text: (error || 'There was an error, please try again later.')
+      });
+    } finally {
       setTimeout(() => {
-        const error = err.errors && err.errors.length && err.errors[0];
-        Alert({
-          icon: 'error',
-          text: (error || 'There was an error, please try again later.')
-        });
         setValues(newUserTeam());
         setDeleting(false);
         closeModal();
