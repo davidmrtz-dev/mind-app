@@ -40,19 +40,15 @@ export const TeamUpdate = ({
       const team = await updateTeam({
         ...values
       });
-      setTimeout(async () => {
-        await handleUpdate(team);
-        setValues(newTeam());
-        setLoading(false);
-        closeModal();
-      }, 1000);
+      await handleUpdate(team);
     } catch (err: any) {
+      const error = err.errors && err.errors.length && err.errors[0];
+      Alert({
+        icon: 'error',
+        text: (error || 'There was an error, please try again later.')
+      });
+    } finally {
       setTimeout(() => {
-        const error = err.errors && err.errors.length && err.errors[0];
-        Alert({
-          icon: 'error',
-          text: (error || 'There was an error, please try again later.')
-        });
         setValues(newTeam());
         setLoading(false);
         closeModal();
