@@ -47,19 +47,12 @@ export const UserForm = ({
     setTeam(team);
   }
 
-  const handleDelete = (id: number) => {
-    if (teams.length) {
-      const udpatedTeams = teams.filter(team => team.id !== id);
-      setTeams(udpatedTeams);
-    }
-  }
-
   const handleSubmitDelete = async () => {
     if (!team?.user_team) return;
 
     try {
       await deleteUserTeam(team.user_team?.id);
-      handleDelete(team.id);
+      await fetchTeams();
     } catch (err: any) {
       const error = err?.errors?.[0] || err?.error || '';
       Alert({
@@ -70,7 +63,6 @@ export const UserForm = ({
       setTimeout(() => {
         setTeam(newTeam());
         setDestroy(false);
-        setReveal(true);
       }, 500);
     }
   };
@@ -91,7 +83,6 @@ export const UserForm = ({
   }).then(result => {
     setDestroy(false);
     if (result.isConfirmed) {
-      setReveal(false);
       handleSubmitDelete();
     }
   });
