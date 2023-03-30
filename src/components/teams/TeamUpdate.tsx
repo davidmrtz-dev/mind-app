@@ -42,7 +42,7 @@ export const TeamUpdate = ({
       });
       await handleUpdate(team);
     } catch (err: any) {
-      const error = err.errors && err.errors.length && err.errors[0];
+      const error = err?.errors?.[0] || err?.error || '';
       Alert({
         icon: 'error',
         text: (error || 'There was an error, please try again later.')
