@@ -23,6 +23,8 @@ export const UserForm = ({
   const [loading, setLoading] = useState(true);
   const [reveal, setReveal] = useState(false);
   const [teams, setTeams] = useState<ITeam []>([]);
+  const [destroy, setDestroy] = useState(false);
+  const [teamId, setTeamId] = useState<number | null>(null);
 
   const fetchTeams = async (): Promise<void> => {
     try {
@@ -38,6 +40,11 @@ export const UserForm = ({
     }
   };
 
+  const handleDestroyTeamClick = (id: number) => {
+    setDestroy(true);
+    setTeamId(id);
+  }
+
   useEffect(() => {
     fetchTeams();
   }, []);
@@ -45,6 +52,17 @@ export const UserForm = ({
   useEffect(() => {
     if (!loading) setTimeout(() => setReveal(true), 250);
   }, [loading]);
+
+  if (destroy) Alert({
+    icon: 'warning',
+    text: 'Are you sure you want to remove this user from this team?',
+    showCancelButton: true
+  }).then(result => {
+    setDestroy(false);
+    // if (result.isConfirmed) {
+    //   handleSubmitDelete();
+    // }
+  });
 
   return (
     <Form
@@ -131,7 +149,7 @@ export const UserForm = ({
               <Team
                 key={team.id}
                 team={team}
-                onClickDelete={() => {}} />
+                onClickDelete={() => handleDestroyTeamClick(team.id)} />
             )}
           </TeamsContainer>
           }

@@ -63,7 +63,10 @@ export const Team = ({
     </Typography.Text>
     <Typography.Text style={{
       ...theme.texts.brandSubFont,
-      backgroundColor: team.user_team.status === 'active' ? 'green' : 'red',
+      backgroundColor:
+        team.user_team.status === 'active'
+          ? theme.colors.succeed
+          : theme.colors.warning,
       borderRadius: 5,
       padding: '0 5px'
     }}>
