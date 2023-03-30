@@ -172,9 +172,9 @@ export const UserForm = ({
       <Form.Item label={<Typography.Text style={{ ...theme.texts.brandFont }}>
         Teams History
       </Typography.Text>}
-        name='manager_name' style={{ minHeight: 560 }}>
+        name='manager_name'>
           {loading
-          ? <div style={{ width: '100%', height: 540, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+          ? <div style={{ width: '100%', height: 120, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
               <LoadingMask />
             </div>
           : <TeamsContainer reveal={reveal}>
