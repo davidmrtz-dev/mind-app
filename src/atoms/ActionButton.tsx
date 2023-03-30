@@ -1,13 +1,15 @@
-import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
+import { faCircleInfo, IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { theme } from "../Theme";
 
 export const ActionButton = ({
   onClick,
-  top
+  top,
+  icon
 }: {
   onClick: () => void;
   top?: number;
+  icon?: IconDefinition
 }): JSX.Element => <FontAwesomeIcon
   onClick={onClick}
   style={{
@@ -17,5 +19,5 @@ export const ActionButton = ({
     cursor: 'pointer'
   }}
   color={theme.colors.blacks.normal}
-  icon={faCircleInfo}
+  icon={icon || faCircleInfo}
 />

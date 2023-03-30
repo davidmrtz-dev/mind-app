@@ -1,3 +1,4 @@
+import { faRemove } from "@fortawesome/free-solid-svg-icons";
 import { Typography } from "antd";
 import { ITeam } from "../../@types";
 import { ActionButton } from "../../atoms/ActionButton";
@@ -96,5 +97,7 @@ export const Team = ({
     </Typography.Text>
   </ItemWrapper>)}
   {onClickUpdate && (<ActionButton onClick={onClickUpdate} />)}
-  {onClickDelete && (<ActionButton onClick={onClickDelete} />)}
+  {onClickDelete && (
+    <ActionButton onClick={onClickDelete} icon={faRemove} />
+  )}
 </TeamContainer>;
