@@ -47,6 +47,7 @@ export const UserForm = ({
 
   useEffect(() => {
     fetchTeams();
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
