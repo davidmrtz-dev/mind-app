@@ -160,11 +160,8 @@ export const UserForm = ({
         name='cv'>
         <Input maxLength={20} style={{ ...theme.texts.brandSubFont }}/>
       </Form.Item>
-      <Form.Item label={<Typography.Text style={{ ...theme.texts.brandFont }}>
-        Teams History
-      </Typography.Text>}
-        name='manager_name'>
-          {AddToTeam('Add to team', () => {})}
+      <Form.Item name='teams_history'>
+          {AddToTeam('Teams History', () => {})}
           {loading
           ? <div style={{ width: '100%', height: 120, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
               <LoadingMask />
