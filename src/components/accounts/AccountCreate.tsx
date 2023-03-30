@@ -34,19 +34,15 @@ export const AccountCreate = ({
       const account = await createAccount({
         ...values
       });
-      setTimeout(async () => {
-        await handleCreate(account);
-        setValues(newAccount());
-        setLoading(false);
-        closeModal();
-      }, 1000);
+      await handleCreate(account);
     } catch (err: any) {
+      const error = err.errors && err.errors.length && err.errors[0];
+      Alert({
+        icon: 'error',
+        text: (error || 'There was an error, please try again later.'),
+      });
+    } finally {
       setTimeout(() => {
-        const error = err.errors && err.errors.length && err.errors[0];
-        Alert({
-          icon: 'error',
-          text: (error || 'There was an error, please try again later.'),
-        });
         setValues(newAccount());
         setLoading(false);
         closeModal();
