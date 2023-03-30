@@ -3,15 +3,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { theme } from "../Theme";
 
 export const ActionButton = ({
-  onClick
+  onClick,
+  top,
+  right
 }: {
   onClick: () => void;
+  top?: number;
+  right?: number;
 }): JSX.Element => <FontAwesomeIcon
   onClick={onClick}
   style={{
     position: 'absolute',
-    top: 5,
-    right: 5,
+    top: top || 5,
+    right: right || 5,
     cursor: 'pointer'
   }}
   color={theme.colors.blacks.normal}
