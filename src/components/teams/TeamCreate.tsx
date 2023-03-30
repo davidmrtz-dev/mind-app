@@ -34,19 +34,15 @@ export const TeamCreate = ({
       const team = await createTeam({
         ...values
       });
-      setTimeout(async () => {
-        await handleCreate(team);
-        setValues(newTeam());
-        setLoading(false);
-        closeModal();
-      }, 1000);
+      await handleCreate(team);
     } catch (err: any) {
+      const error = err?.errors?.[0] || err?.error || '';
+      Alert({
+        icon: 'error',
+        text: (error || 'There was an error, please try again later.'),
+      });
+    } finally {
       setTimeout(() => {
-        const error = err.errors && err.errors.length && err.errors[0];
-        Alert({
-          icon: 'error',
-          text: (error || 'There was an error, please try again later.'),
-        });
         setValues(newTeam());
         setLoading(false);
         closeModal();

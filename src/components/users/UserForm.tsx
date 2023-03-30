@@ -59,21 +59,19 @@ export const UserForm = ({
 
     try {
       await deleteUserTeam(team.user_team?.id);
-      setTimeout(async () => {
-        handleDelete(team.id);
-        setTeam(newTeam());
-        setDestroy(false);
-      }, 1000);
+      handleDelete(team.id);
     } catch (err: any) {
       const error = err?.errors?.[0] || err?.error || '';
       Alert({
         icon: 'error',
         text:(error || 'There was an error, please try again later.')
       });
+    } finally {
       setTimeout(() => {
         setTeam(newTeam());
         setDestroy(false);
-      }, 1000);
+        setReveal(true);
+      }, 500);
     }
   };
 
@@ -93,6 +91,7 @@ export const UserForm = ({
   }).then(result => {
     setDestroy(false);
     if (result.isConfirmed) {
+      setReveal(false);
       handleSubmitDelete();
     }
   });
