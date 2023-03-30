@@ -40,6 +40,11 @@ export const UserForm = ({
     }
   };
 
+  const handleDestroyTeamClick = (id: number) => {
+    setDestroy(true);
+    setTeamId(id);
+  }
+
   useEffect(() => {
     fetchTeams();
   }, []);
@@ -58,11 +63,6 @@ export const UserForm = ({
     //   handleSubmitDelete();
     // }
   });
-
-  const handleDestroyTeamClick = (id: number) => {
-    setDestroy(true);
-    setTeamId(id);
-  }
 
   return (
     <Form
