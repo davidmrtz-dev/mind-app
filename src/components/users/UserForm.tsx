@@ -65,12 +65,12 @@ export const UserForm = ({
         setDestroy(false);
       }, 1000);
     } catch (err: any) {
+      const error = err?.errors?.[0] || err?.error || '';
+      Alert({
+        icon: 'error',
+        text:(error || 'There was an error, please try again later.')
+      });
       setTimeout(() => {
-        const error = err?.errors?.[0] || '';
-        Alert({
-          icon: 'error',
-          text:(error || 'There was an error, please try again later.')
-        });
         setTeam(newTeam());
         setDestroy(false);
       }, 1000);
