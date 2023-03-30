@@ -61,19 +61,15 @@ export const TeamUpdate = ({
 
     try {
       await deleteTeam(team.id);
-      setTimeout(async () => {
-        handleDelete && handleDelete(team.id);
-        setValues(newTeam());
-        setDeleting(false);
-        closeModal();
-      }, 1000);
+      handleDelete && handleDelete(team.id);
     } catch (err: any) {
+      const error = err.errors && err.errors.length && err.errors[0];
+      Alert({
+        icon: 'error',
+        text: (error || 'There was an error, please try again later.')
+      });
+    } finally {
       setTimeout(() => {
-        const error = err.errors && err.errors.length && err.errors[0];
-        Alert({
-          icon: 'error',
-          text: (error || 'There was an error, please try again later.')
-        });
         setValues(newTeam());
         setDeleting(false);
         closeModal();
