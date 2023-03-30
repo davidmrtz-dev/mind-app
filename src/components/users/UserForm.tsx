@@ -24,6 +24,7 @@ export const UserForm = ({
   const [reveal, setReveal] = useState(false);
   const [teams, setTeams] = useState<ITeam []>([]);
   const [destroy, setDestroy] = useState(false);
+  const [teamId, setTeamId] = useState<number | null>(null);
 
   const fetchTeams = async (): Promise<void> => {
     try {
@@ -57,6 +58,11 @@ export const UserForm = ({
     //   handleSubmitDelete();
     // }
   });
+
+  const handleDestroyTeamClick = (id: number) => {
+    setDestroy(true);
+    setTeamId(id);
+  }
 
   return (
     <Form
@@ -143,7 +149,7 @@ export const UserForm = ({
               <Team
                 key={team.id}
                 team={team}
-                onClickDelete={() => setDestroy(true)} />
+                onClickDelete={() => handleDestroyTeamClick(team.id)} />
             )}
           </TeamsContainer>
           }
