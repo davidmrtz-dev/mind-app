@@ -7,10 +7,10 @@ import { capitalizeFirst } from "../../utils";
 
 export const Team = ({
   team,
-  onClick
+  onClickUpdate
 }: {
   team: ITeam;
-  onClick?: () => void;
+  onClickUpdate?: () => void;
 }): JSX.Element => <TeamContainer>
   <ItemWrapper>
     <Typography.Text style={{
@@ -93,5 +93,5 @@ export const Team = ({
       {capitalizeFirst(team.account.client_name)}
     </Typography.Text>
   </ItemWrapper>)}
-  {onClick && (<ActionButton onClick={onClick} />)}
+  {onClickUpdate && (<ActionButton onClick={onClickUpdate} />)}
 </TeamContainer>;
