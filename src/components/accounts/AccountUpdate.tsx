@@ -61,19 +61,15 @@ export const AccountUpdate = ({
 
     try {
       await deleteAccount(account.id || 0);
-      setTimeout(async () => {
-        handleDelete && handleDelete(account.id || 0);
-        setValues(newAccount());
-        setDeleting(false);
-        closeModal();
-      }, 1000);
+      handleDelete && handleDelete(account.id || 0);
     } catch (err: any) {
+      const error = err.errors && err.errors.length && err.errors[0];
+      Alert({
+        icon: 'error',
+        text: (error || 'There was an error, please try again later.')
+      });
+    } finally {
       setTimeout(() => {
-        const error = err.errors && err.errors.length && err.errors[0];
-        Alert({
-          icon: 'error',
-          text: (error || 'There was an error, please try again later.')
-        });
         setValues(newAccount());
         setDeleting(false);
         closeModal();
