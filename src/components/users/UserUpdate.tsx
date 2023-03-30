@@ -60,7 +60,7 @@ export const UserUpdate = ({
         setValues(newUser('standard'));
         setLoading(false);
         closeModal();
-      }, 500);
+      }, 1000);
     }
   }, [closeModal, handleUpdate, values]);
 
@@ -81,7 +81,7 @@ export const UserUpdate = ({
         setValues(newUser('standard'));
         setDeleting(false);
         closeModal();
-      }, 500);
+      }, 1000);
     }
   };
 
