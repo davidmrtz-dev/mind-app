@@ -29,7 +29,7 @@ export const UserTeamForm = ({
           style={{ width: '100%', ...theme.texts.brandSubFont }}
         />
       </Form.Item>
-      <Form.Item label={<Typography.Text style={{ ...theme.texts.brandSubFont }}>
+      {values.team_id && (<Form.Item label={<Typography.Text style={{ ...theme.texts.brandSubFont }}>
         Team Id
       </Typography.Text>}
         name='team_id'>
@@ -37,7 +37,7 @@ export const UserTeamForm = ({
           min={1}
           style={{ width: '100%', ...theme.texts.brandSubFont }}
         />
-      </Form.Item>
+      </Form.Item>)}
       <Form.Item label="Start date" name='start_at'>
         <DatePicker
           style={{ width: '100%' }}

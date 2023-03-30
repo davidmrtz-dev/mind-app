@@ -6,7 +6,7 @@ import { ITeam, IUser } from "../../@types";
 import { getTeamsByUser } from "../../api/core/Team";
 import { deleteUserTeam } from "../../api/core/UserTeam";
 import { LoadingMask } from "../../atoms/LoadingMask";
-import { newTeam } from "../../generators/emptyObjects";
+import { newTeam, newUserTeam } from "../../generators/emptyObjects";
 import { Team } from "../../pages/teams/Team";
 import { theme } from "../../Theme";
 import Alert from "../alert";
@@ -178,6 +178,7 @@ export const UserForm = ({
           </TeamsContainer>
           }
           <UserTeamCreate
+            userTeam={{...newUserTeam(), user_id: values.id, team_id: undefined }}
             open={addTo}
             closeModal={() => setAddTo(false)}
             handleCreate={async () => {}}

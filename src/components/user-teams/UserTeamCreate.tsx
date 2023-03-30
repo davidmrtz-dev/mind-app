@@ -1,5 +1,5 @@
 import { Button, Modal, Typography } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IUserTeam } from "../../@types";
 import { theme } from "../../Theme";
 import Alert from "../alert";
@@ -9,10 +9,12 @@ import { UserTeamForm } from "./UserTeamForm";
 import dayjs from "dayjs";
 
 export const UserTeamCreate = ({
+  userTeam,
   open,
   closeModal,
   handleCreate
 }: {
+  userTeam?: IUserTeam;
   open: boolean;
   closeModal: () => void;
   handleCreate: (userTeam: IUserTeam) => Promise<void>;
@@ -57,6 +59,12 @@ export const UserTeamCreate = ({
     setValues(newUserTeam());
     closeModal();
   };
+
+  useEffect(() => {
+    if (userTeam) {
+      setValues(userTeam);
+    }
+  }, [userTeam]);
 
   return (
     <Modal
