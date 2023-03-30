@@ -2,7 +2,6 @@ import { Button, Modal, Typography } from "antd";
 import dayjs from "dayjs";
 import { useCallback, useEffect, useState } from "react";
 import { IUserTeam } from "../../@types";
-import { deleteTeam } from "../../api/core/Team";
 import { deleteUserTeam, updateUserTeam } from "../../api/core/UserTeam";
 import { newUserTeam } from "../../generators/emptyObjects";
 import { theme } from "../../Theme";
@@ -44,19 +43,15 @@ export const UserTeamUpdate = ({
         start_at: dayjs(values.start_at).format('YYYY-MM-DD'),
         end_at: dayjs(values.end_at).format('YYYY-MM-DD')
       });
-      setTimeout(async () => {
-        await handleUpdate(userTeam);
-        setValues(newUserTeam());
-        setLoading(false);
-        closeModal();
-      }, 1000);
+      await handleUpdate(userTeam);
     } catch (err: any) {
+      const error = err.errors && err.errors.length && err.errors[0];
+      Alert({
+        icon: 'error',
+        text: (error || 'There was an error, please try again later.')
+      });
+    } finally {
       setTimeout(() => {
-        const error = err.errors && err.errors.length && err.errors[0];
-        Alert({
-          icon: 'error',
-          text: (error || 'There was an error, please try again later.')
-        });
         setValues(newUserTeam());
         setLoading(false);
         closeModal();
