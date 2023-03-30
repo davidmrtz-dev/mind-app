@@ -4,18 +4,16 @@ import { theme } from "../Theme";
 
 export const ActionButton = ({
   onClick,
-  top,
-  right
+  top
 }: {
   onClick: () => void;
   top?: number;
-  right?: number;
 }): JSX.Element => <FontAwesomeIcon
   onClick={onClick}
   style={{
     position: 'absolute',
     top: top || 5,
-    right: right || 5,
+    right: 5,
     cursor: 'pointer'
   }}
   color={theme.colors.blacks.normal}
