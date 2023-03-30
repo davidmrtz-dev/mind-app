@@ -7,10 +7,12 @@ import { capitalizeFirst } from "../../utils";
 
 export const Team = ({
   team,
-  onClickUpdate
+  onClickUpdate,
+  onClickDelete
 }: {
   team: ITeam;
   onClickUpdate?: () => void;
+  onClickDelete?: () => void;
 }): JSX.Element => <TeamContainer>
   <ItemWrapper>
     <Typography.Text style={{
@@ -94,4 +96,5 @@ export const Team = ({
     </Typography.Text>
   </ItemWrapper>)}
   {onClickUpdate && (<ActionButton onClick={onClickUpdate} />)}
+  {onClickDelete && (<ActionButton onClick={onClickDelete} />)}
 </TeamContainer>;

@@ -128,7 +128,7 @@ export const UserForm = ({
             </div>
           : <TeamsContainer reveal={reveal}>
             {(teams || []).map(team =>
-              <Team key={team.id} team={team} />
+              <Team key={team.id} team={team} onClickDelete={() => {}} />
             )}
           </TeamsContainer>
           }
