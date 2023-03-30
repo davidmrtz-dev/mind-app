@@ -35,7 +35,8 @@ export const theme = {
     blacks: {
       normal: '#101313'
     },
-    warning: '#d33'
+    warning: '#d33',
+    succeed: '#2a9341'
   },
   shadows: {
     good: '0px 0px 10px -1px #0736B5',

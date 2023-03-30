@@ -1,3 +1,4 @@
+import { faRemove } from "@fortawesome/free-solid-svg-icons";
 import { Typography } from "antd";
 import { ITeam } from "../../@types";
 import { ActionButton } from "../../atoms/ActionButton";
@@ -7,10 +8,12 @@ import { capitalizeFirst } from "../../utils";
 
 export const Team = ({
   team,
-  onClick
+  onClickUpdate,
+  onClickDelete
 }: {
   team: ITeam;
-  onClick?: () => void;
+  onClickUpdate?: () => void;
+  onClickDelete?: () => void;
 }): JSX.Element => <TeamContainer>
   <ItemWrapper>
     <Typography.Text style={{
@@ -60,7 +63,10 @@ export const Team = ({
     </Typography.Text>
     <Typography.Text style={{
       ...theme.texts.brandSubFont,
-      backgroundColor: team.user_team.status === 'active' ? 'green' : 'red',
+      backgroundColor:
+        team.user_team.status === 'active'
+          ? theme.colors.succeed
+          : theme.colors.warning,
       borderRadius: 5,
       padding: '0 5px'
     }}>
@@ -93,5 +99,8 @@ export const Team = ({
       {capitalizeFirst(team.account.client_name)}
     </Typography.Text>
   </ItemWrapper>)}
-  {onClick && (<ActionButton onClick={onClick} />)}
+  {onClickUpdate && (<ActionButton onClick={onClickUpdate} />)}
+  {onClickDelete && (
+    <ActionButton onClick={onClickDelete} icon={faRemove} />
+  )}
 </TeamContainer>;
