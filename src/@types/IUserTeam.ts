@@ -9,7 +9,7 @@ interface UserTeamBase {
 
 export interface IUserTeamNew extends UserTeamBase {
   user_id: number;
-  team_id?: number;
+  team_id: number;
 }
 
 export interface IUserTeam extends IUserTeamNew {

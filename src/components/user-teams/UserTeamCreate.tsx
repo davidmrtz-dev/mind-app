@@ -10,13 +10,11 @@ import dayjs from "dayjs";
 
 export const UserTeamCreate = ({
   userLocked,
-  userTeam,
   open,
   closeModal,
   handleCreate
 }: {
   userLocked?: boolean;
-  userTeam?: IUserTeam;
   open: boolean;
   closeModal: () => void;
   handleCreate: (userTeam: IUserTeam) => Promise<void>;
@@ -61,12 +59,6 @@ export const UserTeamCreate = ({
     setValues(newUserTeam());
     closeModal();
   };
-
-  useEffect(() => {
-    if (userTeam) {
-      setValues(userTeam);
-    }
-  }, [userTeam]);
 
   return (
     <Modal
