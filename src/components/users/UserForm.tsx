@@ -170,12 +170,12 @@ export const UserForm = ({
         <Input maxLength={20} style={{ ...theme.texts.brandSubFont }}/>
       </Form.Item>
       <Form.Item name='teams_history'>
-          {AddToTeam('Teams History', () => setAddTo(true))}
           {loading
           ? <div style={{ width: '100%', height: 120, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
               <LoadingMask />
             </div>
           : <TeamsContainer reveal={reveal}>
+            {AddToTeam('Teams History', () => setAddTo(true))}
             {(teams || []).map(team =>
               <Team
                 key={team.id}
