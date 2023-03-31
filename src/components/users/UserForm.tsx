@@ -178,7 +178,7 @@ export const UserForm = ({
           </TeamsContainer>
           }
           <UserTeamCreate
-            userLocked
+            user={values}
             open={addTo}
             closeModal={() => setAddTo(false)}
             handleCreate={async () => {}}

@@ -1,13 +1,15 @@
 import { DatePicker, Form, InputNumber, Select, Typography } from "antd";
-import { IUserTeam } from "../../../@types";
+import { IUser, IUserTeam } from "../../../@types";
 import { theme } from "../../../Theme";
 
 export const UserTeamForm = ({
   values,
   setValues,
+  user
 }: {
   values: IUserTeam;
   setValues: (values: IUserTeam) => void;
+  user: IUser;
 }): JSX.Element => {
   const [form] = Form.useForm();
 
@@ -24,14 +26,12 @@ export const UserTeamForm = ({
         User
       </Typography.Text>}
         name='user_id'>
-        <InputNumber
-          disabled
-          min={1}
-          style={{ width: '100%', ...theme.texts.brandSubFont }}
-        />
+        <Typography.Text style={{ width: '100%', ...theme.texts.brandSubFont }}>
+          <strong>Name:</strong> {user.name}, <strong>Email:</strong> {user.email}
+        </Typography.Text>
       </Form.Item>
       <Form.Item label={<Typography.Text style={{ ...theme.texts.brandSubFont }}>
-        Select a Team
+        Select Team
       </Typography.Text>}
         name='team_id'>
         <InputNumber
@@ -39,12 +39,12 @@ export const UserTeamForm = ({
           style={{ width: '100%', ...theme.texts.brandSubFont }}
         />
       </Form.Item>
-      <Form.Item label="Start date" name='start_at'>
+      <Form.Item label="Start Date" name='start_at'>
         <DatePicker
           style={{ width: '100%' }}
         />
       </Form.Item>
-      <Form.Item label="End date" name='end_at'>
+      <Form.Item label="End Date" name='end_at'>
         <DatePicker
           style={{ width: '100%' }}
         />

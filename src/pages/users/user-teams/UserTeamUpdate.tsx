@@ -1,7 +1,7 @@
 import { Button, Modal, Typography } from "antd";
 import dayjs from "dayjs";
 import { useCallback, useEffect, useState } from "react";
-import { IUserTeam } from "../../../@types";
+import { IUser, IUserTeam } from "../../../@types";
 import { deleteUserTeam, updateUserTeam } from "../../../api/core/UserTeam";
 import Alert from "../../../components/alert";
 import { newUserTeam } from "../../../generators/emptyObjects";
@@ -13,13 +13,15 @@ export const UserTeamUpdate = ({
   open,
   closeModal,
   handleUpdate,
-  handleDelete
+  handleDelete,
+  user
 }: {
   userTeam: IUserTeam;
   open: boolean;
   closeModal: () => void;
   handleUpdate: (userTeam: IUserTeam) => Promise<void>;
   handleDelete?: (id: number) => void;
+  user: IUser;
 }): JSX.Element => {
   const [loading, setLoading] = useState(false);
   const [deleting, setDeleting] = useState(false);
@@ -169,6 +171,7 @@ export const UserTeamUpdate = ({
       footer={footerComponents}
     >
       <UserTeamForm
+        user={user}
         values={values}
         setValues={setValues}
       />
