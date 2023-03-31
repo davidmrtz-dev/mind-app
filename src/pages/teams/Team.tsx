@@ -2,9 +2,28 @@ import { faRemove } from "@fortawesome/free-solid-svg-icons";
 import { Typography } from "antd";
 import { ITeam } from "../../@types";
 import { ActionButton } from "../../atoms/ActionButton";
-import { ItemWrapper, TeamContainer } from "../../components/containers";
 import { theme } from "../../Theme";
 import { capitalizeFirst } from "../../utils";
+import styled from "styled-components";
+
+const TeamContainer = styled.div`
+  background-color: ${p => p.theme.colors.grays.light};
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  margin: 5px 0;
+  padding: 5px 10px;
+  cursor: default;
+  position: relative;
+`;
+
+const ItemWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+`;
 
 export const Team = ({
   team,

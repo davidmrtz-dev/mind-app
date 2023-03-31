@@ -29,5 +29,4 @@ export const AppMainContainer = styled.div`
 `;
 
 export { ElementContainer } from './ElementContainer';
-export { TeamContainer, ItemWrapper } from './TeamContainers';
 
