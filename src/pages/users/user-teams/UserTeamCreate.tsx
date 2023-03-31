@@ -1,12 +1,12 @@
 import { Button, Modal, Typography } from "antd";
 import { useState } from "react";
-import { IUserTeam } from "../../@types";
-import { theme } from "../../Theme";
-import Alert from "../alert";
-import { newUserTeam } from '../../generators/emptyObjects/index';
-import { createUserTeam } from "../../api/core/UserTeam";
+import { IUserTeam } from "../../../@types";
+import { theme } from "../../../Theme";
+import { newUserTeam } from '../../../generators/emptyObjects/index';
+import { createUserTeam } from "../../../api/core/UserTeam";
 import { UserTeamForm } from "./UserTeamForm";
 import dayjs from "dayjs";
+import Alert from "../../../components/alert";
 
 export const UserTeamCreate = ({
   userLocked,
