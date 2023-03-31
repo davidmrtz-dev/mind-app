@@ -89,7 +89,6 @@ export const UserTeamCreate = ({
       ]}
     >
       <UserTeamForm
-        lockUserId={userLocked}
         values={values}
         setValues={setValues}
       />

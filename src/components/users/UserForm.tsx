@@ -8,10 +8,10 @@ import { deleteUserTeam } from "../../api/core/UserTeam";
 import { LoadingMask } from "../../atoms/LoadingMask";
 import { newTeam } from "../../generators/emptyObjects";
 import { Team } from "../../pages/teams/Team";
+import { UserTeamCreate } from "../../pages/users/user-teams";
 import { theme } from "../../Theme";
 import Alert from "../alert";
 import { TeamsContainer } from "../containers";
-import { UserTeamCreate } from "../user-teams";
 import AddToTeam from "./AddToTeam";
 
 export const UserForm = ({
