@@ -30,6 +30,5 @@ export const AppMainContainer = styled.div`
 
 export { ElementContainer } from './ElementContainer';
 export { NavigationContainer } from './NavigationContainer'
-export { TeamsContainer } from './AccountContainers';
 export { TeamContainer, ItemWrapper } from './TeamContainers';
 

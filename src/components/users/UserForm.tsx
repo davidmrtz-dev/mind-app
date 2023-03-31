@@ -2,6 +2,7 @@ import { Form, Input, Select, Typography } from "antd";
 import Password from "antd/es/input/Password";
 import TextArea from "antd/es/input/TextArea";
 import { useEffect, useState } from "react";
+import styled from "styled-components";
 import { ITeam, IUser } from "../../@types";
 import { getTeamsByUser } from "../../api/core/Team";
 import { deleteUserTeam } from "../../api/core/UserTeam";
@@ -11,8 +12,14 @@ import { Team } from "../../pages/teams/Team";
 import { UserTeamCreate } from "../../pages/users/user-teams";
 import { theme } from "../../Theme";
 import Alert from "../alert";
-import { TeamsContainer } from "../containers";
 import AddToTeam from "./AddToTeam";
+
+const TeamsContainer = styled.div<{ reveal: boolean }>`
+  opacity: ${p => p.reveal ? 1 : 0};
+  transition: opacity 1s ease-in-out;
+  display: flex;
+  flex-direction: column;
+`;
 
 export const UserForm = ({
   values,
