@@ -30,12 +30,16 @@ export const UserTeamForm = ({
         <UserData {...user} />
       </Form.Item>
       <Form.Item label={<Typography.Text style={{ ...theme.texts.brandFont }}>
-        Select Team
+        Team
       </Typography.Text>}
         name='select_team'>
-        <InputNumber
-          min={1}
-          style={{ width: '100%', ...theme.texts.brandFont }}
+        <Select
+          placeholder='Select a team'
+          style={{ width: '100%' }}
+          options={[
+            { value: 'active', label: 'Active', id: 0, name: 'lala' },
+            { value: 'inactive', label: 'Inactive', id: 1, name: 'lele' }
+          ]}
         />
       </Form.Item>
       <Form.Item label={<Typography.Text style={{ ...theme.texts.brandFont }}>
