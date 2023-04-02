@@ -12,7 +12,7 @@ import { Team } from "../../pages/teams/Team";
 import { UserTeamCreate } from "../../pages/users/user-teams";
 import { theme } from "../../Theme";
 import Alert from "../alert";
-import AddToTeam from "./AddToTeam";
+import AddTo from "./AddTo";
 
 const TeamsContainer = styled.div<{ reveal: boolean }>`
   opacity: ${p => p.reveal ? 1 : 0};
@@ -175,7 +175,7 @@ export const UserForm = ({
               <LoadingMask />
             </div>
           : <TeamsContainer reveal={reveal}>
-            {AddToTeam('Teams History', () => setAddTo(true))}
+            {AddTo('Teams History', () => setAddTo(true))}
             {(teams || []).map(team =>
               <Team
                 key={team.id}
