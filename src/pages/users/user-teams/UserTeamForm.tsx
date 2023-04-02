@@ -61,7 +61,11 @@ export const UserTeamForm = ({
           ]}
         />
       </Form.Item>
-      <TeamSelection open={showTeam} onCancel={() => setShowTeam(false)} />
+      <TeamSelection
+        open={showTeam}
+        onCancel={() => setShowTeam(false)}
+        userId={user.id}
+      />
     </Form>
   );
 };
