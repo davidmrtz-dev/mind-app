@@ -170,6 +170,7 @@ export const UserForm = ({
         <Input maxLength={20} style={{ ...theme.texts.brandSubFont }}/>
       </Form.Item>
       <Form.Item name='teams_history'>
+        <>
           {loading
           ? <div style={{ width: '100%', height: 120, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
               <LoadingMask />
@@ -190,6 +191,7 @@ export const UserForm = ({
             closeModal={() => setAddTo(false)}
             handleCreate={async () => {}}
           />
+        </>
       </Form.Item>
     </Form>
   );
