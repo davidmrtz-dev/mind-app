@@ -1,6 +1,6 @@
 import { Button, Typography } from "antd";
 import styled from "styled-components"
-import { theme } from "../../Theme";
+import { theme } from "../Theme";
 
 const AddToWrapper = styled.div`
   background-color: ${p => p.theme.colors.grays.light};
