@@ -1,8 +1,10 @@
 import { DatePicker, Form, Select, Typography } from "antd";
+import { useState } from "react";
 import styled from "styled-components";
 import { IUser, IUserTeam } from "../../../@types";
 import AddTo from "../../../atoms/AddTo";
 import { theme } from "../../../Theme";
+import TeamSelection from "./TeamSelection";
 
 export const UserTeamForm = ({
   values,
@@ -14,6 +16,7 @@ export const UserTeamForm = ({
   user: IUser;
 }): JSX.Element => {
   const [form] = Form.useForm();
+  const [showTeam, setShowTeam] = useState(false);
 
   return (
     <Form
@@ -31,7 +34,7 @@ export const UserTeamForm = ({
         <UserData {...user} />
       </Form.Item>
       <Form.Item name='select_team'>
-        {AddTo('Select Team', () => {})}
+        {AddTo('Select Team', () => setShowTeam(true))}
       </Form.Item>
       <Form.Item label={<Typography.Text style={{ ...theme.texts.brandFont }}>
         Start Date
@@ -58,6 +61,7 @@ export const UserTeamForm = ({
           ]}
         />
       </Form.Item>
+      <TeamSelection open={showTeam} onCancel={() => setShowTeam(false)} />
     </Form>
   );
 };
