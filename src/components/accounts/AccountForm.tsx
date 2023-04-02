@@ -1,8 +1,15 @@
 import { Form, Input, Typography } from "antd";
+import styled from "styled-components";
 import { IAccount } from "../../@types";
 import { Team } from "../../pages/teams/Team";
 import { theme } from "../../Theme";
-import { TeamsContainer } from "../containers";
+
+const TeamsContainer = styled.div<{ reveal: boolean }>`
+  opacity: ${p => p.reveal ? 1 : 0};
+  transition: opacity 1s ease-in-out;
+  display: flex;
+  flex-direction: column;
+`;
 
 export const AccountForm = ({
   values,

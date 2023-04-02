@@ -20,13 +20,16 @@ export const getTeams = async ({
 export const getTeamsByUser = async ({
   userId,
   offset,
-  limit = 10
+  limit = 10,
+  excludeUser
 }: {
   userId: number;
   offset: number;
   limit?: number;
+  excludeUser?: boolean;
 }): Promise<ITeams> => {
-  const result = await Http.get(`/api/v1/teams/${userId}`, { limit, offset }, {
+  const urlTail = excludeUser ? `?user_id=${userId}` : `${userId}`;
+  const result = await Http.get(`/api/v1/teams/${urlTail}`, { limit, offset }, {
     'access-token': sessionStorage.getItem('authorization:token') || '',
     client: sessionStorage.getItem('authorization:client') || '',
     uid: sessionStorage.getItem('authorization:uid') || ''

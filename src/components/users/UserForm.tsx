@@ -2,15 +2,24 @@ import { Form, Input, Select, Typography } from "antd";
 import Password from "antd/es/input/Password";
 import TextArea from "antd/es/input/TextArea";
 import { useEffect, useState } from "react";
+import styled from "styled-components";
 import { ITeam, IUser } from "../../@types";
 import { getTeamsByUser } from "../../api/core/Team";
 import { deleteUserTeam } from "../../api/core/UserTeam";
 import { LoadingMask } from "../../atoms/LoadingMask";
 import { newTeam } from "../../generators/emptyObjects";
 import { Team } from "../../pages/teams/Team";
+import { UserTeamCreate } from "../../pages/users/user-teams";
 import { theme } from "../../Theme";
 import Alert from "../alert";
-import { TeamsContainer } from "../containers";
+import AddTo from "../../atoms/AddTo";
+
+const TeamsContainer = styled.div<{ reveal: boolean }>`
+  opacity: ${p => p.reveal ? 1 : 0};
+  transition: opacity 1s ease-in-out;
+  display: flex;
+  flex-direction: column;
+`;
 
 export const UserForm = ({
   values,
@@ -27,10 +36,15 @@ export const UserForm = ({
   const [teams, setTeams] = useState<ITeam []>([]);
   const [destroy, setDestroy] = useState(false);
   const [team, setTeam] = useState<ITeam>(newTeam());
+  const [addTo, setAddTo] = useState(false);
 
   const fetchTeams = async (): Promise<void> => {
     try {
-      const data = await getTeamsByUser({ offset: 0, limit: 5, userId: values.id })
+      const data = await getTeamsByUser({
+        offset: 0,
+        limit: 10,
+        userId: values.id
+      })
       setTeams(data.teams);
       setTimeout(() => setLoading(false), 1500);
     } catch (err: any) {
@@ -159,15 +173,14 @@ export const UserForm = ({
         name='cv'>
         <Input maxLength={20} style={{ ...theme.texts.brandSubFont }}/>
       </Form.Item>
-      <Form.Item label={<Typography.Text style={{ ...theme.texts.brandFont }}>
-        Teams History
-      </Typography.Text>}
-        name='manager_name'>
+      <Form.Item name='teams_history'>
+        <>
           {loading
           ? <div style={{ width: '100%', height: 120, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
               <LoadingMask />
             </div>
           : <TeamsContainer reveal={reveal}>
+            {AddTo('Teams History', () => setAddTo(true))}
             {(teams || []).map(team =>
               <Team
                 key={team.id}
@@ -176,6 +189,13 @@ export const UserForm = ({
             )}
           </TeamsContainer>
           }
+          <UserTeamCreate
+            user={values}
+            open={addTo}
+            closeModal={() => setAddTo(false)}
+            handleCreate={async () => {}}
+          />
+        </>
       </Form.Item>
     </Form>
   );

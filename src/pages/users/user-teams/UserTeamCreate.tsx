@@ -1,23 +1,23 @@
 import { Button, Modal, Typography } from "antd";
 import { useState } from "react";
-import { IUserTeam } from "../../@types";
-import { theme } from "../../Theme";
-import Alert from "../alert";
-import { newUserTeam } from '../../generators/emptyObjects/index';
-import { createUserTeam } from "../../api/core/UserTeam";
+import { IUser, IUserTeam } from "../../../@types";
+import { theme } from "../../../Theme";
+import { newUserTeam } from '../../../generators/emptyObjects/index';
+import { createUserTeam } from "../../../api/core/UserTeam";
 import { UserTeamForm } from "./UserTeamForm";
 import dayjs from "dayjs";
+import Alert from "../../../components/alert";
 
 export const UserTeamCreate = ({
-  userLocked,
   open,
   closeModal,
-  handleCreate
+  handleCreate,
+  user
 }: {
-  userLocked?: boolean;
   open: boolean;
   closeModal: () => void;
   handleCreate: (userTeam: IUserTeam) => Promise<void>;
+  user: IUser;
 }): JSX.Element => {
   const [loading, setLoading] = useState(false);
   const [values, setValues] = useState<IUserTeam>(newUserTeam());
@@ -67,8 +67,8 @@ export const UserTeamCreate = ({
       closable={false}
       open={open}
       title={<Typography.Text
-        style={{...theme.texts.brandFont, fontWeight: 'normal'}}
-        > New user team
+        style={{...theme.texts.brandFont}}
+        >Assign Team
         </Typography.Text>}
       style={{
         maxWidth: 360
@@ -89,7 +89,7 @@ export const UserTeamCreate = ({
       ]}
     >
       <UserTeamForm
-        lockUserId={userLocked}
+        user={user}
         values={values}
         setValues={setValues}
       />

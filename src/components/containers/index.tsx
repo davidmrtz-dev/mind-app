@@ -28,8 +28,14 @@ export const AppMainContainer = styled.div`
   min-height: 100vh;
 `;
 
-export { ElementContainer } from './ElementContainer';
-export { NavigationContainer } from './NavigationContainer'
-export { TeamsContainer } from './AccountContainers';
-export { TeamContainer, ItemWrapper } from './TeamContainers';
+export const ElementContainer = styled.div`
+  background-color: ${p => p.theme.colors.grays.light};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  margin: 5px 0;
+  cursor: default;
+  position: relative;
+`;
 

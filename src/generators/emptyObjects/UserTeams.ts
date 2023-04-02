@@ -6,5 +6,5 @@ export const newUserTeam = (): IUserTeam => ({
   team_id: 0,
   start_at: '',
   end_at: '',
-  status: ''
+  status: 'active'
 });
