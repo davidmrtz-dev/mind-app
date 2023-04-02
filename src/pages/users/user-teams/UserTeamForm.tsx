@@ -1,6 +1,7 @@
-import { DatePicker, Form, InputNumber, Select, Typography } from "antd";
+import { DatePicker, Form, Select, Typography } from "antd";
 import styled from "styled-components";
 import { IUser, IUserTeam } from "../../../@types";
+import AddTo from "../../../atoms/AddTo";
 import { theme } from "../../../Theme";
 
 export const UserTeamForm = ({
@@ -29,18 +30,8 @@ export const UserTeamForm = ({
         name='user'>
         <UserData {...user} />
       </Form.Item>
-      <Form.Item label={<Typography.Text style={{ ...theme.texts.brandFont }}>
-        Team
-      </Typography.Text>}
-        name='select_team'>
-        <Select
-          placeholder='Select a team'
-          style={{ width: '100%' }}
-          options={[
-            { value: 'active', label: 'Active', id: 0, name: 'lala' },
-            { value: 'inactive', label: 'Inactive', id: 1, name: 'lele' }
-          ]}
-        />
+      <Form.Item name='select_team'>
+        {AddTo('Select Team', () => {})}
       </Form.Item>
       <Form.Item label={<Typography.Text style={{ ...theme.texts.brandFont }}>
         Start Date
