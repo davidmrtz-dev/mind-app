@@ -12,7 +12,7 @@ import { Team } from "../../pages/teams/Team";
 import { UserTeamCreate } from "../../pages/users/user-teams";
 import { theme } from "../../Theme";
 import Alert from "../alert";
-import AddToTeam from "./AddToTeam";
+import AddTo from "../../atoms/AddTo";
 
 const TeamsContainer = styled.div<{ reveal: boolean }>`
   opacity: ${p => p.reveal ? 1 : 0};
@@ -40,7 +40,11 @@ export const UserForm = ({
 
   const fetchTeams = async (): Promise<void> => {
     try {
-      const data = await getTeamsByUser({ offset: 0, limit: 10, userId: values.id })
+      const data = await getTeamsByUser({
+        offset: 0,
+        limit: 10,
+        userId: values.id
+      })
       setTeams(data.teams);
       setTimeout(() => setLoading(false), 1500);
     } catch (err: any) {
@@ -170,12 +174,13 @@ export const UserForm = ({
         <Input maxLength={20} style={{ ...theme.texts.brandSubFont }}/>
       </Form.Item>
       <Form.Item name='teams_history'>
-          {AddToTeam('Teams History', () => setAddTo(true))}
+        <>
           {loading
           ? <div style={{ width: '100%', height: 120, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
               <LoadingMask />
             </div>
           : <TeamsContainer reveal={reveal}>
+            {AddTo('Teams History', () => setAddTo(true))}
             {(teams || []).map(team =>
               <Team
                 key={team.id}
@@ -190,6 +195,7 @@ export const UserForm = ({
             closeModal={() => setAddTo(false)}
             handleCreate={async () => {}}
           />
+        </>
       </Form.Item>
     </Form>
   );
