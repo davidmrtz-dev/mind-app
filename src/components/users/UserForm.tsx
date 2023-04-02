@@ -40,7 +40,11 @@ export const UserForm = ({
 
   const fetchTeams = async (): Promise<void> => {
     try {
-      const data = await getTeamsByUser({ offset: 0, limit: 10, userId: values.id })
+      const data = await getTeamsByUser({
+        offset: 0,
+        limit: 10,
+        userId: values.id
+      })
       setTeams(data.teams);
       setTimeout(() => setLoading(false), 1500);
     } catch (err: any) {
