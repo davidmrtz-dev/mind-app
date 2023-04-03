@@ -53,7 +53,7 @@ const TeamSelection = ({
     if (teams.length) {
       const updatedTeams = teams.map(team => {
         if (team.id === teamId) {
-          return {...team, selected: true};
+          return {...team, selected: !team.selected};
         } else {
           return {...team, selected: false};
         }

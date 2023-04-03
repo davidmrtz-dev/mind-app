@@ -17,7 +17,7 @@ const TeamContainer = styled.div<{
   align-items: center;
   justify-content: center;
   border-radius: 10px;
-  margin: 5px 0;
+  margin: ${p => p.selected ? '3' : '5'}px 0;
   padding: 5px 10px;
   cursor: ${p => p.selectable ? 'pointer' : 'default'};
   position: relative;
