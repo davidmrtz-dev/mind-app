@@ -62,6 +62,11 @@ const TeamSelection = ({
     }
   };
 
+  const handleCancel = () => {
+    setTeams(teams.map(team => ({...team, selected: false})));
+    onCancel();
+  };
+
   useEffect(() => {
     fetchTeams();
     // eslint-disable-next-line
@@ -86,7 +91,7 @@ const TeamSelection = ({
         position: 'relative'
       }}
       // footer={footerComponents}
-      onCancel={onCancel}
+      onCancel={handleCancel}
     >
       {loading
       ? <div style={{ width: '100%', height: 120, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
