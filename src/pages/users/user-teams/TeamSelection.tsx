@@ -49,6 +49,8 @@ const TeamSelection = ({
     }
   };
 
+  const handleSelect = () => {};
+
   useEffect(() => {
     fetchTeams();
     // eslint-disable-next-line
@@ -82,6 +84,7 @@ const TeamSelection = ({
       : <TeamsContainer reveal={reveal}>
         {(teams || []).map(team =>
           <Team
+            onSelect={handleSelect}
             selected={team.selected}
             key={team.id}
             team={team}
