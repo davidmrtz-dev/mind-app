@@ -41,7 +41,11 @@ export const Team = ({
   onSelect?: () => void;
   onClickUpdate?: () => void;
   onClickDelete?: () => void;
-}): JSX.Element => <TeamContainer selectable={onSelect ? true : false} selected={selected || false}>
+}): JSX.Element => <TeamContainer
+  onClick={onSelect}
+  selectable={onSelect ? true : false}
+  selected={selected || false}
+>
   <ItemWrapper>
     <Typography.Text style={{
       ...theme.texts.brandSubFont,

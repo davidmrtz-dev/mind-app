@@ -49,7 +49,18 @@ const TeamSelection = ({
     }
   };
 
-  const handleSelect = () => {};
+  const handleSelect = (teamId: number) => {
+    if (teams.length) {
+      const updatedTeams = teams.map(team => {
+        if (team.id === teamId) {
+          return {...team, selected: true};
+        } else {
+          return {...team, selected: false};
+        }
+      });
+      setTeams(updatedTeams);
+    }
+  };
 
   useEffect(() => {
     fetchTeams();
@@ -84,7 +95,7 @@ const TeamSelection = ({
       : <TeamsContainer reveal={reveal}>
         {(teams || []).map(team =>
           <Team
-            onSelect={handleSelect}
+            onSelect={() => handleSelect(team.id)}
             selected={team.selected}
             key={team.id}
             team={team}
