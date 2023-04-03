@@ -6,8 +6,9 @@ import { theme } from "../../Theme";
 import { capitalizeFirst } from "../../utils";
 import styled from "styled-components";
 
-const TeamContainer = styled.div`
+const TeamContainer = styled.div<{selected: boolean}>`
   background-color: ${p => p.theme.colors.grays.light};
+  border: ${p => p.selected ? `solid 2px ${p.theme.colors.blues.normal}` : 'none'};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -27,13 +28,15 @@ const ItemWrapper = styled.div`
 
 export const Team = ({
   team,
+  selected,
   onClickUpdate,
   onClickDelete
 }: {
   team: ITeam;
+  selected?: boolean;
   onClickUpdate?: () => void;
   onClickDelete?: () => void;
-}): JSX.Element => <TeamContainer>
+}): JSX.Element => <TeamContainer selected={selected || false}>
   <ItemWrapper>
     <Typography.Text style={{
       ...theme.texts.brandSubFont,

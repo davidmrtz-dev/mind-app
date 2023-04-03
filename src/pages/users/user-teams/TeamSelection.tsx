@@ -15,6 +15,8 @@ const TeamsContainer = styled.div<{ reveal: boolean }>`
   flex-direction: column;
 `;
 
+type ITeamSelect = ITeam & { selected?: boolean };
+
 const TeamSelection = ({
   open,
   onCancel,
@@ -24,7 +26,7 @@ const TeamSelection = ({
   onCancel: () => void;
   userId: number;
 }): JSX.Element => {
-  const [teams, setTeams] = useState<ITeam []>([]);
+  const [teams, setTeams] = useState<ITeamSelect []>([]);
   const [loading, setLoading] = useState(true);
   const [reveal, setReveal] = useState(false);
 
@@ -80,6 +82,7 @@ const TeamSelection = ({
       : <TeamsContainer reveal={reveal}>
         {(teams || []).map(team =>
           <Team
+            selected={team.selected}
             key={team.id}
             team={team}
           />
