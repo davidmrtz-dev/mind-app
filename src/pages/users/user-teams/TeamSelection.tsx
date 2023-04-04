@@ -19,12 +19,12 @@ type ITeamSelect = ITeam & { selected?: boolean };
 
 const TeamSelection = ({
   open,
-  onCancel,
+  closeModal,
   userId,
   setTeam
 }: {
   open: boolean;
-  onCancel: () => void;
+  closeModal: () => void;
   userId: number;
   setTeam: (teamId: number) => void;
 }): JSX.Element => {
@@ -66,14 +66,14 @@ const TeamSelection = ({
 
   const handleCancel = () => {
     setTeams(teams.map(team => ({...team, selected: false})));
-    onCancel();
+    closeModal();
   };
 
   const handleSubmit = () => {
     const selected = teams.find(team => team.selected);
     if (selected) {
       setTeam(selected.id);
-      handleCancel();
+      closeModal();
     }
   };
 

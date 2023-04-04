@@ -18,6 +18,10 @@ export const UserTeamForm = ({
   const [form] = Form.useForm();
   const [showTeam, setShowTeam] = useState(false);
 
+  const handleSelection = (teamId: number) => {
+    setValues({...values, team_id: teamId, user_id: user.id});
+  };
+
   return (
     <Form
       name='user-team-form'
@@ -62,11 +66,9 @@ export const UserTeamForm = ({
         />
       </Form.Item>
       <TeamSelection
-        setTeam={(teamId) => {
-          setValues({...values, team_id: teamId, user_id: user.id});
-        }}
+        setTeam={handleSelection}
         open={showTeam}
-        onCancel={() => setShowTeam(false)}
+        closeModal={() => setShowTeam(false)}
         userId={user.id}
       />
     </Form>
