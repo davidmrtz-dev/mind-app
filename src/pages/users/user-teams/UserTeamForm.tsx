@@ -42,28 +42,20 @@ export const UserTeamForm = ({
       <Form.Item name='select_team'>
         {AddTo(`${team ? 'Change' : 'Select'} Team`, () => setShowTeam(true))}
       </Form.Item>
-      {team && (<Form.Item name='selected_team' label={<Typography.Text style={{ ...theme.texts.brandFont }}>
-        Selected team
-      </Typography.Text>}>
+      {team && (<Form.Item name='selected_team' label={BrandFontText('Selected team')}>
           <Team team={team} />
       </Form.Item>)}
-      <Form.Item label={<Typography.Text style={{ ...theme.texts.brandFont }}>
-        Start Date
-      </Typography.Text>} name='start_at'>
+      <Form.Item label={BrandFontText('Start Date')} name='start_at'>
         <DatePicker
           style={{ width: '100%' }}
         />
       </Form.Item>
-      <Form.Item label={<Typography.Text style={{ ...theme.texts.brandFont }}>
-        End Date
-      </Typography.Text>} name='end_at'>
+      <Form.Item label={BrandFontText('End Date')} name='end_at'>
         <DatePicker
           style={{ width: '100%' }}
         />
       </Form.Item>
-      <Form.Item label={<Typography.Text style={{ ...theme.texts.brandFont }}>
-        Status
-      </Typography.Text>} name='status'>
+      <Form.Item label={BrandFontText('Status')} name='status'>
         <Select
           style={{ width: '100%' }}
           options={[
