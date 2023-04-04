@@ -71,7 +71,6 @@ const TeamSelection = ({
 
   const handleSubmit = () => {
     const selected = teams.find(team => team.selected);
-    debugger;
     if (selected) {
       setTeam(selected.id);
       handleCancel();

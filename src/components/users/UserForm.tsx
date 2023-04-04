@@ -193,7 +193,7 @@ export const UserForm = ({
             user={values}
             open={addTo}
             closeModal={() => setAddTo(false)}
-            handleCreate={async () => {}}
+            handleCreate={fetchTeams}
           />
         </>
       </Form.Item>
