@@ -20,9 +20,10 @@ export const UserTeamForm = ({
   const [showTeam, setShowTeam] = useState(false);
   const [team, setTeam] = useState<ITeam | null>(null);
 
-  const handleSelection = (team: ITeam) => {
+  const handleSelect = (team: ITeam) => {
     setTeam(team);
     setValues({ ...values, team_id: team.id });
+    setShowTeam(false);
   };
 
   return (
@@ -64,9 +65,8 @@ export const UserTeamForm = ({
         />
       </Form.Item>
       <TeamSelection
-        setTeam={handleSelection}
+        handleSelect={handleSelect}
         open={showTeam}
-        closeModal={() => setShowTeam(false)}
         userId={user.id}
       />
     </Form>
