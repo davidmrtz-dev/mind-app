@@ -31,25 +31,6 @@ const TeamSelection = ({
   const [loading, setLoading] = useState(true);
   const [reveal, setReveal] = useState(false);
 
-  const fetchTeams = async (): Promise<void> => {
-    try {
-      const data = await getTeamsByUser({
-        offset: 0,
-        limit: 10,
-        userId: userId,
-        excludeUser: true
-      });
-      setTeams(data.teams);
-      setTimeout(() => setLoading(false), 1500);
-    } catch (err: any) {
-      setTimeout(() => Alert({
-        icon: 'error',
-        title: 'Ops!',
-        text: err.error || 'There was an error, please try again later'
-      }), 1000);
-    }
-  };
-
   const markSelection = (teamId: number) => {
     if (teams.length) {
       const updatedTeams = teams.map(team => {
@@ -63,7 +44,7 @@ const TeamSelection = ({
     }
   };
 
-  const handleSubmit = () => {
+  const onSelect = () => {
     const team = teams.find(team => team.selected);
     if (team) {
       handleSelect(team);
@@ -73,9 +54,27 @@ const TeamSelection = ({
   const disabled = teams.every(team => !team.selected);
 
   useEffect(() => {
+    const fetchTeams = async (): Promise<void> => {
+      try {
+        const data = await getTeamsByUser({
+          offset: 0,
+          limit: 10,
+          userId: userId,
+          excludeUser: true
+        });
+        setTeams(data.teams);
+        setTimeout(() => setLoading(false), 1500);
+      } catch (err: any) {
+        setTimeout(() => Alert({
+          icon: 'error',
+          title: 'Ops!',
+          text: err.error || 'There was an error, please try again later'
+        }), 1000);
+      }
+    };
+
     fetchTeams();
-    // eslint-disable-next-line
-  }, []);
+  }, [userId]);
 
   useEffect(() => {
     if (!loading) setTimeout(() => setReveal(true), 250);
@@ -87,7 +86,7 @@ const TeamSelection = ({
       type="primary"
       loading={loading}
       disabled={disabled}
-      onClick={handleSubmit}
+      onClick={onSelect}
       style={{
         backgroundColor:
           disabled ? theme.colors.grays.normal : theme.colors.blues.normal
