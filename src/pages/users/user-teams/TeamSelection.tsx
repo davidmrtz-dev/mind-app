@@ -1,4 +1,4 @@
-import { Modal, Typography } from "antd";
+import { Button, Modal, Typography } from "antd";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { ITeam } from "../../../@types";
@@ -15,16 +15,20 @@ const TeamsContainer = styled.div<{ reveal: boolean }>`
   flex-direction: column;
 `;
 
+type ITeamSelect = ITeam & { selected?: boolean };
+
 const TeamSelection = ({
   open,
   onCancel,
-  userId
+  userId,
+  setTeam
 }: {
   open: boolean;
   onCancel: () => void;
   userId: number;
+  setTeam: (teamId: number) => void;
 }): JSX.Element => {
-  const [teams, setTeams] = useState<ITeam []>([]);
+  const [teams, setTeams] = useState<ITeamSelect []>([]);
   const [loading, setLoading] = useState(true);
   const [reveal, setReveal] = useState(false);
 
@@ -47,6 +51,35 @@ const TeamSelection = ({
     }
   };
 
+  const handleSelect = (teamId: number) => {
+    if (teams.length) {
+      const updatedTeams = teams.map(team => {
+        if (team.id === teamId) {
+          return {...team, selected: !team.selected};
+        } else {
+          return {...team, selected: false};
+        }
+      });
+      setTeams(updatedTeams);
+    }
+  };
+
+  const handleCancel = () => {
+    setTeams(teams.map(team => ({...team, selected: false})));
+    onCancel();
+  };
+
+  const handleSubmit = () => {
+    const selected = teams.find(team => team.selected);
+    debugger;
+    if (selected) {
+      setTeam(selected.id);
+      handleCancel();
+    }
+  };
+
+  const disabled = teams.every(team => !team.selected);
+
   useEffect(() => {
     fetchTeams();
     // eslint-disable-next-line
@@ -55,6 +88,37 @@ const TeamSelection = ({
   useEffect(() => {
     if (!loading) setTimeout(() => setReveal(true), 250);
   }, [loading]);
+
+  const footerComponents = [
+    <Button
+      key="cancel"
+      onClick={handleCancel}
+      disabled={loading}
+    >
+      <Typography.Text style={{ ...theme.texts.brandFont }}>
+        Cancel
+      </Typography.Text>
+    </Button>,
+    <Button
+      key="submit"
+      type="primary"
+      loading={loading}
+      disabled={disabled}
+      onClick={handleSubmit}
+      style={{
+        backgroundColor:
+          disabled ? theme.colors.grays.normal : theme.colors.blues.normal
+      }}
+    >
+      <Typography.Text style={{
+        ...theme.texts.brandFont,
+        color: theme.colors.whites.normal
+      }}
+      >
+        Select
+      </Typography.Text>
+    </Button>
+  ];
 
   return (
     <Modal
@@ -70,8 +134,7 @@ const TeamSelection = ({
         maxWidth: 360,
         position: 'relative'
       }}
-      // footer={footerComponents}
-      onCancel={onCancel}
+      footer={footerComponents}
     >
       {loading
       ? <div style={{ width: '100%', height: 120, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
@@ -80,6 +143,8 @@ const TeamSelection = ({
       : <TeamsContainer reveal={reveal}>
         {(teams || []).map(team =>
           <Team
+            onSelect={() => handleSelect(team.id)}
+            selected={team.selected}
             key={team.id}
             team={team}
           />
