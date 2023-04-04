@@ -36,6 +36,7 @@ export const UserTeamCreate = ({
     try {
       const userTeam = await createUserTeam({
         ...values,
+        user_id: user.id,
         start_at: dayjs(values.start_at).format('YYYY-MM-DD'),
         end_at: dayjs(values.end_at).format('YYYY-MM-DD')
       });
