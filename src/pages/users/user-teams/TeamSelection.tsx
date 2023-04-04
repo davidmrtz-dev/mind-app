@@ -7,6 +7,7 @@ import { LoadingMask } from "../../../atoms/LoadingMask";
 import Alert from "../../../components/alert";
 import { theme } from "../../../Theme";
 import { Team } from "../../teams/Team";
+import BrandFontText from "../../../atoms/BrandFontText";
 
 const TeamsContainer = styled.div<{ reveal: boolean }>`
   opacity: ${p => p.reveal ? 1 : 0};
@@ -95,13 +96,9 @@ const TeamSelection = ({
           disabled ? theme.colors.grays.normal : theme.colors.blues.normal
       }}
     >
-      <Typography.Text style={{
-        ...theme.texts.brandFont,
+      {BrandFontText('Select', {
         color: theme.colors.whites.normal
-      }}
-      >
-        Select
-      </Typography.Text>
+      })}
     </Button>
   ];
 
@@ -111,10 +108,7 @@ const TeamSelection = ({
       maskClosable={false}
       closable={false}
       open={open}
-      title={<Typography.Text
-        style={{...theme.texts.brandFont }}
-        > Select a Team
-        </Typography.Text>}
+      title={BrandFontText('Select a Team')}
       style={{
         maxWidth: 360,
         position: 'relative'
