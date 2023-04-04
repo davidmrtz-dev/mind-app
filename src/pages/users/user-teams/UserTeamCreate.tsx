@@ -7,7 +7,7 @@ import { createUserTeam } from "../../../api/core/UserTeam";
 import { UserTeamForm } from "./UserTeamForm";
 import dayjs from "dayjs";
 import Alert from "../../../components/alert";
-import BrandFontText from "../../../atoms/BrandFontText";
+import { BrandFontText } from "../../../atoms/text";
 
 export const UserTeamCreate = ({
   open,

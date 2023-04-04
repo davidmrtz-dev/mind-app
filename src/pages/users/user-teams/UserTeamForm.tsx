@@ -1,13 +1,11 @@
-import { DatePicker, Form, Select, Typography } from "antd";
+import { DatePicker, Form, Select } from "antd";
 import { useState } from "react";
-import styled from "styled-components";
 import { ITeam, IUser, IUserTeam } from "../../../@types";
 import AddTo from "../../../atoms/AddTo";
-import { theme } from "../../../Theme";
 import TeamSelection from "./TeamSelection";
 import { Team } from "../../teams/Team";
-import BrandFontText from "../../../atoms/BrandFontText";
 import { UserData } from "./UserData";
+import { BrandFontText } from "../../../atoms/text";
 
 export const UserTeamForm = ({
   values,

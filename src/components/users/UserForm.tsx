@@ -13,7 +13,7 @@ import { UserTeamCreate } from "../../pages/users/user-teams";
 import { theme } from "../../Theme";
 import Alert from "../alert";
 import AddTo from "../../atoms/AddTo";
-import BrandFontText from "../../atoms/BrandFontText";
+import { BrandFontText } from "../../atoms/text";
 
 const TeamsContainer = styled.div<{ reveal: boolean }>`
   opacity: ${p => p.reveal ? 1 : 0};
