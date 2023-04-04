@@ -7,6 +7,7 @@ import { createUserTeam } from "../../../api/core/UserTeam";
 import { UserTeamForm } from "./UserTeamForm";
 import dayjs from "dayjs";
 import Alert from "../../../components/alert";
+import BrandFontText from "../../../atoms/BrandFontText";
 
 export const UserTeamCreate = ({
   open,
@@ -76,16 +77,10 @@ export const UserTeamCreate = ({
       }}
       footer={[
         <Button key="cancel" onClick={handleCancel} disabled={loading}>
-          <Typography.Text style={{ ...theme.texts.brandFont }}>
-            Cancel
-          </Typography.Text>
+          {BrandFontText('Cancel')}
         </Button>,
         <Button key="submit" type="primary" loading={loading} onClick={handleSubmit}>
-          <Typography.Text
-            style={{ ...theme.texts.brandFont, color: theme.colors.whites.normal }}
-          >
-            Create
-          </Typography.Text>
+          {BrandFontText('Create', { color: theme.colors.whites.normal })}
         </Button>
       ]}
     >
