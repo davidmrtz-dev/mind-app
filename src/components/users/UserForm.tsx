@@ -9,7 +9,7 @@ import { deleteUserTeam } from "../../api/core/UserTeam";
 import { LoadingMask } from "../../atoms/LoadingMask";
 import { newTeam } from "../../generators/emptyObjects";
 import { Team } from "../../pages/teams/Team";
-import { UserTeamCreate } from "../../pages/users/user-teams";
+import { UserTeamCreate, UserTeamUpdate } from "../../pages/users/user-teams";
 import { theme } from "../../Theme";
 import Alert from "../alert";
 import AddTo from "../../atoms/AddTo";
@@ -35,9 +35,9 @@ export const UserForm = ({
   const [loading, setLoading] = useState(true);
   const [reveal, setReveal] = useState(false);
   const [teams, setTeams] = useState<ITeam []>([]);
-  const [destroy, setDestroy] = useState(false);
-  const [team, setTeam] = useState<ITeam>(newTeam());
   const [addTo, setAddTo] = useState(false);
+  const [team, setTeam] = useState<ITeam>(newTeam());
+  const [update, setUpdate] = useState(false);
 
   const fetchTeams = async (): Promise<void> => {
     try {
@@ -57,30 +57,30 @@ export const UserForm = ({
     }
   };
 
-  const handleDestroyTeamClick = (team: ITeam) => {
-    setDestroy(true);
-    setTeam(team);
-  }
+  // const handleDestroyTeamClick = (team: ITeam) => {
+  //   setDestroy(true);
+  //   setTeam(team);
+  // }
 
-  const handleSubmitDelete = async () => {
-    if (!team?.user_team) return;
+  // const handleSubmitDelete = async () => {
+  //   if (!team?.user_team) return;
 
-    try {
-      await deleteUserTeam(team.user_team?.id);
-      await fetchTeams();
-    } catch (err: any) {
-      const error = err?.errors?.[0] || err?.error || '';
-      Alert({
-        icon: 'error',
-        text:(error || 'There was an error, please try again later.')
-      });
-    } finally {
-      setTimeout(() => {
-        setTeam(newTeam());
-        setDestroy(false);
-      }, 500);
-    }
-  };
+  //   try {
+  //     await deleteUserTeam(team.user_team?.id);
+  //     await fetchTeams();
+  //   } catch (err: any) {
+  //     const error = err?.errors?.[0] || err?.error || '';
+  //     Alert({
+  //       icon: 'error',
+  //       text:(error || 'There was an error, please try again later.')
+  //     });
+  //   } finally {
+  //     setTimeout(() => {
+  //       setTeam(newTeam());
+  //       setDestroy(false);
+  //     }, 500);
+  //   }
+  // };
 
   useEffect(() => {
     fetchTeams();
@@ -91,16 +91,16 @@ export const UserForm = ({
     if (!loading) setTimeout(() => setReveal(true), 250);
   }, [loading]);
 
-  if (destroy) Alert({
-    icon: 'warning',
-    text: 'Are you sure you want to remove this user from this team?',
-    showCancelButton: true
-  }).then(result => {
-    setDestroy(false);
-    if (result.isConfirmed) {
-      handleSubmitDelete();
-    }
-  });
+  // if (destroy) Alert({
+  //   icon: 'warning',
+  //   text: 'Are you sure you want to remove this user from this team?',
+  //   showCancelButton: true
+  // }).then(result => {
+  //   setDestroy(false);
+  //   if (result.isConfirmed) {
+  //     handleSubmitDelete();
+  //   }
+  // });
 
   return (
     <Form
