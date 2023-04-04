@@ -82,6 +82,11 @@ export const UserForm = ({
   //   }
   // };
 
+  const handleTeamClick = (team: ITeam) => {
+    setTeam(team);
+    setUpdate(true);
+  };
+
   useEffect(() => {
     fetchTeams();
     // eslint-disable-next-line
@@ -172,6 +177,7 @@ export const UserForm = ({
               <Team
                 key={team.id}
                 team={team}
+                onClick={() => handleTeamClick(team)}
               />
             )}
           </TeamsContainer>
