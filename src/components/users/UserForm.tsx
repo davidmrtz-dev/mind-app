@@ -172,7 +172,7 @@ export const UserForm = ({
               <Team
                 key={team.id}
                 team={team}
-                onClickDelete={() => handleDestroyTeamClick(team)} />
+              />
             )}
           </TeamsContainer>
           }
