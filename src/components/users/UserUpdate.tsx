@@ -6,6 +6,7 @@ import { newUser } from "../../generators/emptyObjects";
 import { theme } from "../../Theme";
 import Alert from "../alert";
 import { UserForm } from "./UserForm";
+import BrandFontText from "../../atoms/BrandFontText";
 
 export const UserUpdate = ({
   user,
@@ -105,9 +106,7 @@ export const UserUpdate = ({
       onClick={handleCancel}
       disabled={loading || deleting}
     >
-      <Typography.Text style={{ ...theme.texts.brandFont }}>
-        Ok
-      </Typography.Text>
+      {BrandFontText('Ok')}
     </Button>,
     <Button
       key="submit"
@@ -117,13 +116,7 @@ export const UserUpdate = ({
       onClick={handleSubmitUpdate}
       style={{ backgroundColor: theme.colors.blues.normal }}
     >
-      <Typography.Text style={{
-        ...theme.texts.brandFont,
-        color: theme.colors.whites.normal
-      }}
-      >
-        Update
-      </Typography.Text>
+      {BrandFontText('Update', { color: theme.colors.whites.normal })}
     </Button>
   ];
 
@@ -136,14 +129,7 @@ export const UserUpdate = ({
       disabled={loading}
       loading={deleting}
     >
-    <Typography.Text
-      style={{
-        ...theme.texts.brandFont,
-        color: theme.colors.whites.normal
-      }}
-    >
-      Delete
-    </Typography.Text>
+    {BrandFontText('Delete', { color: theme.colors.whites.normal })}
   </Button>);
   }
 
@@ -164,10 +150,7 @@ export const UserUpdate = ({
       maskClosable={false}
       closable={false}
       open={open}
-      title={<Typography.Text
-        style={{...theme.texts.brandFont }}
-        > User Details
-        </Typography.Text>}
+      title={BrandFontText('User Details')}
       style={{
         maxWidth: 360,
         position: 'relative'
