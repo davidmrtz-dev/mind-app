@@ -33,12 +33,12 @@ export const Team = ({
   team,
   selected,
   onSelect,
-  onClickUpdate
+  onClick
 }: {
   team: ITeam;
   selected?: boolean;
   onSelect?: () => void;
-  onClickUpdate?: () => void;
+  onClick?: () => void;
 }): JSX.Element => <TeamContainer
   onClick={onSelect}
   selectable={onSelect ? true : false}
@@ -128,5 +128,5 @@ export const Team = ({
       {capitalizeFirst(team.account.client_name)}
     </Typography.Text>
   </ItemWrapper>)}
-  {onClickUpdate && (<ActionButton onClick={onClickUpdate} />)}
+  {onClick && (<ActionButton onClick={onClick} />)}
 </TeamContainer>;

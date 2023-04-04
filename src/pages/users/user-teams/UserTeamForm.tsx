@@ -10,11 +10,13 @@ import { BrandFontText } from "../../../atoms/text";
 export const UserTeamForm = ({
   values,
   setValues,
-  user
+  user,
+  showSelector
 }: {
   values: IUserTeam;
   setValues: (values: IUserTeam) => void;
   user: IUser;
+  showSelector?: boolean;
 }): JSX.Element => {
   const [form] = Form.useForm();
   const [showTeam, setShowTeam] = useState(false);
@@ -39,9 +41,9 @@ export const UserTeamForm = ({
         name='user'>
         <UserData {...user} />
       </Form.Item>
-      <Form.Item name='select_team'>
+      {showSelector && (<Form.Item name='select_team'>
         {AddTo(`${team ? 'Change' : 'Select'} Team`, () => setShowTeam(true))}
-      </Form.Item>
+      </Form.Item>)}
       {team && (<Form.Item name='selected_team' label={BrandFontText('Selected team')}>
           <Team team={team} />
       </Form.Item>)}

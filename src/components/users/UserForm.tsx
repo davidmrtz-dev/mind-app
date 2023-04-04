@@ -3,7 +3,7 @@ import Password from "antd/es/input/Password";
 import TextArea from "antd/es/input/TextArea";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { ITeam, IUser } from "../../@types";
+import { ITeam, IUser, IUserTeam } from "../../@types";
 import { getTeamsByUser } from "../../api/core/Team";
 import { deleteUserTeam } from "../../api/core/UserTeam";
 import { LoadingMask } from "../../atoms/LoadingMask";
@@ -57,6 +57,12 @@ export const UserForm = ({
     }
   };
 
+  const refreshTeams = async (): Promise<void> => {
+    setReveal(false);
+    setLoading(true);
+    fetchTeams();
+  };
+
   // const handleDestroyTeamClick = (team: ITeam) => {
   //   setDestroy(true);
   //   setTeam(team);
@@ -81,6 +87,11 @@ export const UserForm = ({
   //     }, 500);
   //   }
   // };
+
+  const handleTeamClick = (team: ITeam) => {
+    setTeam(team);
+    setUpdate(true);
+  };
 
   useEffect(() => {
     fetchTeams();
@@ -172,6 +183,7 @@ export const UserForm = ({
               <Team
                 key={team.id}
                 team={team}
+                onClick={() => handleTeamClick(team)}
               />
             )}
           </TeamsContainer>
@@ -180,11 +192,14 @@ export const UserForm = ({
             user={values}
             open={addTo}
             closeModal={() => setAddTo(false)}
-            handleCreate={async () => {
-              setReveal(false);
-              setLoading(true);
-              fetchTeams();
-            }}
+            handleCreate={refreshTeams}
+          />
+          <UserTeamUpdate
+            user={values}
+            userTeam={team.user_team || {} as IUserTeam}
+            open={update}
+            closeModal={() => setUpdate(false)}
+            handleUpdate={refreshTeams}
           />
         </>
       </Form.Item>

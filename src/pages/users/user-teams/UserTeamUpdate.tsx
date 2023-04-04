@@ -19,7 +19,7 @@ export const UserTeamUpdate = ({
   userTeam: IUserTeam;
   open: boolean;
   closeModal: () => void;
-  handleUpdate: (userTeam: IUserTeam) => Promise<void>;
+  handleUpdate: () => Promise<void>;
   handleDelete?: (id: number) => void;
   user: IUser;
 }): JSX.Element => {
@@ -40,12 +40,12 @@ export const UserTeamUpdate = ({
     setLoading(true);
 
     try {
-      const userTeam = await updateUserTeam({
+      await updateUserTeam({
         ...values,
         start_at: dayjs(values.start_at).format('YYYY-MM-DD'),
         end_at: dayjs(values.end_at).format('YYYY-MM-DD')
       });
-      await handleUpdate(userTeam);
+      await handleUpdate();
     } catch (err: any) {
       const error = err?.errors?.[0] || err?.error || '';
       Alert({
