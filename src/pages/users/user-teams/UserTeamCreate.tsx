@@ -84,6 +84,7 @@ export const UserTeamCreate = ({
         user={user}
         values={values}
         setValues={setValues}
+        showSelector
       />
     </Modal>
   );
