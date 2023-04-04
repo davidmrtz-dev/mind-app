@@ -9,10 +9,12 @@ import { UserTeamForm } from "./UserTeamForm";
 import dayjs from "dayjs";
 
 export const UserTeamCreate = ({
+  userLocked,
   open,
   closeModal,
   handleCreate
 }: {
+  userLocked?: boolean;
   open: boolean;
   closeModal: () => void;
   handleCreate: (userTeam: IUserTeam) => Promise<void>;
@@ -37,19 +39,15 @@ export const UserTeamCreate = ({
         start_at: dayjs(values.start_at).format('YYYY-MM-DD'),
         end_at: dayjs(values.end_at).format('YYYY-MM-DD')
       });
-      setTimeout(async () => {
-        await handleCreate(userTeam);
-        setValues(newUserTeam());
-        setLoading(false);
-        closeModal();
-      }, 1000);
+      await handleCreate(userTeam);
     } catch (err: any) {
+      const error = err?.errors?.[0] || err?.error || '';
+      Alert({
+        icon: 'error',
+        text: (error || 'There was an error, please try again later.'),
+      });
+    } finally {
       setTimeout(() => {
-        const error = err.errors && err.errors.length && err.errors[0];
-        Alert({
-          icon: 'error',
-          text: (error || 'There was an error, please try again later.'),
-        });
         setValues(newUserTeam());
         setLoading(false);
         closeModal();
@@ -91,6 +89,7 @@ export const UserTeamCreate = ({
       ]}
     >
       <UserTeamForm
+        lockUserId={userLocked}
         values={values}
         setValues={setValues}
       />

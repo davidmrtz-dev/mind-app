@@ -1,29 +1,32 @@
 import { Button, Modal, Typography } from "antd";
+import dayjs from "dayjs";
 import { useCallback, useEffect, useState } from "react";
-import { ITeam } from "../../@types";
-import { deleteTeam, updateTeam } from "../../api/core/Team";
-import { newTeam } from "../../generators/emptyObjects";
-import { theme } from "../../Theme";
-import Alert from "../alert";
-import { TeamForm } from "./TeamForm";
+import { IUser, IUserTeam } from "../../../@types";
+import { deleteUserTeam, updateUserTeam } from "../../../api/core/UserTeam";
+import Alert from "../../../components/alert";
+import { newUserTeam } from "../../../generators/emptyObjects";
+import { theme } from "../../../Theme";
+import { UserTeamForm } from "./UserTeamForm";
 
-export const TeamUpdate = ({
-  team,
+export const UserTeamUpdate = ({
+  userTeam,
   open,
   closeModal,
   handleUpdate,
-  handleDelete
+  handleDelete,
+  user
 }: {
-  team: ITeam;
+  userTeam: IUserTeam;
   open: boolean;
   closeModal: () => void;
-  handleUpdate: (team: ITeam) => Promise<void>;
+  handleUpdate: (userTeam: IUserTeam) => Promise<void>;
   handleDelete?: (id: number) => void;
+  user: IUser;
 }): JSX.Element => {
   const [loading, setLoading] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [confirm, setConfirm] = useState(false);
-  const [values, setValues] = useState<ITeam>(newTeam());
+  const [values, setValues] = useState<IUserTeam>(newUserTeam());
 
   const handleSubmitUpdate = useCallback(async () => {
     if (Object.values(values).some(val => val === '')) {
@@ -37,10 +40,12 @@ export const TeamUpdate = ({
     setLoading(true);
 
     try {
-      const team = await updateTeam({
-        ...values
+      const userTeam = await updateUserTeam({
+        ...values,
+        start_at: dayjs(values.start_at).format('YYYY-MM-DD'),
+        end_at: dayjs(values.end_at).format('YYYY-MM-DD')
       });
-      await handleUpdate(team);
+      await handleUpdate(userTeam);
     } catch (err: any) {
       const error = err?.errors?.[0] || err?.error || '';
       Alert({
@@ -49,7 +54,7 @@ export const TeamUpdate = ({
       });
     } finally {
       setTimeout(() => {
-        setValues(newTeam());
+        setValues(newUserTeam());
         setLoading(false);
         closeModal();
       }, 1000);
@@ -60,8 +65,8 @@ export const TeamUpdate = ({
     setDeleting(true);
 
     try {
-      await deleteTeam(team.id);
-      handleDelete && handleDelete(team.id);
+      await deleteUserTeam(userTeam.id);
+      handleDelete && handleDelete(userTeam.id);
     } catch (err: any) {
       const error = err?.errors?.[0] || err?.error || '';
       Alert({
@@ -70,7 +75,7 @@ export const TeamUpdate = ({
       });
     } finally {
       setTimeout(() => {
-        setValues(newTeam());
+        setValues(newUserTeam());
         setDeleting(false);
         closeModal();
       }, 1000);
@@ -78,13 +83,17 @@ export const TeamUpdate = ({
   };
 
   const handleCancel = () => {
-    setValues(newTeam());
+    setValues(newUserTeam());
     closeModal();
   };
 
   useEffect(() => {
-    setValues(team);
-  }, [team]);
+    setValues({
+      ...userTeam,
+      start_at: dayjs(userTeam.start_at),
+      end_at: dayjs(userTeam.end_at)
+    });
+  }, [userTeam]);
 
   const footerComponents = [
     <Button
@@ -136,7 +145,7 @@ export const TeamUpdate = ({
 
   if (confirm) Alert({
     icon: 'warning',
-    text: 'Are you sure you want to delete this team?',
+    text: 'Are you sure you want to delete this user team relation?',
     showCancelButton: true
   }).then(result => {
     setConfirm(false);
@@ -153,7 +162,7 @@ export const TeamUpdate = ({
       open={open}
       title={<Typography.Text
         style={{...theme.texts.brandFont, fontWeight: 'normal'}}
-        > Update team
+        > Update user team
         </Typography.Text>}
       style={{
         maxWidth: 360,
@@ -161,7 +170,8 @@ export const TeamUpdate = ({
       }}
       footer={footerComponents}
     >
-      <TeamForm
+      <UserTeamForm
+        user={user}
         values={values}
         setValues={setValues}
       />

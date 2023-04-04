@@ -7,7 +7,18 @@ import { theme } from '../../Theme';
 import { useStyletron } from "styletron-react";
 import { useAuthContext } from '../../context/AuthContext';
 import Alert from '../alert';
-import { NavigationContainer } from '../containers';
+import styled from 'styled-components';
+
+const NavigationContainer = styled.div`
+  width: 360px;
+  height: 5em;
+  background-color: ${props => props.theme.colors.whites.lighter};
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 30px;
+  cursor: default;
+`;
 
 const Navigation = (): JSX.Element => {
   const auth = useAuthContext();

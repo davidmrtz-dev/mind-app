@@ -90,7 +90,7 @@ const TeamsPage = (): JSX.Element => {
           <Team
             key={team.id}
             team={team}
-            onClick={() => handleTeamClick(team)}
+            onClickUpdate={() => handleTeamClick(team)}
           />
         )}
       </TeamsContainer>

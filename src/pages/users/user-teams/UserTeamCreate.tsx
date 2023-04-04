@@ -1,23 +1,26 @@
 import { Button, Modal, Typography } from "antd";
 import { useState } from "react";
-import { ITeam} from "../../@types";
-import { theme } from "../../Theme";
-import Alert from "../alert";
-import { newTeam } from '../../generators/emptyObjects/index';
-import { createTeam } from "../../api/core/Team";
-import { TeamForm } from "./TeamForm";
+import { IUser, IUserTeam } from "../../../@types";
+import { theme } from "../../../Theme";
+import { newUserTeam } from '../../../generators/emptyObjects/index';
+import { createUserTeam } from "../../../api/core/UserTeam";
+import { UserTeamForm } from "./UserTeamForm";
+import dayjs from "dayjs";
+import Alert from "../../../components/alert";
 
-export const TeamCreate = ({
+export const UserTeamCreate = ({
   open,
   closeModal,
-  handleCreate
+  handleCreate,
+  user
 }: {
   open: boolean;
   closeModal: () => void;
-  handleCreate: (team: ITeam) => Promise<void>;
+  handleCreate: (userTeam: IUserTeam) => Promise<void>;
+  user: IUser;
 }): JSX.Element => {
   const [loading, setLoading] = useState(false);
-  const [values, setValues] = useState<ITeam>(newTeam());
+  const [values, setValues] = useState<IUserTeam>(newUserTeam());
 
   const handleSubmit = async () => {
     if (Object.values(values).some(val => val === '')) {
@@ -31,10 +34,12 @@ export const TeamCreate = ({
     setLoading(true);
 
     try {
-      const team = await createTeam({
-        ...values
+      const userTeam = await createUserTeam({
+        ...values,
+        start_at: dayjs(values.start_at).format('YYYY-MM-DD'),
+        end_at: dayjs(values.end_at).format('YYYY-MM-DD')
       });
-      await handleCreate(team);
+      await handleCreate(userTeam);
     } catch (err: any) {
       const error = err?.errors?.[0] || err?.error || '';
       Alert({
@@ -43,7 +48,7 @@ export const TeamCreate = ({
       });
     } finally {
       setTimeout(() => {
-        setValues(newTeam());
+        setValues(newUserTeam());
         setLoading(false);
         closeModal();
       }, 1000);
@@ -51,7 +56,7 @@ export const TeamCreate = ({
   };
 
   const handleCancel = () => {
-    setValues(newTeam());
+    setValues(newUserTeam());
     closeModal();
   };
 
@@ -62,8 +67,8 @@ export const TeamCreate = ({
       closable={false}
       open={open}
       title={<Typography.Text
-        style={{...theme.texts.brandFont, fontWeight: 'normal'}}
-        > New team
+        style={{...theme.texts.brandFont}}
+        >Assign Team
         </Typography.Text>}
       style={{
         maxWidth: 360
@@ -83,7 +88,8 @@ export const TeamCreate = ({
         </Button>
       ]}
     >
-      <TeamForm
+      <UserTeamForm
+        user={user}
         values={values}
         setValues={setValues}
       />

@@ -4,10 +4,14 @@ import { theme } from "../../Theme";
 
 export const UserTeamForm = ({
   values,
-  setValues
+  setValues,
+  lockUserId,
+  lockTeamId
 }: {
   values: IUserTeam;
   setValues: (values: IUserTeam) => void;
+  lockUserId?: boolean;
+  lockTeamId?: boolean;
 }): JSX.Element => {
   const [form] = Form.useForm();
 
@@ -25,6 +29,7 @@ export const UserTeamForm = ({
       </Typography.Text>}
         name='user_id'>
         <InputNumber
+          disabled={lockUserId}
           min={1}
           style={{ width: '100%', ...theme.texts.brandSubFont }}
         />
@@ -34,6 +39,7 @@ export const UserTeamForm = ({
       </Typography.Text>}
         name='team_id'>
         <InputNumber
+          disabled={lockTeamId}
           min={1}
           style={{ width: '100%', ...theme.texts.brandSubFont }}
         />
@@ -48,7 +54,7 @@ export const UserTeamForm = ({
           style={{ width: '100%' }}
         />
       </Form.Item>
-      <Form.Item label='User Type' name='status'>
+      <Form.Item label='Status' name='status'>
         <Select
           style={{ width: '100%' }}
           options={[

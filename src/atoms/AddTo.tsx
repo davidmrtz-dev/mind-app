@@ -1,8 +1,8 @@
 import { Button, Typography } from "antd";
 import styled from "styled-components"
-import { theme } from "../../Theme";
+import { theme } from "../Theme";
 
-const TitleWrapper = styled.div`
+const AddToWrapper = styled.div`
   background-color: ${p => p.theme.colors.grays.light};
   width: 100%;
   height: 50px;
@@ -14,9 +14,9 @@ const TitleWrapper = styled.div`
   margin-bottom: 10px;
 `;
 
-const Title = (text: string, setOpen?: () => void): JSX.Element => <TitleWrapper>
+const AddTo = (text: string, setOpen?: () => void): JSX.Element => <AddToWrapper>
   <Typography.Text style={{
-    ...theme.texts.brandH5,
+    ...theme.texts.brandFont,
     paddingLeft: 5
   }}>
     {text}
@@ -30,6 +30,6 @@ const Title = (text: string, setOpen?: () => void): JSX.Element => <TitleWrapper
     >
       +
     </Button>)}
-</TitleWrapper>;
+</AddToWrapper>;
 
-export default Title;
+export default AddTo;

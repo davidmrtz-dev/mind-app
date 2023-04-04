@@ -2,7 +2,6 @@ import { Button, Modal, Typography } from "antd";
 import dayjs from "dayjs";
 import { useCallback, useEffect, useState } from "react";
 import { IUserTeam } from "../../@types";
-import { deleteTeam } from "../../api/core/Team";
 import { deleteUserTeam, updateUserTeam } from "../../api/core/UserTeam";
 import { newUserTeam } from "../../generators/emptyObjects";
 import { theme } from "../../Theme";
@@ -44,19 +43,15 @@ export const UserTeamUpdate = ({
         start_at: dayjs(values.start_at).format('YYYY-MM-DD'),
         end_at: dayjs(values.end_at).format('YYYY-MM-DD')
       });
-      setTimeout(async () => {
-        await handleUpdate(userTeam);
-        setValues(newUserTeam());
-        setLoading(false);
-        closeModal();
-      }, 1000);
+      await handleUpdate(userTeam);
     } catch (err: any) {
+      const error = err?.errors?.[0] || err?.error || '';
+      Alert({
+        icon: 'error',
+        text: (error || 'There was an error, please try again later.')
+      });
+    } finally {
       setTimeout(() => {
-        const error = err.errors && err.errors.length && err.errors[0];
-        Alert({
-          icon: 'error',
-          text: (error || 'There was an error, please try again later.')
-        });
         setValues(newUserTeam());
         setLoading(false);
         closeModal();
@@ -69,19 +64,15 @@ export const UserTeamUpdate = ({
 
     try {
       await deleteUserTeam(userTeam.id);
-      setTimeout(async () => {
-        handleDelete && handleDelete(userTeam.id);
-        setValues(newUserTeam());
-        setDeleting(false);
-        closeModal();
-      }, 1000);
+      handleDelete && handleDelete(userTeam.id);
     } catch (err: any) {
+      const error = err?.errors?.[0] || err?.error || '';
+      Alert({
+        icon: 'error',
+        text: (error || 'There was an error, please try again later.')
+      });
+    } finally {
       setTimeout(() => {
-        const error = err.errors && err.errors.length && err.errors[0];
-        Alert({
-          icon: 'error',
-          text: (error || 'There was an error, please try again later.')
-        });
         setValues(newUserTeam());
         setDeleting(false);
         closeModal();
@@ -178,6 +169,8 @@ export const UserTeamUpdate = ({
       footer={footerComponents}
     >
       <UserTeamForm
+        lockUserId
+        lockTeamId
         values={values}
         setValues={setValues}
       />
