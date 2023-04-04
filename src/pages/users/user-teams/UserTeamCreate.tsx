@@ -68,10 +68,7 @@ export const UserTeamCreate = ({
       maskClosable={false}
       closable={false}
       open={open}
-      title={<Typography.Text
-        style={{...theme.texts.brandFont}}
-        >Assign Team
-        </Typography.Text>}
+      title={BrandFontText('Assign Team')}
       style={{
         maxWidth: 360
       }}
