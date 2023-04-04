@@ -1,4 +1,4 @@
-import { Button, Modal, Typography } from "antd";
+import { Button, Modal } from "antd";
 import { useCallback, useEffect, useState } from "react";
 import { IUser } from "../../@types";
 import { deleteUser, updateUser } from "../../api/core/User";

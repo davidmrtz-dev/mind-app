@@ -1,4 +1,4 @@
-import { Button, Modal, Typography } from "antd";
+import { Button, Modal } from "antd";
 import { useState } from "react";
 import { IUser, IUserTeam } from "../../../@types";
 import { theme } from "../../../Theme";

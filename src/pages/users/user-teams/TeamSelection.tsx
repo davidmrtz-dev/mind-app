@@ -1,4 +1,4 @@
-import { Button, Modal, Typography } from "antd";
+import { Button, Modal } from "antd";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { ITeam } from "../../../@types";
