@@ -63,8 +63,7 @@ export const UserTeamForm = ({
       </Form.Item>
       <TeamSelection
         setTeam={(teamId) => {
-          setValues({...values, team_id: teamId});
-          debugger;
+          setValues({...values, team_id: teamId, user_id: user.id});
         }}
         open={showTeam}
         onCancel={() => setShowTeam(false)}
