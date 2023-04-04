@@ -1,4 +1,4 @@
-import { Button, Modal, Typography } from "antd";
+import { Button, Modal } from "antd";
 import { useState } from "react";
 import { IUser, IUserTeam } from "../../../@types";
 import { theme } from "../../../Theme";
@@ -7,6 +7,7 @@ import { createUserTeam } from "../../../api/core/UserTeam";
 import { UserTeamForm } from "./UserTeamForm";
 import dayjs from "dayjs";
 import Alert from "../../../components/alert";
+import { BrandFontText } from "../../../atoms/text";
 
 export const UserTeamCreate = ({
   open,
@@ -67,25 +68,16 @@ export const UserTeamCreate = ({
       maskClosable={false}
       closable={false}
       open={open}
-      title={<Typography.Text
-        style={{...theme.texts.brandFont}}
-        >Assign Team
-        </Typography.Text>}
+      title={BrandFontText('Assign Team')}
       style={{
         maxWidth: 360
       }}
       footer={[
         <Button key="cancel" onClick={handleCancel} disabled={loading}>
-          <Typography.Text style={{ ...theme.texts.brandFont }}>
-            Cancel
-          </Typography.Text>
+          {BrandFontText('Cancel')}
         </Button>,
         <Button key="submit" type="primary" loading={loading} onClick={handleSubmit}>
-          <Typography.Text
-            style={{ ...theme.texts.brandFont, color: theme.colors.whites.normal }}
-          >
-            Create
-          </Typography.Text>
+          {BrandFontText('Create', { color: theme.colors.whites.normal })}
         </Button>
       ]}
     >
