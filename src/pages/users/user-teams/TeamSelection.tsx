@@ -20,14 +20,12 @@ type ITeamSelect = ITeam & { selected?: boolean };
 
 const TeamSelection = ({
   open,
-  closeModal,
   userId,
-  setTeam
+  handleSelect
 }: {
   open: boolean;
-  closeModal: () => void;
   userId: number;
-  setTeam: (team: ITeam) => void;
+  handleSelect: (team: ITeam) => void;
 }): JSX.Element => {
   const [teams, setTeams] = useState<ITeamSelect []>([]);
   const [loading, setLoading] = useState(true);
@@ -52,7 +50,7 @@ const TeamSelection = ({
     }
   };
 
-  const handleSelect = (teamId: number) => {
+  const markSelection = (teamId: number) => {
     if (teams.length) {
       const updatedTeams = teams.map(team => {
         if (team.id === teamId) {
@@ -68,8 +66,7 @@ const TeamSelection = ({
   const handleSubmit = () => {
     const team = teams.find(team => team.selected);
     if (team) {
-      setTeam(team);
-      closeModal();
+      handleSelect(team);
     }
   };
 
@@ -122,7 +119,7 @@ const TeamSelection = ({
       : <TeamsContainer reveal={reveal}>
         {(teams || []).map(team =>
           <Team
-            onSelect={() => handleSelect(team.id)}
+            onSelect={() => markSelection(team.id)}
             selected={team.selected}
             key={team.id}
             team={team}
