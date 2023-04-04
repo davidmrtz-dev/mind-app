@@ -1,4 +1,4 @@
-import { Form, Input, Select, Typography } from "antd";
+import { Form, Input, Select } from "antd";
 import Password from "antd/es/input/Password";
 import TextArea from "antd/es/input/TextArea";
 import { useEffect, useState } from "react";
@@ -13,6 +13,7 @@ import { UserTeamCreate } from "../../pages/users/user-teams";
 import { theme } from "../../Theme";
 import Alert from "../alert";
 import AddTo from "../../atoms/AddTo";
+import { BrandFontText } from "../../atoms/text";
 
 const TeamsContainer = styled.div<{ reveal: boolean }>`
   opacity: ${p => p.reveal ? 1 : 0};
@@ -110,27 +111,19 @@ export const UserForm = ({
       onValuesChange={e => setValues({...values, ...e})}
       style={{ width: '100%' }}
     >
-      <Form.Item label={<Typography.Text style={{ ...theme.texts.brandFont }}>
-        Name
-      </Typography.Text>}
+      <Form.Item label={BrandFontText('Name')}
         name='name'>
         <Input maxLength={20} style={{ ...theme.texts.brandSubFont }}/>
       </Form.Item>
-      <Form.Item label={<Typography.Text style={{ ...theme.texts.brandFont }}>
-        Email
-      </Typography.Text>}
+      <Form.Item label={BrandFontText('Email')}
         name='email'>
         <Input maxLength={40} style={{ ...theme.texts.brandSubFont }}/>
       </Form.Item>
-      {showPassword && (<Form.Item label={<Typography.Text style={{ ...theme.texts.brandFont }}>
-        Password
-      </Typography.Text>}
+      {showPassword && (<Form.Item label={BrandFontText('Password')}
         name='password'>
         <Password maxLength={20} style={{ ...theme.texts.brandSubFont }}/>
       </Form.Item>)}
-      <Form.Item label={<Typography.Text style={{ ...theme.texts.brandFont }}>
-        User Type
-      </Typography.Text>} name='user_type'>
+      <Form.Item label={BrandFontText('User Type')} name='user_type'>
         <Select
           style={{ width: '100%' }}
           options={[
@@ -139,9 +132,7 @@ export const UserForm = ({
           ]}
         />
       </Form.Item>
-      <Form.Item label={<Typography.Text style={{ ...theme.texts.brandFont }}>
-        English Level
-      </Typography.Text>} name='english_level'>
+      <Form.Item label={BrandFontText('English Level')} name='english_level'>
         <Select
           style={{ width: '100%' }}
           options={[
@@ -154,9 +145,7 @@ export const UserForm = ({
           ]}
         />
       </Form.Item>
-      <Form.Item label={<Typography.Text style={{ ...theme.texts.brandFont }}>
-        Skills
-      </Typography.Text>}
+      <Form.Item label={BrandFontText('Skills')}
         name='technical_knowledge'>
         <TextArea
           allowClear
@@ -167,9 +156,7 @@ export const UserForm = ({
           }}
         />
       </Form.Item>
-      <Form.Item label={<Typography.Text style={{ ...theme.texts.brandFont }}>
-        CV
-      </Typography.Text>}
+      <Form.Item label={BrandFontText('CV')}
         name='cv'>
         <Input maxLength={20} style={{ ...theme.texts.brandSubFont }}/>
       </Form.Item>
@@ -193,7 +180,11 @@ export const UserForm = ({
             user={values}
             open={addTo}
             closeModal={() => setAddTo(false)}
-            handleCreate={fetchTeams}
+            handleCreate={async () => {
+              setReveal(false);
+              setLoading(true);
+              fetchTeams();
+            }}
           />
         </>
       </Form.Item>

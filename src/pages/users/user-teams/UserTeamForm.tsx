@@ -1,10 +1,11 @@
-import { DatePicker, Form, Select, Typography } from "antd";
+import { DatePicker, Form, Select } from "antd";
 import { useState } from "react";
-import styled from "styled-components";
-import { IUser, IUserTeam } from "../../../@types";
+import { ITeam, IUser, IUserTeam } from "../../../@types";
 import AddTo from "../../../atoms/AddTo";
-import { theme } from "../../../Theme";
 import TeamSelection from "./TeamSelection";
+import { Team } from "../../teams/Team";
+import { UserData } from "./UserData";
+import { BrandFontText } from "../../../atoms/text";
 
 export const UserTeamForm = ({
   values,
@@ -17,6 +18,13 @@ export const UserTeamForm = ({
 }): JSX.Element => {
   const [form] = Form.useForm();
   const [showTeam, setShowTeam] = useState(false);
+  const [team, setTeam] = useState<ITeam | null>(null);
+
+  const handleSelect = (team: ITeam) => {
+    setTeam(team);
+    setValues({ ...values, team_id: team.id });
+    setShowTeam(false);
+  };
 
   return (
     <Form
@@ -27,32 +35,27 @@ export const UserTeamForm = ({
       onValuesChange={e => setValues({...values, ...e})}
       style={{ width: '100%' }}
     >
-      <Form.Item label={<Typography.Text style={{ ...theme.texts.brandFont }}>
-        User
-      </Typography.Text>}
+      <Form.Item label={BrandFontText('User')}
         name='user'>
         <UserData {...user} />
       </Form.Item>
       <Form.Item name='select_team'>
-        {AddTo('Select Team', () => setShowTeam(true))}
+        {AddTo(`${team ? 'Change' : 'Select'} Team`, () => setShowTeam(true))}
       </Form.Item>
-      <Form.Item label={<Typography.Text style={{ ...theme.texts.brandFont }}>
-        Start Date
-      </Typography.Text>} name='start_at'>
+      {team && (<Form.Item name='selected_team' label={BrandFontText('Selected team')}>
+          <Team team={team} />
+      </Form.Item>)}
+      <Form.Item label={BrandFontText('Start Date')} name='start_at'>
         <DatePicker
           style={{ width: '100%' }}
         />
       </Form.Item>
-      <Form.Item label={<Typography.Text style={{ ...theme.texts.brandFont }}>
-        End Date
-      </Typography.Text>} name='end_at'>
+      <Form.Item label={BrandFontText('End Date')} name='end_at'>
         <DatePicker
           style={{ width: '100%' }}
         />
       </Form.Item>
-      <Form.Item label={<Typography.Text style={{ ...theme.texts.brandFont }}>
-        Status
-      </Typography.Text>} name='status'>
+      <Form.Item label={BrandFontText('Status')} name='status'>
         <Select
           style={{ width: '100%' }}
           options={[
@@ -62,65 +65,10 @@ export const UserTeamForm = ({
         />
       </Form.Item>
       <TeamSelection
-        setTeam={(teamId) => {
-          setValues({...values, team_id: teamId, user_id: user.id});
-        }}
+        handleSelect={handleSelect}
         open={showTeam}
-        onCancel={() => setShowTeam(false)}
         userId={user.id}
       />
     </Form>
   );
-};
-
-const UserDataContainer = styled.div`
-  width: 100%;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-`;
-
-const UserData = (user: IUser): JSX.Element => {
-  return<UserDataContainer>
-    <Typography.Text
-      style={{
-        backgroundColor: theme.colors.grays.lighter,
-        borderTopLeftRadius: 'inherit',
-        borderTopRightRadius: 'inherit',
-        width: '100%',
-        paddingLeft: 5,
-        ...theme.texts.brandSubFont
-      }}>
-      Name:
-    </Typography.Text>
-    <Typography.Text
-      style={{
-        backgroundColor: theme.colors.whites.lighter,
-        width: '100%',
-        paddingLeft: 5,
-        ...theme.texts.brandSubFont
-      }}>
-      {user.name}
-    </Typography.Text>
-    <Typography.Text
-      style={{
-        backgroundColor: theme.colors.grays.lighter,
-        width: '100%',
-        paddingLeft: 5,
-        ...theme.texts.brandSubFont
-      }}>
-      Email:
-    </Typography.Text>
-    <Typography.Text
-      style={{
-        backgroundColor: theme.colors.whites.lighter,
-        borderBottomLeftRadius: 'inherit',
-        borderBottomRightRadius: 'inherit',
-        width: '100%',
-        paddingLeft: 5,
-        ...theme.texts.brandSubFont
-      }}>
-      {user.email}
-    </Typography.Text>
-  </UserDataContainer>;
 };

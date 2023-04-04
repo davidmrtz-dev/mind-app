@@ -1,4 +1,4 @@
-import { Button, Modal, Typography } from "antd";
+import { Button, Modal } from "antd";
 import { useState } from "react";
 import { IUser, IUserTeam } from "../../../@types";
 import { theme } from "../../../Theme";
@@ -7,6 +7,7 @@ import { createUserTeam } from "../../../api/core/UserTeam";
 import { UserTeamForm } from "./UserTeamForm";
 import dayjs from "dayjs";
 import Alert from "../../../components/alert";
+import { BrandFontText } from "../../../atoms/text";
 
 export const UserTeamCreate = ({
   open,
@@ -16,7 +17,7 @@ export const UserTeamCreate = ({
 }: {
   open: boolean;
   closeModal: () => void;
-  handleCreate: (userTeam: IUserTeam) => Promise<void>;
+  handleCreate: () => Promise<void>;
   user: IUser;
 }): JSX.Element => {
   const [loading, setLoading] = useState(false);
@@ -34,12 +35,13 @@ export const UserTeamCreate = ({
     setLoading(true);
 
     try {
-      const userTeam = await createUserTeam({
+      await createUserTeam({
         ...values,
+        user_id: user.id,
         start_at: dayjs(values.start_at).format('YYYY-MM-DD'),
         end_at: dayjs(values.end_at).format('YYYY-MM-DD')
       });
-      await handleCreate(userTeam);
+      await handleCreate();
     } catch (err: any) {
       const error = err?.errors?.[0] || err?.error || '';
       Alert({
@@ -48,14 +50,13 @@ export const UserTeamCreate = ({
       });
     } finally {
       setTimeout(() => {
-        setValues(newUserTeam());
+        handleClose();
         setLoading(false);
-        closeModal();
       }, 1000);
     }
   };
 
-  const handleCancel = () => {
+  const handleClose = () => {
     setValues(newUserTeam());
     closeModal();
   };
@@ -66,25 +67,16 @@ export const UserTeamCreate = ({
       maskClosable={false}
       closable={false}
       open={open}
-      title={<Typography.Text
-        style={{...theme.texts.brandFont}}
-        >Assign Team
-        </Typography.Text>}
+      title={BrandFontText('Assign Team')}
       style={{
         maxWidth: 360
       }}
       footer={[
-        <Button key="cancel" onClick={handleCancel} disabled={loading}>
-          <Typography.Text style={{ ...theme.texts.brandFont }}>
-            Cancel
-          </Typography.Text>
+        <Button key="cancel" onClick={handleClose} disabled={loading}>
+          {BrandFontText('Cancel')}
         </Button>,
         <Button key="submit" type="primary" loading={loading} onClick={handleSubmit}>
-          <Typography.Text
-            style={{ ...theme.texts.brandFont, color: theme.colors.whites.normal }}
-          >
-            Create
-          </Typography.Text>
+          {BrandFontText('Create', { color: theme.colors.whites.normal })}
         </Button>
       ]}
     >

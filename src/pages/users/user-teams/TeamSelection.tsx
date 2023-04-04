@@ -1,4 +1,4 @@
-import { Button, Modal, Typography } from "antd";
+import { Button, Modal } from "antd";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { ITeam } from "../../../@types";
@@ -7,6 +7,7 @@ import { LoadingMask } from "../../../atoms/LoadingMask";
 import Alert from "../../../components/alert";
 import { theme } from "../../../Theme";
 import { Team } from "../../teams/Team";
+import { BrandFontText } from "../../../atoms/text";
 
 const TeamsContainer = styled.div<{ reveal: boolean }>`
   opacity: ${p => p.reveal ? 1 : 0};
@@ -19,43 +20,22 @@ type ITeamSelect = ITeam & { selected?: boolean };
 
 const TeamSelection = ({
   open,
-  onCancel,
   userId,
-  setTeam
+  handleSelect
 }: {
   open: boolean;
-  onCancel: () => void;
   userId: number;
-  setTeam: (teamId: number) => void;
+  handleSelect: (team: ITeam) => void;
 }): JSX.Element => {
   const [teams, setTeams] = useState<ITeamSelect []>([]);
   const [loading, setLoading] = useState(true);
   const [reveal, setReveal] = useState(false);
 
-  const fetchTeams = async (): Promise<void> => {
-    try {
-      const data = await getTeamsByUser({
-        offset: 0,
-        limit: 10,
-        userId: userId,
-        excludeUser: true
-      });
-      setTeams(data.teams);
-      setTimeout(() => setLoading(false), 1500);
-    } catch (err: any) {
-      setTimeout(() => Alert({
-        icon: 'error',
-        title: 'Ops!',
-        text: err.error || 'There was an error, please try again later'
-      }), 1000);
-    }
-  };
-
-  const handleSelect = (teamId: number) => {
+  const markSelection = (teamId: number) => {
     if (teams.length) {
       const updatedTeams = teams.map(team => {
         if (team.id === teamId) {
-          return {...team, selected: !team.selected};
+          return {...team, selected: true};
         } else {
           return {...team, selected: false};
         }
@@ -64,25 +44,37 @@ const TeamSelection = ({
     }
   };
 
-  const handleCancel = () => {
-    setTeams(teams.map(team => ({...team, selected: false})));
-    onCancel();
-  };
-
-  const handleSubmit = () => {
-    const selected = teams.find(team => team.selected);
-    if (selected) {
-      setTeam(selected.id);
-      handleCancel();
+  const onSelect = () => {
+    const team = teams.find(team => team.selected);
+    if (team) {
+      handleSelect(team);
     }
   };
 
   const disabled = teams.every(team => !team.selected);
 
   useEffect(() => {
+    const fetchTeams = async (): Promise<void> => {
+      try {
+        const data = await getTeamsByUser({
+          offset: 0,
+          limit: 10,
+          userId: userId,
+          excludeUser: true
+        });
+        setTeams(data.teams);
+        setTimeout(() => setLoading(false), 1500);
+      } catch (err: any) {
+        setTimeout(() => Alert({
+          icon: 'error',
+          title: 'Ops!',
+          text: err.error || 'There was an error, please try again later'
+        }), 1000);
+      }
+    };
+
     fetchTeams();
-    // eslint-disable-next-line
-  }, []);
+  }, [userId]);
 
   useEffect(() => {
     if (!loading) setTimeout(() => setReveal(true), 250);
@@ -90,32 +82,19 @@ const TeamSelection = ({
 
   const footerComponents = [
     <Button
-      key="cancel"
-      onClick={handleCancel}
-      disabled={loading}
-    >
-      <Typography.Text style={{ ...theme.texts.brandFont }}>
-        Cancel
-      </Typography.Text>
-    </Button>,
-    <Button
       key="submit"
       type="primary"
       loading={loading}
       disabled={disabled}
-      onClick={handleSubmit}
+      onClick={onSelect}
       style={{
         backgroundColor:
           disabled ? theme.colors.grays.normal : theme.colors.blues.normal
       }}
     >
-      <Typography.Text style={{
-        ...theme.texts.brandFont,
+      {BrandFontText('Select', {
         color: theme.colors.whites.normal
-      }}
-      >
-        Select
-      </Typography.Text>
+      })}
     </Button>
   ];
 
@@ -125,10 +104,7 @@ const TeamSelection = ({
       maskClosable={false}
       closable={false}
       open={open}
-      title={<Typography.Text
-        style={{...theme.texts.brandFont }}
-        > Select a Team
-        </Typography.Text>}
+      title={BrandFontText('Select a Team')}
       style={{
         maxWidth: 360,
         position: 'relative'
@@ -142,7 +118,7 @@ const TeamSelection = ({
       : <TeamsContainer reveal={reveal}>
         {(teams || []).map(team =>
           <Team
-            onSelect={() => handleSelect(team.id)}
+            onSelect={() => markSelection(team.id)}
             selected={team.selected}
             key={team.id}
             team={team}
