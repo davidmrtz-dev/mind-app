@@ -19,14 +19,14 @@ type ITeamSelect = ITeam & { selected?: boolean };
 
 const TeamSelection = ({
   open,
-  onCancel,
+  closeModal,
   userId,
   setTeam
 }: {
   open: boolean;
-  onCancel: () => void;
+  closeModal: () => void;
   userId: number;
-  setTeam: (teamId: number) => void;
+  setTeam: (team: ITeam) => void;
 }): JSX.Element => {
   const [teams, setTeams] = useState<ITeamSelect []>([]);
   const [loading, setLoading] = useState(true);
@@ -55,7 +55,7 @@ const TeamSelection = ({
     if (teams.length) {
       const updatedTeams = teams.map(team => {
         if (team.id === teamId) {
-          return {...team, selected: !team.selected};
+          return {...team, selected: true};
         } else {
           return {...team, selected: false};
         }
@@ -64,16 +64,11 @@ const TeamSelection = ({
     }
   };
 
-  const handleCancel = () => {
-    setTeams(teams.map(team => ({...team, selected: false})));
-    onCancel();
-  };
-
   const handleSubmit = () => {
-    const selected = teams.find(team => team.selected);
-    if (selected) {
-      setTeam(selected.id);
-      handleCancel();
+    const team = teams.find(team => team.selected);
+    if (team) {
+      setTeam(team);
+      closeModal();
     }
   };
 
@@ -89,15 +84,6 @@ const TeamSelection = ({
   }, [loading]);
 
   const footerComponents = [
-    <Button
-      key="cancel"
-      onClick={handleCancel}
-      disabled={loading}
-    >
-      <Typography.Text style={{ ...theme.texts.brandFont }}>
-        Cancel
-      </Typography.Text>
-    </Button>,
     <Button
       key="submit"
       type="primary"

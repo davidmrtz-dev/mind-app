@@ -1,10 +1,11 @@
 import { DatePicker, Form, Select, Typography } from "antd";
 import { useState } from "react";
 import styled from "styled-components";
-import { IUser, IUserTeam } from "../../../@types";
+import { ITeam, IUser, IUserTeam } from "../../../@types";
 import AddTo from "../../../atoms/AddTo";
 import { theme } from "../../../Theme";
 import TeamSelection from "./TeamSelection";
+import { Team } from "../../teams/Team";
 
 export const UserTeamForm = ({
   values,
@@ -17,6 +18,12 @@ export const UserTeamForm = ({
 }): JSX.Element => {
   const [form] = Form.useForm();
   const [showTeam, setShowTeam] = useState(false);
+  const [team, setTeam] = useState<ITeam | null>(null);
+
+  const handleSelection = (team: ITeam) => {
+    setTeam(team);
+    setValues({ ...values, team_id: team.id });
+  };
 
   return (
     <Form
@@ -34,8 +41,13 @@ export const UserTeamForm = ({
         <UserData {...user} />
       </Form.Item>
       <Form.Item name='select_team'>
-        {AddTo('Select Team', () => setShowTeam(true))}
+        {AddTo(`${team ? 'Change' : 'Select'} Team`, () => setShowTeam(true))}
       </Form.Item>
+      {team && (<Form.Item name='selected_team' label={<Typography.Text style={{ ...theme.texts.brandFont }}>
+        Selected team
+      </Typography.Text>}>
+          <Team team={team} />
+      </Form.Item>)}
       <Form.Item label={<Typography.Text style={{ ...theme.texts.brandFont }}>
         Start Date
       </Typography.Text>} name='start_at'>
@@ -62,11 +74,9 @@ export const UserTeamForm = ({
         />
       </Form.Item>
       <TeamSelection
-        setTeam={(teamId) => {
-          setValues({...values, team_id: teamId, user_id: user.id});
-        }}
+        setTeam={handleSelection}
         open={showTeam}
-        onCancel={() => setShowTeam(false)}
+        closeModal={() => setShowTeam(false)}
         userId={user.id}
       />
     </Form>

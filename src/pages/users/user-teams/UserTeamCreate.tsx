@@ -16,7 +16,7 @@ export const UserTeamCreate = ({
 }: {
   open: boolean;
   closeModal: () => void;
-  handleCreate: (userTeam: IUserTeam) => Promise<void>;
+  handleCreate: () => Promise<void>;
   user: IUser;
 }): JSX.Element => {
   const [loading, setLoading] = useState(false);
@@ -34,12 +34,13 @@ export const UserTeamCreate = ({
     setLoading(true);
 
     try {
-      const userTeam = await createUserTeam({
+      await createUserTeam({
         ...values,
+        user_id: user.id,
         start_at: dayjs(values.start_at).format('YYYY-MM-DD'),
         end_at: dayjs(values.end_at).format('YYYY-MM-DD')
       });
-      await handleCreate(userTeam);
+      await handleCreate();
     } catch (err: any) {
       const error = err?.errors?.[0] || err?.error || '';
       Alert({
