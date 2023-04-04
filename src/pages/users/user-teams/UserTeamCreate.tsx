@@ -50,14 +50,13 @@ export const UserTeamCreate = ({
       });
     } finally {
       setTimeout(() => {
-        setValues(newUserTeam());
+        handleClose();
         setLoading(false);
-        closeModal();
       }, 1000);
     }
   };
 
-  const handleCancel = () => {
+  const handleClose = () => {
     setValues(newUserTeam());
     closeModal();
   };
@@ -73,7 +72,7 @@ export const UserTeamCreate = ({
         maxWidth: 360
       }}
       footer={[
-        <Button key="cancel" onClick={handleCancel} disabled={loading}>
+        <Button key="cancel" onClick={handleClose} disabled={loading}>
           {BrandFontText('Cancel')}
         </Button>,
         <Button key="submit" type="primary" loading={loading} onClick={handleSubmit}>
