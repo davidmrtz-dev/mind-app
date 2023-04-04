@@ -6,6 +6,7 @@ import AddTo from "../../../atoms/AddTo";
 import { theme } from "../../../Theme";
 import TeamSelection from "./TeamSelection";
 import { Team } from "../../teams/Team";
+import BrandFontText from "../../../atoms/BrandFontText";
 
 export const UserTeamForm = ({
   values,
@@ -34,9 +35,7 @@ export const UserTeamForm = ({
       onValuesChange={e => setValues({...values, ...e})}
       style={{ width: '100%' }}
     >
-      <Form.Item label={<Typography.Text style={{ ...theme.texts.brandFont }}>
-        User
-      </Typography.Text>}
+      <Form.Item label={BrandFontText('User')}
         name='user'>
         <UserData {...user} />
       </Form.Item>
