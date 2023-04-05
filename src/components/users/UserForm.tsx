@@ -1,15 +1,14 @@
 import { Form, Input, Select } from "antd";
 import Password from "antd/es/input/Password";
 import TextArea from "antd/es/input/TextArea";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import { ITeam, IUser } from "../../@types";
 import { getTeamsByUser } from "../../api/core/Team";
-import { deleteUserTeam } from "../../api/core/UserTeam";
 import { LoadingMask } from "../../atoms/LoadingMask";
 import { newTeam } from "../../generators/emptyObjects";
 import { Team } from "../../pages/teams/Team";
-import { UserTeamCreate } from "../../pages/users/user-teams";
+import { UserTeamCreate, UserTeamUpdate } from "../../pages/users/user-teams";
 import { theme } from "../../Theme";
 import Alert from "../alert";
 import AddTo from "../../atoms/AddTo";
@@ -35,11 +34,11 @@ export const UserForm = ({
   const [loading, setLoading] = useState(true);
   const [reveal, setReveal] = useState(false);
   const [teams, setTeams] = useState<ITeam []>([]);
-  const [destroy, setDestroy] = useState(false);
-  const [team, setTeam] = useState<ITeam>(newTeam());
   const [addTo, setAddTo] = useState(false);
+  const [team, setTeam] = useState<ITeam>(newTeam());
+  const [update, setUpdate] = useState(false);
 
-  const fetchTeams = async (): Promise<void> => {
+  const fetchTeams = useCallback(async (): Promise<void> => {
     try {
       const data = await getTeamsByUser({
         offset: 0,
@@ -55,52 +54,26 @@ export const UserForm = ({
         text: err.error || 'There was an error, please try again later'
       }), 1000);
     }
+  }, [values]);
+
+  const refreshTeams = async (): Promise<void> => {
+    setReveal(false);
+    setLoading(true);
+    fetchTeams();
   };
 
-  const handleDestroyTeamClick = (team: ITeam) => {
-    setDestroy(true);
+  const handleTeamClick = (team: ITeam) => {
     setTeam(team);
-  }
-
-  const handleSubmitDelete = async () => {
-    if (!team?.user_team) return;
-
-    try {
-      await deleteUserTeam(team.user_team?.id);
-      await fetchTeams();
-    } catch (err: any) {
-      const error = err?.errors?.[0] || err?.error || '';
-      Alert({
-        icon: 'error',
-        text:(error || 'There was an error, please try again later.')
-      });
-    } finally {
-      setTimeout(() => {
-        setTeam(newTeam());
-        setDestroy(false);
-      }, 500);
-    }
+    setUpdate(true);
   };
 
   useEffect(() => {
     fetchTeams();
-    // eslint-disable-next-line
-  }, []);
+  }, [fetchTeams]);
 
   useEffect(() => {
     if (!loading) setTimeout(() => setReveal(true), 250);
   }, [loading]);
-
-  if (destroy) Alert({
-    icon: 'warning',
-    text: 'Are you sure you want to remove this user from this team?',
-    showCancelButton: true
-  }).then(result => {
-    setDestroy(false);
-    if (result.isConfirmed) {
-      handleSubmitDelete();
-    }
-  });
 
   return (
     <Form
@@ -160,19 +133,20 @@ export const UserForm = ({
         name='cv'>
         <Input maxLength={20} style={{ ...theme.texts.brandSubFont }}/>
       </Form.Item>
-      <Form.Item name='teams_history'>
+      <Form.Item name='assign team' label={BrandFontText('Teams History')}>
         <>
           {loading
           ? <div style={{ width: '100%', height: 120, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
               <LoadingMask />
             </div>
           : <TeamsContainer reveal={reveal}>
-            {AddTo('Teams History', () => setAddTo(true))}
+            {AddTo('Assign Team', () => setAddTo(true))}
             {(teams || []).map(team =>
               <Team
                 key={team.id}
                 team={team}
-                onClickDelete={() => handleDestroyTeamClick(team)} />
+                onClick={() => handleTeamClick(team)}
+              />
             )}
           </TeamsContainer>
           }
@@ -180,11 +154,15 @@ export const UserForm = ({
             user={values}
             open={addTo}
             closeModal={() => setAddTo(false)}
-            handleCreate={async () => {
-              setReveal(false);
-              setLoading(true);
-              fetchTeams();
-            }}
+            handleCreate={refreshTeams}
+          />
+          <UserTeamUpdate
+            user={values}
+            team={team || {} as ITeam}
+            open={update}
+            closeModal={() => setUpdate(false)}
+            handleUpdate={refreshTeams}
+            handleDelete={refreshTeams}
           />
         </>
       </Form.Item>

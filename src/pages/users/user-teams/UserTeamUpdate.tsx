@@ -1,7 +1,7 @@
 import { Button, Modal, Typography } from "antd";
 import dayjs from "dayjs";
 import { useCallback, useEffect, useState } from "react";
-import { IUser, IUserTeam } from "../../../@types";
+import { ITeam, IUser, IUserTeam } from "../../../@types";
 import { deleteUserTeam, updateUserTeam } from "../../../api/core/UserTeam";
 import Alert from "../../../components/alert";
 import { newUserTeam } from "../../../generators/emptyObjects";
@@ -9,18 +9,18 @@ import { theme } from "../../../Theme";
 import { UserTeamForm } from "./UserTeamForm";
 
 export const UserTeamUpdate = ({
-  userTeam,
+  team,
   open,
   closeModal,
   handleUpdate,
   handleDelete,
   user
 }: {
-  userTeam: IUserTeam;
+  team: ITeam;
   open: boolean;
   closeModal: () => void;
-  handleUpdate: (userTeam: IUserTeam) => Promise<void>;
-  handleDelete?: (id: number) => void;
+  handleUpdate: () => Promise<void>;
+  handleDelete?: () => Promise<void>;
   user: IUser;
 }): JSX.Element => {
   const [loading, setLoading] = useState(false);
@@ -40,12 +40,12 @@ export const UserTeamUpdate = ({
     setLoading(true);
 
     try {
-      const userTeam = await updateUserTeam({
+      await updateUserTeam({
         ...values,
         start_at: dayjs(values.start_at).format('YYYY-MM-DD'),
         end_at: dayjs(values.end_at).format('YYYY-MM-DD')
       });
-      await handleUpdate(userTeam);
+      await handleUpdate();
     } catch (err: any) {
       const error = err?.errors?.[0] || err?.error || '';
       Alert({
@@ -65,8 +65,8 @@ export const UserTeamUpdate = ({
     setDeleting(true);
 
     try {
-      await deleteUserTeam(userTeam.id);
-      handleDelete && handleDelete(userTeam.id);
+      await deleteUserTeam(values.id);
+      handleDelete && handleDelete();
     } catch (err: any) {
       const error = err?.errors?.[0] || err?.error || '';
       Alert({
@@ -88,12 +88,14 @@ export const UserTeamUpdate = ({
   };
 
   useEffect(() => {
-    setValues({
-      ...userTeam,
-      start_at: dayjs(userTeam.start_at),
-      end_at: dayjs(userTeam.end_at)
-    });
-  }, [userTeam]);
+    if (team.user_team) {
+      setValues({
+        ...team.user_team,
+        start_at: dayjs(team.user_team.start_at),
+        end_at: dayjs(team.user_team.end_at)
+      });
+    }
+  }, [team]);
 
   const footerComponents = [
     <Button
@@ -174,6 +176,7 @@ export const UserTeamUpdate = ({
         user={user}
         values={values}
         setValues={setValues}
+        currentTeam={team}
       />
     </Modal>
   );
