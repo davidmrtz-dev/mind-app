@@ -200,6 +200,7 @@ export const UserForm = ({
             open={update}
             closeModal={() => setUpdate(false)}
             handleUpdate={refreshTeams}
+            handleDelete={refreshTeams}
           />
         </>
       </Form.Item>

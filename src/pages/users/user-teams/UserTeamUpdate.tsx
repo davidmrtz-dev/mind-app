@@ -20,7 +20,7 @@ export const UserTeamUpdate = ({
   open: boolean;
   closeModal: () => void;
   handleUpdate: () => Promise<void>;
-  handleDelete?: (id: number) => void;
+  handleDelete?: () => Promise<void>;
   user: IUser;
 }): JSX.Element => {
   const [loading, setLoading] = useState(false);
@@ -66,7 +66,7 @@ export const UserTeamUpdate = ({
 
     try {
       await deleteUserTeam(values.id);
-      handleDelete && handleDelete(values.id);
+      handleDelete && handleDelete();
     } catch (err: any) {
       const error = err?.errors?.[0] || err?.error || '';
       Alert({
