@@ -176,6 +176,7 @@ export const UserTeamUpdate = ({
         user={user}
         values={values}
         setValues={setValues}
+        currentTeam={team}
       />
     </Modal>
   );
