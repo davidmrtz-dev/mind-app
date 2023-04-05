@@ -8,12 +8,11 @@ const SearchWrapper = styled.div`
   background-color: ${p => p.theme.colors.grays.light};
   width: 100%;
   height: 50px;
-	border-top-left-radius: 10px;
-	border-top-right-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: space-around;
   padding: 0 5px;
+	border-radius: 10px;
 `;
 
 export const Search = ({
