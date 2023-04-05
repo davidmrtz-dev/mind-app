@@ -71,11 +71,11 @@ export const UserTeamForm = ({
           ]}
         />
       </Form.Item>
-      <TeamSelection
+      {!currentTeam && (<TeamSelection
         handleSelect={handleSelect}
         open={showTeam}
         userId={user.id}
-      />
+      />)}
     </Form>
   );
 };
