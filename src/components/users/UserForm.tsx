@@ -1,7 +1,7 @@
 import { Form, Input, Select } from "antd";
 import Password from "antd/es/input/Password";
 import TextArea from "antd/es/input/TextArea";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import { ITeam, IUser, IUserTeam } from "../../@types";
 import { getTeamsByUser } from "../../api/core/Team";
@@ -39,7 +39,7 @@ export const UserForm = ({
   const [team, setTeam] = useState<ITeam>(newTeam());
   const [update, setUpdate] = useState(false);
 
-  const fetchTeams = async (): Promise<void> => {
+  const fetchTeams = useCallback(async (): Promise<void> => {
     try {
       const data = await getTeamsByUser({
         offset: 0,
@@ -55,38 +55,13 @@ export const UserForm = ({
         text: err.error || 'There was an error, please try again later'
       }), 1000);
     }
-  };
+  }, [values]);
 
   const refreshTeams = async (): Promise<void> => {
     setReveal(false);
     setLoading(true);
     fetchTeams();
   };
-
-  // const handleDestroyTeamClick = (team: ITeam) => {
-  //   setDestroy(true);
-  //   setTeam(team);
-  // }
-
-  // const handleSubmitDelete = async () => {
-  //   if (!team?.user_team) return;
-
-  //   try {
-  //     await deleteUserTeam(team.user_team?.id);
-  //     await fetchTeams();
-  //   } catch (err: any) {
-  //     const error = err?.errors?.[0] || err?.error || '';
-  //     Alert({
-  //       icon: 'error',
-  //       text:(error || 'There was an error, please try again later.')
-  //     });
-  //   } finally {
-  //     setTimeout(() => {
-  //       setTeam(newTeam());
-  //       setDestroy(false);
-  //     }, 500);
-  //   }
-  // };
 
   const handleTeamClick = (team: ITeam) => {
     setTeam(team);
@@ -95,23 +70,11 @@ export const UserForm = ({
 
   useEffect(() => {
     fetchTeams();
-    // eslint-disable-next-line
-  }, []);
+  }, [fetchTeams]);
 
   useEffect(() => {
     if (!loading) setTimeout(() => setReveal(true), 250);
   }, [loading]);
-
-  // if (destroy) Alert({
-  //   icon: 'warning',
-  //   text: 'Are you sure you want to remove this user from this team?',
-  //   showCancelButton: true
-  // }).then(result => {
-  //   setDestroy(false);
-  //   if (result.isConfirmed) {
-  //     handleSubmitDelete();
-  //   }
-  // });
 
   return (
     <Form
