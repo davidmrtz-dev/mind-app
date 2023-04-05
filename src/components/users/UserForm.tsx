@@ -171,14 +171,14 @@ export const UserForm = ({
         name='cv'>
         <Input maxLength={20} style={{ ...theme.texts.brandSubFont }}/>
       </Form.Item>
-      <Form.Item name='teams_history'>
+      <Form.Item name='assign team' label={BrandFontText('Teams History')}>
         <>
           {loading
           ? <div style={{ width: '100%', height: 120, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
               <LoadingMask />
             </div>
           : <TeamsContainer reveal={reveal}>
-            {AddTo('Teams History', () => setAddTo(true))}
+            {AddTo('Assign Team', () => setAddTo(true))}
             {(teams || []).map(team =>
               <Team
                 key={team.id}
