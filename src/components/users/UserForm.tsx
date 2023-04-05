@@ -13,6 +13,7 @@ import { theme } from "../../Theme";
 import Alert from "../alert";
 import AddTo from "../../atoms/AddTo";
 import { BrandFontText } from "../../atoms/text";
+import { useDebouncedState } from "../../hooks/useDebouncedState";
 
 const TeamsContainer = styled.div<{ reveal: boolean }>`
   opacity: ${p => p.reveal ? 1 : 0};
@@ -37,7 +38,7 @@ export const UserForm = ({
   const [addTo, setAddTo] = useState(false);
   const [team, setTeam] = useState<ITeam>(newTeam());
   const [update, setUpdate] = useState(false);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useDebouncedState<string>('', 100);
 
   const fetchTeams = useCallback(async (): Promise<void> => {
     try {
