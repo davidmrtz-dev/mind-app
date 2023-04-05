@@ -8,7 +8,7 @@ import { getTeamsByUser } from "../../api/core/Team";
 import { LoadingMask } from "../../atoms/LoadingMask";
 import { newTeam } from "../../generators/emptyObjects";
 import { Team } from "../../pages/teams/Team";
-import { UserTeamCreate, UserTeamUpdate } from "../../pages/users/user-teams";
+import { Search, UserTeamCreate, UserTeamUpdate } from "../../pages/users/user-teams";
 import { theme } from "../../Theme";
 import Alert from "../alert";
 import AddTo from "../../atoms/AddTo";
@@ -37,6 +37,7 @@ export const UserForm = ({
   const [addTo, setAddTo] = useState(false);
   const [team, setTeam] = useState<ITeam>(newTeam());
   const [update, setUpdate] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const fetchTeams = useCallback(async (): Promise<void> => {
     try {
@@ -141,6 +142,10 @@ export const UserForm = ({
             </div>
           : <TeamsContainer reveal={reveal}>
             {AddTo('Assign Team', () => setAddTo(true))}
+            <Search
+              search={searchTerm}
+              setSearch={setSearchTerm}
+            />
             {(teams || []).map(team =>
               <Team
                 key={team.id}

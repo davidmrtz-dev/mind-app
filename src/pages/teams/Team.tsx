@@ -1,4 +1,3 @@
-import { faRemove } from "@fortawesome/free-solid-svg-icons";
 import { Typography } from "antd";
 import { ITeam } from "../../@types";
 import { ActionButton } from "../../atoms/ActionButton";
