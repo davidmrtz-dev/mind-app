@@ -13,7 +13,7 @@ const UserDataContainer = styled.div`
 export const UserData = (user: IUser): JSX.Element => {
   return<UserDataContainer>
     {BrandSubFontText('Name', {
-      backgroundColor: theme.colors.grays.lighter,
+      backgroundColor: theme.colors.grays.light,
       borderTopLeftRadius: 'inherit',
       borderTopRightRadius: 'inherit',
       width: '100%',
@@ -25,7 +25,7 @@ export const UserData = (user: IUser): JSX.Element => {
       paddingLeft: 5
     })}
     {BrandSubFontText('Email', {
-      backgroundColor: theme.colors.grays.lighter,
+      backgroundColor: theme.colors.grays.light,
       width: '100%',
       paddingLeft: 5
     })}
