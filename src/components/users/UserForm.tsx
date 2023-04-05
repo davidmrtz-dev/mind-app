@@ -196,7 +196,7 @@ export const UserForm = ({
           />
           <UserTeamUpdate
             user={values}
-            userTeam={team.user_team || {} as IUserTeam}
+            team={team || {} as ITeam}
             open={update}
             closeModal={() => setUpdate(false)}
             handleUpdate={refreshTeams}

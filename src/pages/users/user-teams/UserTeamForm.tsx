@@ -6,17 +6,18 @@ import TeamSelection from "./TeamSelection";
 import { Team } from "../../teams/Team";
 import { UserData } from "./UserData";
 import { BrandFontText } from "../../../atoms/text";
+import { TeamData } from "./TeamData";
 
 export const UserTeamForm = ({
   values,
   setValues,
   user,
-  showSelector
+  currentTeam
 }: {
   values: IUserTeam;
   setValues: (values: IUserTeam) => void;
   user: IUser;
-  showSelector?: boolean;
+  currentTeam?: ITeam;
 }): JSX.Element => {
   const [form] = Form.useForm();
   const [showTeam, setShowTeam] = useState(false);
@@ -41,7 +42,11 @@ export const UserTeamForm = ({
         name='user'>
         <UserData {...user} />
       </Form.Item>
-      {showSelector && (<Form.Item name='select_team'>
+      {currentTeam && (<Form.Item label={BrandFontText('Team')}
+        name='team'>
+        <TeamData {...currentTeam || {} as ITeam} />
+      </Form.Item>)}
+      {!currentTeam && (<Form.Item name='select_team'>
         {AddTo(`${team ? 'Change' : 'Select'} Team`, () => setShowTeam(true))}
       </Form.Item>)}
       {team && (<Form.Item name='selected_team' label={BrandFontText('Selected team')}>
