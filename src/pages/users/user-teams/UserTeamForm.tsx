@@ -44,11 +44,11 @@ export const UserTeamForm = ({
         name='team'>
         <TeamData {...currentTeam || {} as ITeam} />
       </Form.Item>)}
+      {team && (<Form.Item name='selected_team' label={BrandFontText('Team')}>
+          <Team team={team} />
+      </Form.Item>)}
       {!currentTeam && (<Form.Item name='select_team'>
         {AddTo(`${team ? 'Change' : 'Select'} Team`, () => setShowTeam(true))}
-      </Form.Item>)}
-      {team && (<Form.Item name='selected_team' label={BrandFontText('Selected team')}>
-          <Team team={team} />
       </Form.Item>)}
       <Form.Item label={BrandFontText('Start Date')} name='start_at'>
         <DatePicker
