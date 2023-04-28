@@ -71,7 +71,8 @@ export const UserForm = ({
 
   useEffect(() => {
     fetchTeams();
-  }, [fetchTeams]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (!loading) setTimeout(() => setReveal(true), 250);
