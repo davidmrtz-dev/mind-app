@@ -106,7 +106,8 @@ export const UserForm = ({
     } else {
       fetchTeams();
     }
-  }, [searchTerm])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchTerm]);
 
   return (
     <Form
