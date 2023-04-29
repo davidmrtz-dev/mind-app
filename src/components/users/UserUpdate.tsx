@@ -58,9 +58,9 @@ export const UserUpdate = ({
       });
     } finally {
       setTimeout(() => {
-        setValues(newUser('standard'));
-        setLoading(false);
         closeModal();
+        setLoading(false);
+        setValues(newUser('standard'));
       }, 1000);
     }
   }, [closeModal, handleUpdate, values]);
