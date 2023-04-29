@@ -38,7 +38,7 @@ export const getTeamsByUser = async ({
   return result.data;
 };
 
-export const searchTeams = async ({
+export const searchTeamsByUser = async ({
   userId,
   keyword,
   start_at,
