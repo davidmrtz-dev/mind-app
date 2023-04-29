@@ -51,7 +51,7 @@ export const searchTeamsByUser = async ({
   start_at: string;
   end_at: string;
   offset: number;
-  limit: number;
+  limit?: number;
 }): Promise<ITeams> => {
   const result = await Http.get(`/api/v1/teams/${userId}`, {
     keyword,
