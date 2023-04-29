@@ -28,8 +28,38 @@ export const getTeamsByUser = async ({
   limit?: number;
   excludeUser?: boolean;
 }): Promise<ITeams> => {
-  const urlTail = excludeUser ? `?user_id=${userId}` : `${userId}`;
-  const result = await Http.get(`/api/v1/teams/${urlTail}`, { limit, offset }, {
+  const urlTail = excludeUser ? `?user_id=${userId}` : `/${userId}`;
+  const result = await Http.get(`/api/v1/teams${urlTail}`, { limit, offset }, {
+    'access-token': sessionStorage.getItem('authorization:token') || '',
+    client: sessionStorage.getItem('authorization:client') || '',
+    uid: sessionStorage.getItem('authorization:uid') || ''
+  });
+
+  return result.data;
+};
+
+export const searchTeams = async ({
+  userId,
+  keyword,
+  start_at,
+  end_at,
+  offset,
+  limit = 10
+}: {
+  userId: number;
+  keyword: string;
+  start_at: string;
+  end_at: string;
+  offset: number;
+  limit: number;
+}): Promise<ITeams> => {
+  const result = await Http.get(`/api/v1/teams/${userId}`, {
+    keyword,
+    start_at,
+    end_at,
+    offset,
+    limit
+  }, {
     'access-token': sessionStorage.getItem('authorization:token') || '',
     client: sessionStorage.getItem('authorization:client') || '',
     uid: sessionStorage.getItem('authorization:uid') || ''
