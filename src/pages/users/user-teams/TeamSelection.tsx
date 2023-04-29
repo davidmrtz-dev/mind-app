@@ -18,7 +18,7 @@ const TeamsContainer = styled.div<{ reveal: boolean }>`
 
 type ITeamSelect = ITeam & { selected?: boolean };
 
-const TeamSelection = ({
+export const TeamSelection = ({
   open,
   userId,
   handleSelect
@@ -129,5 +129,3 @@ const TeamSelection = ({
     </Modal>
   );
 };
-
-export default TeamSelection;

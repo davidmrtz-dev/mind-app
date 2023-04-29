@@ -4,15 +4,16 @@ import TextArea from "antd/es/input/TextArea";
 import { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import { ITeam, IUser } from "../../@types";
-import { getTeamsByUser } from "../../api/core/Team";
+import { getTeamsByUser, searchTeamsByUser } from "../../api/core/Team";
 import { LoadingMask } from "../../atoms/LoadingMask";
 import { newTeam } from "../../generators/emptyObjects";
 import { Team } from "../../pages/teams/Team";
-import { UserTeamCreate, UserTeamUpdate } from "../../pages/users/user-teams";
+import { Search, UserTeamCreate, UserTeamUpdate } from "../../pages/users/user-teams";
 import { theme } from "../../Theme";
 import Alert from "../alert";
 import AddTo from "../../atoms/AddTo";
 import { BrandFontText } from "../../atoms/text";
+import { useDebouncedState } from "../../hooks/useDebouncedState";
 
 const TeamsContainer = styled.div<{ reveal: boolean }>`
   opacity: ${p => p.reveal ? 1 : 0};
@@ -37,6 +38,29 @@ export const UserForm = ({
   const [addTo, setAddTo] = useState(false);
   const [team, setTeam] = useState<ITeam>(newTeam());
   const [update, setUpdate] = useState(false);
+  const [searchTerm, setSearchTerm] = useDebouncedState<string>('', 100);
+
+  const search = useCallback(async (keyword: string): Promise<void> => {
+    try {
+      setLoading(true);
+      const data = await searchTeamsByUser({
+        userId: values.id,
+        keyword,
+        start_at: '',
+        end_at: '',
+        offset: 0
+      });
+      setTeams(data.teams);
+      setTimeout(() => setLoading(false), 1500);
+    } catch(err: any) {
+      const error = err?.errors?.[0] || err?.error || '';
+      setTimeout(() => Alert({
+        icon: 'error',
+        title: 'Ops!',
+        text: error || 'There was an error, please try again later'
+      }), 1000);
+    }
+  }, [values]);
 
   const fetchTeams = useCallback(async (): Promise<void> => {
     try {
@@ -69,11 +93,20 @@ export const UserForm = ({
 
   useEffect(() => {
     fetchTeams();
-  }, [fetchTeams]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (!loading) setTimeout(() => setReveal(true), 250);
   }, [loading]);
+
+  useEffect(() => {
+    if (searchTerm) {
+      search(searchTerm);
+    } else {
+      fetchTeams();
+    }
+  }, [searchTerm])
 
   return (
     <Form
@@ -135,12 +168,16 @@ export const UserForm = ({
       </Form.Item>
       <Form.Item name='assign team' label={BrandFontText('Teams History')}>
         <>
+          {AddTo('Assign Team', () => setAddTo(true))}
+          <Search
+            search={searchTerm}
+            setSearch={setSearchTerm}
+          />
           {loading
           ? <div style={{ width: '100%', height: 120, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
               <LoadingMask />
             </div>
           : <TeamsContainer reveal={reveal}>
-            {AddTo('Assign Team', () => setAddTo(true))}
             {(teams || []).map(team =>
               <Team
                 key={team.id}
