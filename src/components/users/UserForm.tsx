@@ -100,6 +100,14 @@ export const UserForm = ({
     if (!loading) setTimeout(() => setReveal(true), 250);
   }, [loading]);
 
+  useEffect(() => {
+    if (searchTerm) {
+      search(searchTerm);
+    } else {
+      fetchTeams();
+    }
+  }, [searchTerm])
+
   return (
     <Form
       name='user-form'
@@ -160,16 +168,16 @@ export const UserForm = ({
       </Form.Item>
       <Form.Item name='assign team' label={BrandFontText('Teams History')}>
         <>
+          {AddTo('Assign Team', () => setAddTo(true))}
+          <Search
+            search={searchTerm}
+            setSearch={setSearchTerm}
+          />
           {loading
           ? <div style={{ width: '100%', height: 120, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
               <LoadingMask />
             </div>
           : <TeamsContainer reveal={reveal}>
-            {AddTo('Assign Team', () => setAddTo(true))}
-            <Search
-              search={searchTerm}
-              setSearch={setSearchTerm}
-            />
             {(teams || []).map(team =>
               <Team
                 key={team.id}
