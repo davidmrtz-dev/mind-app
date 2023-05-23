@@ -14,6 +14,7 @@ import Alert from "../alert";
 import AddTo from "../../atoms/AddTo";
 import { BrandFontText } from "../../atoms/text";
 import { useDebouncedState } from "../../hooks/useDebouncedState";
+import NotFound from "../../pages/not-found";
 
 const TeamsContainer = styled.div<{ reveal: boolean }>`
   opacity: ${p => p.reveal ? 1 : 0};
@@ -101,7 +102,7 @@ export const UserForm = ({
   }, [loading]);
 
   useEffect(() => {
-    if (searchTerm) {
+    if (searchTerm && searchTerm.length > 2) {
       search(searchTerm);
     } else {
       fetchTeams();
@@ -179,13 +180,13 @@ export const UserForm = ({
               <LoadingMask />
             </div>
           : <TeamsContainer reveal={reveal}>
-            {(teams || []).map(team =>
+            {teams.length > 0 ? (teams).map(team =>
               <Team
                 key={team.id}
                 team={team}
                 onClick={() => handleTeamClick(team)}
               />
-            )}
+            ) : <NotFound />}
           </TeamsContainer>
           }
           <UserTeamCreate
