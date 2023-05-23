@@ -5,7 +5,7 @@ import { getUsers } from "../../api/core/User";
 import { LoadingMask } from "../../atoms/LoadingMask";
 import Alert from "../../components/alert";
 import Title from "../../components/title";
-import { UserCreate, UserUpdate } from "../../components/users";
+import { UserCreate, UserDetails } from "../../components/users";
 import { newUser } from "../../generators/emptyObjects";
 import { User } from "./User";
 
@@ -100,7 +100,7 @@ const UsersPage = (): JSX.Element => {
       closeModal={() => setShowNew(false)}
       handleCreate={handleCreate}
     />
-    <UserUpdate
+    <UserDetails
       user={user}
       open={showUpdate}
       closeModal={handleUpdateClose}

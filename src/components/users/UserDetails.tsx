@@ -8,7 +8,7 @@ import Alert from "../alert";
 import { UserForm } from "./UserForm";
 import { BrandFontText } from "../../atoms/text";
 
-export const UserUpdate = ({
+export const UserDetails = ({
   user,
   open,
   closeModal,

@@ -1,3 +1,3 @@
 export { UserCreate } from './UserCreate';
-export { UserUpdate } from './UserUpdate';
+export { UserDetails } from './UserDetails';
 export { default as AddToTeam } from '../../atoms/AddTo';
