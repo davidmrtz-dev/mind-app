@@ -3,7 +3,7 @@ import Password from "antd/es/input/Password";
 import TextArea from "antd/es/input/TextArea";
 import { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
-import { ITeam, IUser } from "../../@types";
+import { FilterValues, ITeam, IUser } from "../../@types";
 import { getTeamsByUser, searchTeamsByUser } from "../../api/core/Team";
 import { LoadingMask } from "../../atoms/LoadingMask";
 import { newTeam } from "../../generators/emptyObjects";
@@ -14,7 +14,6 @@ import Alert from "../alert";
 import AddTo from "../../atoms/AddTo";
 import { BrandFontText } from "../../atoms/text";
 import { useDebouncedState } from "../../hooks/useDebouncedState";
-import NotFound from "../../pages/not-found";
 import { NotFoundResults } from "../../atoms/NotFoundResults";
 
 const TeamsContainer = styled.div<{ reveal: boolean }>`
@@ -41,15 +40,24 @@ export const UserForm = ({
   const [team, setTeam] = useState<ITeam>(newTeam());
   const [update, setUpdate] = useState(false);
   const [searchTerm, setSearchTerm] = useDebouncedState<string>('', 100);
+  const [filterValues, setFilterValues] = useState<FilterValues>();
 
-  const search = useCallback(async (keyword: string): Promise<void> => {
+  const displayUserTeams = () => {
+    if (filterValues?.status) {
+      return teams.filter(i => i.user_team?.status === filterValues.status);
+    } else {
+      return teams;
+    }
+  };
+
+  const search = useCallback(async (keyword: string, dates: string []): Promise<void> => {
     try {
       setLoading(true);
       const data = await searchTeamsByUser({
         userId: values.id,
         keyword,
-        start_at: '',
-        end_at: '',
+        start_at: dates[0],
+        end_at: dates[1],
         offset: 0
       });
       setTeams(data.teams);
@@ -103,13 +111,16 @@ export const UserForm = ({
   }, [loading]);
 
   useEffect(() => {
-    if (searchTerm && searchTerm.length > 2) {
-      search(searchTerm);
+    if (
+      searchTerm?.length > 2
+      || filterValues?.dates.every(d => d)
+    ) {
+      search(searchTerm, filterValues?.dates || ['', '']);
     } else {
       fetchTeams();
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchTerm]);
+  }, [searchTerm, filterValues]);
 
   return (
     <Form
@@ -175,13 +186,15 @@ export const UserForm = ({
           <Search
             search={searchTerm}
             setSearch={setSearchTerm}
+            values={{} as FilterValues}
+            setValues={setFilterValues}
           />
           {loading
           ? <div style={{ width: '100%', height: 120, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
               <LoadingMask />
             </div>
           : <TeamsContainer reveal={reveal}>
-            {teams.length > 0 ? (teams).map(team =>
+            {displayUserTeams().length > 0 ? (displayUserTeams()).map(team =>
               <Team
                 key={team.id}
                 team={team}
