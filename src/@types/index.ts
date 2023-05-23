@@ -20,5 +20,6 @@ export type {
 export type {
   IUserTeamNew,
   IUserTeam,
-  IUserTeams
+  IUserTeams,
+  UserTeamStatus
 } from './IUserTeam';
