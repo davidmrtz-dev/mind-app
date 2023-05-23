@@ -1,13 +1,13 @@
 import { Button, Modal, Typography } from "antd";
 import { useState } from "react";
-import { IUser } from "../../@types";
-import { theme } from "../../Theme";
-import { newUser } from "../../generators/emptyObjects/Users";
+import { IUser } from "../../../@types";
+import { theme } from "../../../Theme";
+import { newUser } from "../../../generators/emptyObjects/Users";
 import { UserForm } from "./UserForm";
-import Alert from "../alert";
-import { createUser } from "../../api/core/User";
+import Alert from "../../alert";
+import { createUser } from "../../../api/core/User";
 
-export const UserCreate = ({
+const UserCreate = ({
   open,
   closeModal,
   handleCreate
@@ -103,3 +103,5 @@ export const UserCreate = ({
     </Modal>
   );
 };
+
+export default UserCreate;
