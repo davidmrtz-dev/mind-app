@@ -65,7 +65,6 @@ export const Search = ({
 		</SearchWrapper>
 		<Filters
 			visible={showFilters}
-			onApply={() => setShowFilters(false)}
 			setType={setType}
 		/>
 	</>);
@@ -92,11 +91,9 @@ const FiltersContainer = styled.div<{ visible: boolean }>`
 const Filters = ({
 	visible,
 	setType,
-	onApply
 }: {
 	visible: boolean;
 	setType: (value: UserTeamStatus) => void;
-	onApply: () => void;
 }): JSX.Element => {
 	const [filter, setFilter] = useState<UserTeamStatus>('');
 
@@ -143,7 +140,6 @@ const Filters = ({
       onClick={() => {
         // setDates(selection);
         setType(filter);
-        onApply();
       }}
     >
       Apply
