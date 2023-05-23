@@ -21,3 +21,5 @@ export interface IUserTeam extends IUserTeamNew {
 export interface IUserTeams {
   user_teams: IUserTeam [];
 }
+
+export type UserTeamStatus = 'active' | 'inactive' | '';

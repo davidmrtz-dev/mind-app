@@ -3,7 +3,7 @@ import Password from "antd/es/input/Password";
 import TextArea from "antd/es/input/TextArea";
 import { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
-import { ITeam, IUser } from "../../@types";
+import { ITeam, IUser, UserTeamStatus } from "../../@types";
 import { getTeamsByUser, searchTeamsByUser } from "../../api/core/Team";
 import { LoadingMask } from "../../atoms/LoadingMask";
 import { newTeam } from "../../generators/emptyObjects";
@@ -41,6 +41,15 @@ export const UserForm = ({
   const [team, setTeam] = useState<ITeam>(newTeam());
   const [update, setUpdate] = useState(false);
   const [searchTerm, setSearchTerm] = useDebouncedState<string>('', 100);
+  const [type, setType] = useState<UserTeamStatus>('');
+
+  const displayUserTeams = () => {
+    if (type) {
+      return teams.filter(i => i.user_team?.status === type);
+    } else {
+      return teams;
+    }
+  };
 
   const search = useCallback(async (keyword: string): Promise<void> => {
     try {
@@ -175,13 +184,14 @@ export const UserForm = ({
           <Search
             search={searchTerm}
             setSearch={setSearchTerm}
+            setType={setType}
           />
           {loading
           ? <div style={{ width: '100%', height: 120, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
               <LoadingMask />
             </div>
           : <TeamsContainer reveal={reveal}>
-            {teams.length > 0 ? (teams).map(team =>
+            {displayUserTeams().length > 0 ? (displayUserTeams()).map(team =>
               <Team
                 key={team.id}
                 team={team}
