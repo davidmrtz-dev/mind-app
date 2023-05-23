@@ -15,6 +15,7 @@ import AddTo from "../../atoms/AddTo";
 import { BrandFontText } from "../../atoms/text";
 import { useDebouncedState } from "../../hooks/useDebouncedState";
 import NotFound from "../../pages/not-found";
+import { NotFoundResults } from "../../atoms/NotFoundResults";
 
 const TeamsContainer = styled.div<{ reveal: boolean }>`
   opacity: ${p => p.reveal ? 1 : 0};
@@ -186,7 +187,7 @@ export const UserForm = ({
                 team={team}
                 onClick={() => handleTeamClick(team)}
               />
-            ) : <NotFound />}
+            ) : <NotFoundResults />}
           </TeamsContainer>
           }
           <UserTeamCreate
@@ -208,3 +209,4 @@ export const UserForm = ({
     </Form>
   );
 };
+
