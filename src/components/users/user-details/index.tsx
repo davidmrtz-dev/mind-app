@@ -1,14 +1,14 @@
 import { Button, Modal } from "antd";
 import { useCallback, useEffect, useState } from "react";
-import { IUser } from "../../@types";
-import { deleteUser, updateUser } from "../../api/core/User";
-import { newUser } from "../../generators/emptyObjects";
-import { theme } from "../../Theme";
-import Alert from "../alert";
+import { IUser } from "../../../@types";
+import { deleteUser, updateUser } from "../../../api/core/User";
+import { newUser } from "../../../generators/emptyObjects";
+import { theme } from "../../../Theme";
+import Alert from "../../alert";
 import { UserForm } from "./UserForm";
-import { BrandFontText } from "../../atoms/text";
+import { BrandFontText } from "../../../atoms/text";
 
-export const UserUpdate = ({
+const UserDetails = ({
   user,
   open,
   closeModal,
@@ -165,3 +165,5 @@ export const UserUpdate = ({
     </Modal>
   );
 };
+
+export default UserDetails;
