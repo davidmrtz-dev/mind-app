@@ -23,3 +23,8 @@ export interface IUserTeams {
 }
 
 export type UserTeamStatus = 'active' | 'inactive' | '';
+
+export type FilterValues = {
+  status: UserTeamStatus;
+  dates: string [];
+};
