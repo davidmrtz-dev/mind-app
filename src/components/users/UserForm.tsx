@@ -50,14 +50,14 @@ export const UserForm = ({
     }
   };
 
-  const search = useCallback(async (keyword: string): Promise<void> => {
+  const search = useCallback(async (keyword: string, dates: string []): Promise<void> => {
     try {
       setLoading(true);
       const data = await searchTeamsByUser({
         userId: values.id,
         keyword,
-        start_at: '',
-        end_at: '',
+        start_at: dates[0],
+        end_at: dates[1],
         offset: 0
       });
       setTeams(data.teams);
@@ -111,13 +111,16 @@ export const UserForm = ({
   }, [loading]);
 
   useEffect(() => {
-    if (searchTerm && searchTerm.length > 2) {
-      search(searchTerm);
+    if (
+      searchTerm?.length > 2
+      || filterValues?.dates.every(d => d)
+    ) {
+      search(searchTerm, filterValues?.dates || ['', '']);
     } else {
       fetchTeams();
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchTerm]);
+  }, [searchTerm, filterValues]);
 
   return (
     <Form

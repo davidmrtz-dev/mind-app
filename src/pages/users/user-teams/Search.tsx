@@ -5,6 +5,7 @@ import { theme } from "../../../Theme";
 import { faChevronDown, faChevronUp, faClose, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { FilterValues, UserTeamStatus } from "../../../@types";
+import dayjs from "dayjs";
 
 const SearchWrapper = styled.div<{ showFilters: boolean }>`
   background-color: ${p => p.theme.colors.grays.light};
@@ -101,6 +102,7 @@ const Filters = ({
   setValues: (values: FilterValues) => void;
 }): JSX.Element => {
 	const [filter, setFilter] = useState<UserTeamStatus>('');
+  const [dates, setDates] = useState<string []>(['', '']);
 
 	return(<FiltersContainer visible={visible}>
     <RangePicker
@@ -109,15 +111,15 @@ const Filters = ({
         margin: '0 5px'
       }}
       allowClear
-      onCalendarChange={(values) => {
-        // if (values?.every(val => val)) {
-        //   const from = dayjs(values[0]).format('YYYY-MM-DD');
-        //   const to = dayjs(values[1]).format('YYYY-MM-DD');
-        //   setSelection([from, to]);
-        // } else if (values === null) {
-        //   setSelection(['', '']);
-        //   setDates(['', '']);
-        // }
+      onCalendarChange={(items) => {
+        if (items?.every(val => val)) {
+          const from = dayjs(items[0]).format('YYYY-MM-DD');
+          const to = dayjs(items[1]).format('YYYY-MM-DD');
+          setDates([from, to]);
+        } else if (items === null) {
+          setDates(['', '']);
+          setValues({ ...values, dates: ['', ''] });
+        }
       }}
     />
     <Select
@@ -140,12 +142,9 @@ const Filters = ({
       ]}
     />
     <Button
-      disabled={!filter}
+      disabled={dates.some(d => !d) && !filter}
       type='primary'
-      onClick={() => {
-        // setDates(selection);
-        setValues({ ...values, status: filter })
-      }}
+      onClick={() => setValues({ ...values, status: filter, dates: dates })}
     >
       Apply
     </Button>
