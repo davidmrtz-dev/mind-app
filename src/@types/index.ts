@@ -21,5 +21,6 @@ export type {
   IUserTeamNew,
   IUserTeam,
   IUserTeams,
-  UserTeamStatus
+  UserTeamStatus,
+  FilterValues
 } from './IUserTeam';

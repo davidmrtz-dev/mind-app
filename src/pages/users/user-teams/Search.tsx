@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { theme } from "../../../Theme";
 import { faChevronDown, faChevronUp, faClose, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import { UserTeamStatus } from "../../../@types";
+import { FilterValues, UserTeamStatus } from "../../../@types";
 
 const SearchWrapper = styled.div<{ showFilters: boolean }>`
   background-color: ${p => p.theme.colors.grays.light};
@@ -23,11 +23,13 @@ const SearchWrapper = styled.div<{ showFilters: boolean }>`
 export const Search = ({
   search,
   setSearch,
-	setType
+  values,
+  setValues
 }: {
   search: string;
   setSearch: (value: string) => void;
-	setType: (value: UserTeamStatus) => void;
+  values: FilterValues;
+  setValues: (values: FilterValues) => void;
 }): JSX.Element => {
 	const [showFilters, setShowFilters] = useState(false);
 
@@ -65,7 +67,8 @@ export const Search = ({
 		</SearchWrapper>
 		<Filters
 			visible={showFilters}
-			setType={setType}
+      values={values}
+      setValues={setValues}
 		/>
 	</>);
 };
@@ -90,10 +93,12 @@ const FiltersContainer = styled.div<{ visible: boolean }>`
 
 const Filters = ({
 	visible,
-	setType,
+  values,
+  setValues
 }: {
 	visible: boolean;
-	setType: (value: UserTeamStatus) => void;
+  values: FilterValues;
+  setValues: (values: FilterValues) => void;
 }): JSX.Element => {
 	const [filter, setFilter] = useState<UserTeamStatus>('');
 
@@ -119,7 +124,7 @@ const Filters = ({
       allowClear
       onClear={() => {
         setFilter('');
-        setType('');
+        setValues({...values, status: ''})
       }}
       disabled={false}
       placeholder={'Status'}
@@ -139,7 +144,7 @@ const Filters = ({
       type='primary'
       onClick={() => {
         // setDates(selection);
-        setType(filter);
+        setValues({ ...values, status: filter })
       }}
     >
       Apply
