@@ -1,13 +1,13 @@
 import { Button, Modal } from "antd";
 import { useState } from "react";
-import { IUser, IUserTeam } from "../../../@types";
-import { theme } from "../../../Theme";
-import { newUserTeam } from '../../../generators/emptyObjects/index';
-import { createUserTeam } from "../../../api/core/UserTeam";
+import { IUser, IUserTeam } from "../../../../@types";
+import { theme } from "../../../../Theme";
+import { newUserTeam } from '../../../../generators/emptyObjects/index';
+import { createUserTeam } from "../../../../api/core/UserTeam";
 import { UserTeamForm } from "./UserTeamForm";
 import dayjs from "dayjs";
-import Alert from "../../../components/alert";
-import { BrandFontText } from "../../../atoms/text";
+import Alert from "../../../alert";
+import { BrandFontText } from "../../../../atoms/text";
 
 export const UserTeamCreate = ({
   open,

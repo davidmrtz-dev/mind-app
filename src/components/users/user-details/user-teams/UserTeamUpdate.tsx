@@ -1,11 +1,11 @@
 import { Button, Modal, Typography } from "antd";
 import dayjs from "dayjs";
 import { useCallback, useEffect, useState } from "react";
-import { ITeam, IUser, IUserTeam } from "../../../@types";
-import { deleteUserTeam, updateUserTeam } from "../../../api/core/UserTeam";
-import Alert from "../../../components/alert";
-import { newUserTeam } from "../../../generators/emptyObjects";
-import { theme } from "../../../Theme";
+import { ITeam, IUser, IUserTeam } from "../../../../@types";
+import { deleteUserTeam, updateUserTeam } from "../../../../api/core/UserTeam";
+import Alert from "../../../alert";
+import { newUserTeam } from "../../../../generators/emptyObjects";
+import { theme } from "../../../../Theme";
 import { UserTeamForm } from "./UserTeamForm";
 
 export const UserTeamUpdate = ({

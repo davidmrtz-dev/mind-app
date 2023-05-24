@@ -1,10 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, DatePicker, Input, Select } from "antd";
 import styled from "styled-components";
-import { theme } from "../../../Theme";
+import { theme } from "../../../../Theme";
 import { faChevronDown, faChevronUp, faClose, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import { FilterValues, UserTeamStatus } from "../../../@types";
+import { FilterValues, UserTeamStatus } from "../../../../@types";
 import dayjs from "dayjs";
 
 const SearchWrapper = styled.div<{ showFilters: boolean }>`

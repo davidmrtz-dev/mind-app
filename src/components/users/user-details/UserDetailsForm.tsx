@@ -8,7 +8,7 @@ import { getTeamsByUser, searchTeamsByUser } from "../../../api/core/Team";
 import { LoadingMask } from "../../../atoms/LoadingMask";
 import { newTeam } from "../../../generators/emptyObjects";
 import { Team } from "../../../pages/teams/Team";
-import { Search, UserTeamCreate, UserTeamUpdate } from "../../../pages/users/user-teams";
+import { Search, UserTeamCreate, UserTeamUpdate } from "./user-teams";
 import { theme } from "../../../Theme";
 import Alert from "../../alert";
 import AddTo from "../../../atoms/AddTo";
