@@ -23,7 +23,7 @@ const TeamsContainer = styled.div<{ reveal: boolean }>`
   flex-direction: column;
 `;
 
-export const UserForm = ({
+export const UserDetailsForm = ({
   values,
   setValues,
   showPassword

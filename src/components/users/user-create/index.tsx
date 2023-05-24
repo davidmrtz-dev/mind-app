@@ -3,7 +3,7 @@ import { useState } from "react";
 import { IUser } from "../../../@types";
 import { theme } from "../../../Theme";
 import { newUser } from "../../../generators/emptyObjects/Users";
-import { UserForm } from "./UserForm";
+import { UserCreateForm } from "./UserCreateForm";
 import Alert from "../../alert";
 import { createUser } from "../../../api/core/User";
 
@@ -95,7 +95,7 @@ const UserCreate = ({
         </Button>
       ]}
     >
-      <UserForm
+      <UserCreateForm
         values={values}
         setValues={setValues}
         showPassword
