@@ -1,13 +1,13 @@
 import { Button, Modal } from "antd";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { ITeam } from "../../../@types";
-import { getTeamsByUser } from "../../../api/core/Team";
-import { LoadingMask } from "../../../atoms/LoadingMask";
-import Alert from "../../../components/alert";
-import { theme } from "../../../Theme";
-import { Team } from "../../teams/Team";
-import { BrandFontText } from "../../../atoms/text";
+import { ITeam } from "../../../../@types";
+import { getTeamsByUser } from "../../../../api/core/Team";
+import { LoadingMask } from "../../../../atoms/LoadingMask";
+import Alert from "../../../alert";
+import { theme } from "../../../../Theme";
+import { Team } from "../../../../pages/teams/Team";
+import { BrandFontText } from "../../../../atoms/text";
 
 const TeamsContainer = styled.div<{ reveal: boolean }>`
   opacity: ${p => p.reveal ? 1 : 0};

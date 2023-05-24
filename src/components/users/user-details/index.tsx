@@ -5,7 +5,7 @@ import { deleteUser, updateUser } from "../../../api/core/User";
 import { newUser } from "../../../generators/emptyObjects";
 import { theme } from "../../../Theme";
 import Alert from "../../alert";
-import { UserForm } from "./UserForm";
+import { UserDetailsForm } from "./UserDetailsForm";
 import { BrandFontText } from "../../../atoms/text";
 
 const UserDetails = ({
@@ -157,7 +157,7 @@ const UserDetails = ({
       }}
       footer={footerComponents}
     >
-      <UserForm
+      <UserDetailsForm
         values={values}
         setValues={setValues}
         showPassword={false}

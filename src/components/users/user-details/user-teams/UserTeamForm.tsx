@@ -1,10 +1,10 @@
 import { DatePicker, Form, Select } from "antd";
 import { useState } from "react";
-import { ITeam, IUser, IUserTeam } from "../../../@types";
-import AddTo from "../../../atoms/AddTo";
+import { ITeam, IUser, IUserTeam } from "../../../../@types";
+import AddTo from "../../../../atoms/AddTo";
 import { TeamSelection, UserData, TeamData } from ".";
-import { Team } from "../../teams/Team";
-import { BrandFontText } from "../../../atoms/text";
+import { Team } from "../../../../pages/teams/Team";
+import { BrandFontText } from "../../../../atoms/text";
 
 export const UserTeamForm = ({
   values,
