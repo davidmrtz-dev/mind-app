@@ -1,2 +1,2 @@
-export { AccountCreate } from './AccountCreate';
+export {default as AccountCreate } from './account-create';
 export { AccountUpdate } from './AccountUpdate';
