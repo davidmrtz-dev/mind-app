@@ -1,8 +1,8 @@
 import { Form, Input, Typography } from "antd";
 import styled from "styled-components";
-import { IAccount } from "../../@types";
-import { Team } from "../../pages/teams/Team";
-import { theme } from "../../Theme";
+import { IAccount } from "../../../@types";
+import { Team } from "../../../pages/teams/Team";
+import { theme } from "../../../Theme";
 
 const TeamsContainer = styled.div<{ reveal: boolean }>`
   opacity: ${p => p.reveal ? 1 : 0};
@@ -11,7 +11,7 @@ const TeamsContainer = styled.div<{ reveal: boolean }>`
   flex-direction: column;
 `;
 
-export const AccountForm = ({
+export const AccountUpdateForm = ({
   values,
   setValues
 }: {

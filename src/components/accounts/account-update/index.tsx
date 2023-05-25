@@ -1,13 +1,13 @@
 import { Button, Modal, Typography } from "antd";
 import { useCallback, useEffect, useState } from "react";
-import { IAccount } from "../../@types";
-import { deleteAccount, updateAccount } from "../../api/core/Account";
-import { newAccount } from "../../generators/emptyObjects";
-import { theme } from "../../Theme";
-import Alert from "../alert";
-import { AccountForm } from "./AccountForm";
+import { IAccount } from "../../../@types";
+import { deleteAccount, updateAccount } from "../../../api/core/Account";
+import { newAccount } from "../../../generators/emptyObjects";
+import { theme } from "../../../Theme";
+import Alert from "../../alert";
+import { AccountUpdateForm } from "./AccountUpdateForm";
 
-export const AccountUpdate = ({
+const AccountUpdate = ({
   account,
   open,
   closeModal,
@@ -161,10 +161,12 @@ export const AccountUpdate = ({
       }}
       footer={footerComponents}
     >
-      <AccountForm
+      <AccountUpdateForm
         values={values}
         setValues={setValues}
       />
     </Modal>
   );
 };
+
+export default AccountUpdate;

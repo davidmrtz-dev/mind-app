@@ -1,13 +1,13 @@
 import { Button, Modal, Typography } from "antd";
 import { useState } from "react";
-import { IAccount } from "../../@types";
-import { theme } from "../../Theme";
-import Alert from "../alert";
-import { newAccount } from '../../generators/emptyObjects/index';
-import { createAccount } from "../../api/core/Account";
-import { AccountForm } from "./AccountForm";
+import { IAccount } from "../../../@types";
+import { theme } from "../../../Theme";
+import Alert from "../../alert";
+import { newAccount } from '../../../generators/emptyObjects/index';
+import { createAccount } from "../../../api/core/Account";
+import { AccountCreateForm } from "./AccountCreateForm";
 
-export const AccountCreate = ({
+const AccountCreate = ({
   open,
   closeModal,
   handleCreate
@@ -83,10 +83,12 @@ export const AccountCreate = ({
         </Button>
       ]}
     >
-      <AccountForm
+      <AccountCreateForm
         values={values}
         setValues={setValues}
       />
     </Modal>
   );
 };
+
+export default AccountCreate;
