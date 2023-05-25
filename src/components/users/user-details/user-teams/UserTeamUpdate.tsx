@@ -7,6 +7,7 @@ import Alert from "../../../alert";
 import { newUserTeam } from "../../../../generators/emptyObjects";
 import { theme } from "../../../../Theme";
 import UserTeamForm from "./user-team-form";
+import { BrandFontText } from "../../../../atoms/text";
 
 export const UserTeamUpdate = ({
   team,
@@ -104,7 +105,7 @@ export const UserTeamUpdate = ({
       disabled={loading || deleting}
     >
       <Typography.Text style={{ ...theme.texts.brandFont }}>
-        Cancel
+        Ok
       </Typography.Text>
     </Button>,
     <Button
@@ -162,10 +163,7 @@ export const UserTeamUpdate = ({
       maskClosable={false}
       closable={false}
       open={open}
-      title={<Typography.Text
-        style={{...theme.texts.brandFont, fontWeight: 'normal'}}
-        > Update user team
-        </Typography.Text>}
+      title={BrandFontText('User Team Details')}
       style={{
         maxWidth: 360,
         position: 'relative'

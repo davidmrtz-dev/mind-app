@@ -76,7 +76,7 @@ export const UserTeamCreate = ({
           {BrandFontText('Cancel')}
         </Button>,
         <Button key="submit" type="primary" loading={loading} onClick={handleSubmit}>
-          {BrandFontText('Create', { color: theme.colors.whites.normal })}
+          {BrandFontText('Assign', { color: theme.colors.whites.normal })}
         </Button>
       ]}
     >
