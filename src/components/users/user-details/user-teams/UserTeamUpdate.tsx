@@ -6,7 +6,7 @@ import { deleteUserTeam, updateUserTeam } from "../../../../api/core/UserTeam";
 import Alert from "../../../alert";
 import { newUserTeam } from "../../../../generators/emptyObjects";
 import { theme } from "../../../../Theme";
-import { UserTeamForm } from "./UserTeamForm";
+import UserTeamForm from "./user-team-form";
 
 export const UserTeamUpdate = ({
   team,

@@ -21,6 +21,7 @@ const UserCreate = ({
 
   const handleSubmit = async () => {
     if (Object.values(values).some(val => val === '')) {
+      console.log(values);
       Alert({
         icon: 'error',
         text: 'All fields are required'
@@ -98,7 +99,6 @@ const UserCreate = ({
       <UserCreateForm
         values={values}
         setValues={setValues}
-        showPassword
       />
     </Modal>
   );

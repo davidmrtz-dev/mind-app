@@ -160,7 +160,6 @@ const UserDetails = ({
       <UserDetailsForm
         values={values}
         setValues={setValues}
-        showPassword={false}
       />
     </Modal>
   );
