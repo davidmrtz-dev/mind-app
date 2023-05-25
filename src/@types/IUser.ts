@@ -24,7 +24,6 @@ export interface IUser extends OptionalFields  {
   id: number;
   email: string;
   name: string;
-  nickname: string;
   user_type: UserType;
   profile: IProfile;
 }
