@@ -11,7 +11,7 @@ const TeamsContainer = styled.div<{ reveal: boolean }>`
   flex-direction: column;
 `;
 
-export const AccountForm = ({
+export const AccountCreateForm = ({
   values,
   setValues
 }: {

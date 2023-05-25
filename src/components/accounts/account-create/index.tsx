@@ -5,7 +5,7 @@ import { theme } from "../../../Theme";
 import Alert from "../../alert";
 import { newAccount } from '../../../generators/emptyObjects/index';
 import { createAccount } from "../../../api/core/Account";
-import { AccountForm } from "./AccountForm";
+import { AccountCreateForm } from "./AccountCreateForm";
 
 const AccountCreate = ({
   open,
@@ -83,7 +83,7 @@ const AccountCreate = ({
         </Button>
       ]}
     >
-      <AccountForm
+      <AccountCreateForm
         values={values}
         setValues={setValues}
       />
