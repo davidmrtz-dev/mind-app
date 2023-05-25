@@ -6,7 +6,6 @@ import Alert from "../components/alert";
 export const DEFAULT_USER_AUTH: IUser = {
   email: '',
   name: '',
-  nickname: ''
 } as IUser;
 
 const getStoredAuth = (): IUser => {

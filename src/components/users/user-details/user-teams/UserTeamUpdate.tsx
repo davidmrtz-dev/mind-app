@@ -1,30 +1,33 @@
-import { Button, Modal } from "antd";
+import { Button, Modal, Typography } from "antd";
+import dayjs from "dayjs";
 import { useCallback, useEffect, useState } from "react";
-import { IUser } from "../../@types";
-import { deleteUser, updateUser } from "../../api/core/User";
-import { newUser } from "../../generators/emptyObjects";
-import { theme } from "../../Theme";
-import Alert from "../alert";
-import { UserForm } from "./UserForm";
-import { BrandFontText } from "../../atoms/text";
+import { ITeam, IUser, IUserTeam } from "../../../../@types";
+import { deleteUserTeam, updateUserTeam } from "../../../../api/core/UserTeam";
+import Alert from "../../../alert";
+import { newUserTeam } from "../../../../generators/emptyObjects";
+import { theme } from "../../../../Theme";
+import UserTeamForm from "./user-team-form";
+import { BrandFontText } from "../../../../atoms/text";
 
-export const UserUpdate = ({
-  user,
+export const UserTeamUpdate = ({
+  team,
   open,
   closeModal,
   handleUpdate,
-  handleDelete
+  handleDelete,
+  user
 }: {
-  user: IUser;
+  team: ITeam;
   open: boolean;
   closeModal: () => void;
-  handleUpdate: (user: IUser) => Promise<void>;
-  handleDelete?: (id: number) => void;
+  handleUpdate: () => Promise<void>;
+  handleDelete?: () => Promise<void>;
+  user: IUser;
 }): JSX.Element => {
   const [loading, setLoading] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [confirm, setConfirm] = useState(false);
-  const [values, setValues] = useState<IUser>(newUser('standard'));
+  const [values, setValues] = useState<IUserTeam>(newUserTeam());
 
   const handleSubmitUpdate = useCallback(async () => {
     if (Object.values(values).some(val => val === '')) {
@@ -38,18 +41,12 @@ export const UserUpdate = ({
     setLoading(true);
 
     try {
-      const user = await updateUser({
-        id: values.id,
-        name: values.name,
-        email: values.email,
-        user_type: values.user_type,
-        profile_attributes: {
-          english_level: values.english_level || '',
-          technical_knowledge: values.technical_knowledge || '',
-          cv: values.cv || ''
-        }
+      await updateUserTeam({
+        ...values,
+        start_at: dayjs(values.start_at).format('YYYY-MM-DD'),
+        end_at: dayjs(values.end_at).format('YYYY-MM-DD')
       });
-      await handleUpdate(user);
+      await handleUpdate();
     } catch (err: any) {
       const error = err?.errors?.[0] || err?.error || '';
       Alert({
@@ -58,9 +55,9 @@ export const UserUpdate = ({
       });
     } finally {
       setTimeout(() => {
-        closeModal();
+        setValues(newUserTeam());
         setLoading(false);
-        setValues(newUser('standard'));
+        closeModal();
       }, 1000);
     }
   }, [closeModal, handleUpdate, values]);
@@ -69,8 +66,8 @@ export const UserUpdate = ({
     setDeleting(true);
 
     try {
-      await deleteUser(user.id);
-      handleDelete && handleDelete(user.id);
+      await deleteUserTeam(values.id);
+      handleDelete && handleDelete();
     } catch (err: any) {
       const error = err?.errors?.[0] || err?.error || '';
       Alert({
@@ -79,7 +76,7 @@ export const UserUpdate = ({
       });
     } finally {
       setTimeout(() => {
-        setValues(newUser('standard'));
+        setValues(newUserTeam());
         setDeleting(false);
         closeModal();
       }, 1000);
@@ -87,18 +84,19 @@ export const UserUpdate = ({
   };
 
   const handleCancel = () => {
-    setValues(newUser('standard'));
+    setValues(newUserTeam());
     closeModal();
   };
 
   useEffect(() => {
-    setValues({
-      ...user,
-      english_level: user.profile?.english_level,
-      technical_knowledge: user.profile?.technical_knowledge,
-      cv: user.profile?.cv
-    });
-  }, [user]);
+    if (team.user_team) {
+      setValues({
+        ...team.user_team,
+        start_at: dayjs(team.user_team.start_at),
+        end_at: dayjs(team.user_team.end_at)
+      });
+    }
+  }, [team]);
 
   const footerComponents = [
     <Button
@@ -106,7 +104,9 @@ export const UserUpdate = ({
       onClick={handleCancel}
       disabled={loading || deleting}
     >
-      {BrandFontText('Ok')}
+      <Typography.Text style={{ ...theme.texts.brandFont }}>
+        Ok
+      </Typography.Text>
     </Button>,
     <Button
       key="submit"
@@ -116,7 +116,13 @@ export const UserUpdate = ({
       onClick={handleSubmitUpdate}
       style={{ backgroundColor: theme.colors.blues.normal }}
     >
-      {BrandFontText('Update', { color: theme.colors.whites.normal })}
+      <Typography.Text style={{
+        ...theme.texts.brandFont,
+        color: theme.colors.whites.normal
+      }}
+      >
+        Update
+      </Typography.Text>
     </Button>
   ];
 
@@ -129,13 +135,20 @@ export const UserUpdate = ({
       disabled={loading}
       loading={deleting}
     >
-    {BrandFontText('Delete', { color: theme.colors.whites.normal })}
+    <Typography.Text
+      style={{
+        ...theme.texts.brandFont,
+        color: theme.colors.whites.normal
+      }}
+    >
+      Delete
+    </Typography.Text>
   </Button>);
   }
 
   if (confirm) Alert({
     icon: 'warning',
-    text: 'Are you sure you want to delete this user?',
+    text: 'Are you sure you want to delete this user team relation?',
     showCancelButton: true
   }).then(result => {
     setConfirm(false);
@@ -150,17 +163,18 @@ export const UserUpdate = ({
       maskClosable={false}
       closable={false}
       open={open}
-      title={BrandFontText('User Details')}
+      title={BrandFontText('User Team Details')}
       style={{
         maxWidth: 360,
         position: 'relative'
       }}
       footer={footerComponents}
     >
-      <UserForm
+      <UserTeamForm
+        user={user}
         values={values}
         setValues={setValues}
-        showPassword={false}
+        currentTeam={team}
       />
     </Modal>
   );

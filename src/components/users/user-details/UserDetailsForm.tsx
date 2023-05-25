@@ -1,20 +1,19 @@
 import { Form, Input, Select } from "antd";
-import Password from "antd/es/input/Password";
 import TextArea from "antd/es/input/TextArea";
 import { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
-import { FilterValues, ITeam, IUser } from "../../@types";
-import { getTeamsByUser, searchTeamsByUser } from "../../api/core/Team";
-import { LoadingMask } from "../../atoms/LoadingMask";
-import { newTeam } from "../../generators/emptyObjects";
-import { Team } from "../../pages/teams/Team";
-import { Search, UserTeamCreate, UserTeamUpdate } from "../../pages/users/user-teams";
-import { theme } from "../../Theme";
-import Alert from "../alert";
-import AddTo from "../../atoms/AddTo";
-import { BrandFontText } from "../../atoms/text";
-import { useDebouncedState } from "../../hooks/useDebouncedState";
-import { NotFoundResults } from "../../atoms/NotFoundResults";
+import { FilterValues, ITeam, IUser } from "../../../@types";
+import { getTeamsByUser, searchTeamsByUser } from "../../../api/core/Team";
+import { LoadingMask } from "../../../atoms/LoadingMask";
+import { newTeam } from "../../../generators/emptyObjects";
+import { Team } from "../../../pages/teams/Team";
+import { Search, UserTeamCreate, UserTeamUpdate } from "./user-teams";
+import { theme } from "../../../Theme";
+import Alert from "../../alert";
+import AddTo from "../../../atoms/AddTo";
+import { BrandFontText } from "../../../atoms/text";
+import { useDebouncedState } from "../../../hooks/useDebouncedState";
+import { NotFoundResults } from "../../../atoms/NotFoundResults";
 
 const TeamsContainer = styled.div<{ reveal: boolean }>`
   opacity: ${p => p.reveal ? 1 : 0};
@@ -23,14 +22,12 @@ const TeamsContainer = styled.div<{ reveal: boolean }>`
   flex-direction: column;
 `;
 
-export const UserForm = ({
+export const UserDetailsForm = ({
   values,
-  setValues,
-  showPassword
+  setValues
 }: {
   values: IUser;
   setValues: (values: IUser) => void;
-  showPassword: boolean;
 }): JSX.Element => {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(true);
@@ -139,10 +136,6 @@ export const UserForm = ({
         name='email'>
         <Input maxLength={40} style={{ ...theme.texts.brandSubFont }}/>
       </Form.Item>
-      {showPassword && (<Form.Item label={BrandFontText('Password')}
-        name='password'>
-        <Password maxLength={20} style={{ ...theme.texts.brandSubFont }}/>
-      </Form.Item>)}
       <Form.Item label={BrandFontText('User Type')} name='user_type'>
         <Select
           style={{ width: '100%' }}

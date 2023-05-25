@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { ITeam } from "../../../@types";
-import { theme } from "../../../Theme";
-import { BrandSubFontText } from "../../../atoms/text";
+import { ITeam } from "../../../../../@types";
+import { theme } from "../../../../../Theme";
+import { BrandSubFontText } from "../../../../../atoms/text";
 
 const TeamDataContainer = styled.div`
   width: 100%;
