@@ -6,6 +6,7 @@ import { newUser } from "../../../generators/emptyObjects/Users";
 import { UserCreateForm } from "./UserCreateForm";
 import Alert from "../../alert";
 import { createUser } from "../../../api/core/User";
+import { BrandFontText } from "../../../atoms/text";
 
 const UserCreate = ({
   open,
@@ -74,10 +75,7 @@ const UserCreate = ({
       maskClosable={false}
       closable={false}
       open={open}
-      title={<Typography.Text
-        style={{...theme.texts.brandFont, fontWeight: 'normal'}}
-        > New user
-        </Typography.Text>}
+      title={BrandFontText('Create User')}
       style={{
         maxWidth: 360
       }}

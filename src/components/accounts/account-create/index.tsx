@@ -6,6 +6,7 @@ import Alert from "../../alert";
 import { newAccount } from '../../../generators/emptyObjects/index';
 import { createAccount } from "../../../api/core/Account";
 import { AccountCreateForm } from "./AccountCreateForm";
+import { BrandFontText } from "../../../atoms/text";
 
 const AccountCreate = ({
   open,
@@ -61,10 +62,7 @@ const AccountCreate = ({
       maskClosable={false}
       closable={false}
       open={open}
-      title={<Typography.Text
-        style={{...theme.texts.brandFont, fontWeight: 'normal'}}
-        > New account
-        </Typography.Text>}
+      title={BrandFontText('Create account')}
       style={{
         maxWidth: 360
       }}

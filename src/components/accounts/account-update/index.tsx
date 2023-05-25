@@ -6,6 +6,7 @@ import { newAccount } from "../../../generators/emptyObjects";
 import { theme } from "../../../Theme";
 import Alert from "../../alert";
 import { AccountUpdateForm } from "./AccountUpdateForm";
+import { BrandFontText } from "../../../atoms/text";
 
 const AccountUpdate = ({
   account,
@@ -151,10 +152,7 @@ const AccountUpdate = ({
       maskClosable={false}
       closable={false}
       open={open}
-      title={<Typography.Text
-        style={{...theme.texts.brandFont }}
-        > Account Details
-        </Typography.Text>}
+      title={BrandFontText('Account Details')}
       style={{
         maxWidth: 360,
         position: 'relative'
