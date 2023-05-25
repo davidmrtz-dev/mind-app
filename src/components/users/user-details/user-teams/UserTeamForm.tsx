@@ -5,6 +5,8 @@ import AddTo from "../../../../atoms/AddTo";
 import { TeamSelection, UserData, TeamData } from ".";
 import { Team } from "../../../../pages/teams/Team";
 import { BrandFontText } from "../../../../atoms/text";
+import { RangePickerProps } from "antd/es/date-picker";
+import dayjs from "dayjs";
 
 export const UserTeamForm = ({
   values,
@@ -25,6 +27,16 @@ export const UserTeamForm = ({
     setTeam(team);
     setValues({ ...values, team_id: team.id });
     setShowTeam(false);
+  };
+
+  const disabledStartDate: RangePickerProps['disabledDate'] = (current) => {
+    const twentyDaysAgo = dayjs().subtract(20, 'day').startOf('day');
+    return current && (current >= dayjs().endOf('day') || current < twentyDaysAgo);
+  };
+
+  const disabledEndDate: RangePickerProps['disabledDate'] = (current) => {
+    const dayAfterTomorrow = dayjs().add(2, 'day').startOf('day');
+    return current && current < dayAfterTomorrow;
   };
 
   return (
@@ -53,11 +65,13 @@ export const UserTeamForm = ({
       <Form.Item label={BrandFontText('Start Date')} name='start_at'>
         <DatePicker
           style={{ width: '100%' }}
+          disabledDate={disabledStartDate}
         />
       </Form.Item>
       <Form.Item label={BrandFontText('End Date')} name='end_at'>
         <DatePicker
           style={{ width: '100%' }}
+          disabledDate={disabledEndDate}
         />
       </Form.Item>
       <Form.Item label={BrandFontText('Status')} name='status'>
