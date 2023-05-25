@@ -75,7 +75,7 @@ export const Account = ({
         <Typography.Text style={{
           ...theme.texts.brandSubFont
         }}>
-          {account?.teams?.length || 0}
+          {account.teams.length}
         </Typography.Text>
       </div>
     </AccountGrid>

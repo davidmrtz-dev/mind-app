@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { IAccount } from "../../../@types";
 import { Team } from "../../../pages/teams/Team";
 import { theme } from "../../../Theme";
+import { BrandFontText } from "../../../atoms/text";
 
 const TeamsContainer = styled.div<{ reveal: boolean }>`
   opacity: ${p => p.reveal ? 1 : 0};
@@ -29,32 +30,18 @@ export const AccountCreateForm = ({
       onValuesChange={e => setValues({...values, ...e})}
       style={{ width: '100%' }}
     >
-      <Form.Item label={<Typography.Text style={{ ...theme.texts.brandFont }}>
-        Name
-      </Typography.Text>}
+      <Form.Item label={BrandFontText('Name')}
         name='name'>
         <Input maxLength={20} style={{ ...theme.texts.brandSubFont }}/>
       </Form.Item>
-      <Form.Item label={<Typography.Text style={{ ...theme.texts.brandFont }}>
-        Client Name
-      </Typography.Text>}
+      <Form.Item label={BrandFontText('Client Name')}
         name='client_name'>
         <Input maxLength={20} style={{ ...theme.texts.brandSubFont }}/>
       </Form.Item>
-      <Form.Item label={<Typography.Text style={{ ...theme.texts.brandFont }}>
-        Manager Name
-      </Typography.Text>}
+      <Form.Item label={BrandFontText('Manager Name')}
         name='manager_name'>
         <Input maxLength={20} style={{ ...theme.texts.brandSubFont }}/>
       </Form.Item>
-      {values.teams.length > 0 && (<Form.Item label={<Typography.Text style={{ ...theme.texts.brandFont }}>
-        Teams
-      </Typography.Text>}
-        name='manager_name'>
-          <TeamsContainer reveal={true}>
-            {values.teams.map(t => <Team key={t.id} team={t} />)}
-          </TeamsContainer>
-      </Form.Item>)}
     </Form>
   );
 };
