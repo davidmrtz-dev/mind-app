@@ -99,7 +99,6 @@ const UserCreate = ({
       <UserCreateForm
         values={values}
         setValues={setValues}
-        showPassword
       />
     </Modal>
   );

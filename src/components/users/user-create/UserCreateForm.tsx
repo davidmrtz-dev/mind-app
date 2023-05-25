@@ -7,12 +7,10 @@ import { BrandFontText } from "../../../atoms/text";
 
 export const UserCreateForm = ({
   values,
-  setValues,
-  showPassword
+  setValues
 }: {
   values: IUser;
   setValues: (values: IUser) => void;
-  showPassword: boolean;
 }): JSX.Element => {
   const [form] = Form.useForm();
 
@@ -33,10 +31,10 @@ export const UserCreateForm = ({
         name='email'>
         <Input maxLength={40} style={{ ...theme.texts.brandSubFont }}/>
       </Form.Item>
-      {showPassword && (<Form.Item label={BrandFontText('Password')}
+      <Form.Item label={BrandFontText('Password')}
         name='password'>
         <Password maxLength={20} style={{ ...theme.texts.brandSubFont }}/>
-      </Form.Item>)}
+      </Form.Item>
       <Form.Item label={BrandFontText('User Type')} name='user_type'>
         <Select
           style={{ width: '100%' }}
