@@ -1,78 +1,9 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button, DatePicker, Input, Select } from "antd";
+import { Button, DatePicker, Select } from "antd";
 import styled from "styled-components";
-import { theme } from "../../../../Theme";
-import { faChevronDown, faChevronUp, faClose, faSearch } from "@fortawesome/free-solid-svg-icons";
+import { FilterValues, UserTeamStatus } from "../../../../../@types";
 import { useState } from "react";
-import { FilterValues, UserTeamStatus } from "../../../../@types";
 import dayjs from "dayjs";
-
-const SearchWrapper = styled.div<{ showFilters: boolean }>`
-  background-color: ${p => p.theme.colors.grays.light};
-  width: 100%;
-  height: 50px;
-	border-top-left-radius: 10px;
-	border-top-right-radius: 10px;
-	border-bottom-left-radius: ${p => p.showFilters ? '0' : '10'}px;
-	border-bottom-right-radius: ${p => p.showFilters ? '0': '10'}px;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  padding: 0 5px;
-`;
-
-export const Search = ({
-  search,
-  setSearch,
-  values,
-  setValues
-}: {
-  search: string;
-  setSearch: (value: string) => void;
-  values: FilterValues;
-  setValues: (values: FilterValues) => void;
-}): JSX.Element => {
-	const [showFilters, setShowFilters] = useState(false);
-
-  return (<>
-		<SearchWrapper showFilters={showFilters}>
-			<Input
-				style={{ margin: '0 5px' }}
-				prefix={<FontAwesomeIcon
-					style={{ flex: 1, paddingRight: 5 }}
-					color={theme.colors.blacks.normal}
-					size='1x'
-					icon={faSearch}
-				/>}
-				suffix={<FontAwesomeIcon
-					style={{ cursor: 'pointer' }}
-					color={theme.colors.blacks.normal}
-					size='1x'
-					icon={faClose}
-					onClick={() => search && setSearch('')}
-				/>}
-				value={search}
-				onChange={(e) => setSearch(e.target.value)}
-        placeholder='Search'
-			/>
-			<Button
-				style={{ marginRight: 5 }}
-				onClick={() => setShowFilters(!showFilters)}
-			>
-				<FontAwesomeIcon
-					color={theme.colors.blacks.normal}
-					size='1x'
-					icon={showFilters ? faChevronUp : faChevronDown}
-				/>
-			</Button>
-		</SearchWrapper>
-		<Filters
-			visible={showFilters}
-      values={values}
-      setValues={setValues}
-		/>
-	</>);
-};
+import { theme } from "../../../../../Theme";
 
 const { RangePicker } = DatePicker;
 
@@ -92,7 +23,7 @@ const FiltersContainer = styled.div<{ visible: boolean }>`
   margin-bottom: 10px;
 `;
 
-const Filters = ({
+export const Filters = ({
 	visible,
   values,
   setValues
