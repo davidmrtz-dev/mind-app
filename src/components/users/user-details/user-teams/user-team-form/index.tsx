@@ -1,14 +1,16 @@
 import { DatePicker, Form, Select } from "antd";
 import { useState } from "react";
-import { ITeam, IUser, IUserTeam } from "../../../../@types";
-import AddTo from "../../../../atoms/AddTo";
-import { TeamSelection, UserData, TeamData } from ".";
-import { Team } from "../../../../pages/teams/Team";
-import { BrandFontText } from "../../../../atoms/text";
+import { ITeam, IUser, IUserTeam } from "../../../../../@types";
+import AddTo from "../../../../../atoms/AddTo";
+import { Team } from "../../../../../pages/teams/Team";
+import { BrandFontText } from "../../../../../atoms/text";
 import { RangePickerProps } from "antd/es/date-picker";
 import dayjs from "dayjs";
+import { TeamSelection } from "./TeamSelection";
+import { TeamData } from "./TeamData";
+import { UserData } from "./UserData";
 
-export const UserTeamForm = ({
+const UserTeamForm = ({
   values,
   setValues,
   user,
@@ -91,3 +93,5 @@ export const UserTeamForm = ({
     </Form>
   );
 };
+
+export default UserTeamForm;

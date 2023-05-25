@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { IUser } from "../../../../@types";
-import { theme } from "../../../../Theme";
-import { BrandSubFontText } from "../../../../atoms/text";
+import { IUser } from "../../../../../@types";
+import { theme } from "../../../../../Theme";
+import { BrandSubFontText } from "../../../../../atoms/text";
 
 const UserDataContainer = styled.div`
   width: 100%;

@@ -1,9 +1,9 @@
 import { Button, DatePicker, Select } from "antd";
 import styled from "styled-components";
-import { FilterValues, UserTeamStatus } from "../../../../../@types";
+import { FilterValues, UserTeamStatus } from "../../../../@types";
 import { useState } from "react";
 import dayjs from "dayjs";
-import { theme } from "../../../../../Theme";
+import { theme } from "../../../../Theme";
 
 const { RangePicker } = DatePicker;
 

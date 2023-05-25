@@ -1,10 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Input } from "antd";
 import styled from "styled-components";
-import { theme } from "../../../../../Theme";
+import { theme } from "../../../../Theme";
 import { faChevronDown, faChevronUp, faClose, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import { FilterValues } from "../../../../../@types";
+import { FilterValues } from "../../../../@types";
 import { Filters } from "./Filters";
 
 const SearchWrapper = styled.div<{ showFilters: boolean }>`

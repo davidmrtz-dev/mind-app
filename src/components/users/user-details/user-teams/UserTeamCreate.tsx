@@ -4,7 +4,7 @@ import { IUser, IUserTeam } from "../../../../@types";
 import { theme } from "../../../../Theme";
 import { newUserTeam } from '../../../../generators/emptyObjects/index';
 import { createUserTeam } from "../../../../api/core/UserTeam";
-import { UserTeamForm } from "./UserTeamForm";
+import UserTeamForm from "./user-team-form";
 import dayjs from "dayjs";
 import Alert from "../../../alert";
 import { BrandFontText } from "../../../../atoms/text";
