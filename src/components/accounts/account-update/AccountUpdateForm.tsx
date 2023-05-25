@@ -42,12 +42,12 @@ export const AccountUpdateForm = ({
         name='manager_name'>
         <Input maxLength={20} style={{ ...theme.texts.brandSubFont }}/>
       </Form.Item>
-      <Form.Item label={BrandFontText('Teams')}
+      {values.teams.length > 0 && (<Form.Item label={BrandFontText('Teams')}
         name='manager_name'>
           <TeamsContainer reveal={true}>
             {values.teams.map(t => <Team key={t.id} team={t} />)}
           </TeamsContainer>
-      </Form.Item>
+      </Form.Item>)}
     </Form>
   );
 };
